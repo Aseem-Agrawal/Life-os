@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Life OS — The Ultimate All-in-One Personal Productivity System</title>
+    <title>Life OS // Cyber-Matrix Intelligence Core</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -12,155 +12,171 @@
             theme: {
                 extend: {
                     colors: {
-                        dark: {
-                            900: '#090d16',
-                            800: '#0f172a',
-                            700: '#1e293b',
-                            600: '#334155',
-                        },
-                        accent: {
-                            primary: '#6366f1',
-                            secondary: '#a855f7',
-                            glow: 'rgba(99, 102, 241, 0.15)'
+                        cyber: {
+                            bg: '#02040a',
+                            panel: '#070b14',
+                            card: '#0d1322',
+                            border: '#1a2744',
+                            cyan: '#00f0ff',
+                            neon: '#00ff66',
+                            purple: '#9d00ff',
+                            amber: '#ffab00',
+                            rose: '#ff0055'
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
+                        sans: ['Inter', 'sans-serif']
                     }
                 }
             }
         }
     </script>
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome for crisp icons -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #090d16; color: #f8fafc; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
-        .glass-panel { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .glass-card { background: rgba(30, 41, 59, 0.65); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.06); }
-        .glow-effect { box-shadow: 0 0 40px -10px rgba(99, 102, 241, 0.25); }
-        .gradient-text { background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #f472b6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .gradient-bg { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
+        body { font-family: 'Inter', sans-serif; background-color: #02040a; color: #f1f5f9; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        .cyber-font { font-family: 'JetBrains Mono', monospace; }
+        .cyber-box { background: rgba(13, 19, 34, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(0, 240, 255, 0.15); box-shadow: 0 0 25px rgba(0, 0, 0, 0.7); }
+        .cyber-box-hover:hover { border-color: rgba(0, 240, 255, 0.4); box-shadow: 0 0 30px rgba(0, 240, 255, 0.1); }
+        .cyber-glow { box-shadow: 0 0 20px rgba(0, 240, 255, 0.25); }
+        .cyber-grid { background-image: linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px); background-size: 32px 32px; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #090d16; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #02040a; }
+        ::-webkit-scrollbar-thumb { background: #1a2744; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+        .animate-pulse-glow { animation: pulseGlow 3s infinite ease-in-out; }
     </style>
 </head>
-<body class="bg-dark-900 text-slate-100 min-h-screen flex flex-col selection:bg-accent-primary selection:text-white">
+<body class="bg-cyber-bg text-slate-100 min-h-screen flex flex-col cyber-grid selection:bg-cyber-cyan selection:text-black">
 
-    <!-- ==================== APP WORKSPACE (DIRECTLY LOADED) ==================== -->
-    <div id="app-workspace" class="w-full min-h-screen flex flex-col bg-dark-900">
-        <!-- App Header Bar -->
-        <header class="glass-panel border-b border-white/10 sticky top-0 z-50 px-4 sm:px-6 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <!-- Mobile Sidebar Toggle Button -->
-                <button onclick="toggleMobileSidebar()" class="lg:hidden w-9 h-9 rounded-xl glass-card border border-white/10 flex items-center justify-center text-slate-300 hover:text-white">
-                    <i class="fa-solid fa-bars text-sm"></i>
+    <!-- ==================== CYBER MATRIX WORKSPACE ==================== -->
+    <div id="app-workspace" class="w-full min-h-screen flex flex-col">
+        <!-- Telemetry Header -->
+        <header class="cyber-box border-b border-cyber-border sticky top-0 z-50 px-4 sm:px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3.5">
+                <button onclick="toggleMobileSidebar()" class="lg:hidden w-9 h-9 rounded cyber-box flex items-center justify-center text-cyber-cyan hover:bg-cyber-cyan/10">
+                    <i class="fa-solid fa-terminal text-sm"></i>
                 </button>
-                <div class="flex items-center space-x-2.5 cursor-pointer" onclick="switchAppView('dashboard')">
-                    <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center glow-effect">
-                        <i class="fa-solid fa-layer-group text-white text-xs"></i>
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchAppView('dashboard')">
+                    <div class="w-9 h-9 rounded bg-cyber-cyan/10 border border-cyber-cyan/50 flex items-center justify-center text-cyber-cyan cyber-glow">
+                        <i class="fa-solid fa-microchip text-sm"></i>
                     </div>
-                    <span class="text-base sm:text-lg font-bold tracking-tight text-white">Life <span class="gradient-text">OS</span></span>
+                    <div class="flex flex-col">
+                        <span class="text-xs sm:text-sm font-bold tracking-widest text-cyber-cyan cyber-font uppercase">LIFE_OS // v3.5</span>
+                        <span class="text-[9px] text-emerald-400 cyber-font flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1.5"></span>CORE_ONLINE</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="flex items-center space-x-3">
-                <span id="app-current-view-title" class="text-xs font-semibold text-indigo-400 uppercase tracking-wider hidden sm:inline">Dashboard</span>
-                <div class="text-xs text-slate-400 hidden md:block pl-2 border-l border-white/10">
-                    <i class="fa-regular fa-calendar text-indigo-400 mr-1"></i> <span id="app-date-display"></span>
+            <div class="flex items-center space-x-4">
+                <span id="app-current-view-title" class="text-xs cyber-font font-semibold text-cyber-cyan uppercase tracking-widest hidden sm:inline px-3 py-1 rounded bg-cyber-cyan/10 border border-cyber-cyan/20">DASHBOARD</span>
+                <div class="text-xs cyber-font text-slate-400 hidden md:flex items-center space-x-2 pl-3 border-l border-cyber-border">
+                    <i class="fa-regular fa-clock text-cyber-neon"></i> <span id="app-date-display"></span>
                 </div>
             </div>
         </header>
 
-        <!-- Main Workspace Body -->
+        <!-- Main Layout Body -->
         <div class="flex flex-col lg:flex-row flex-grow relative">
-            <!-- Sidebar Navigation (Desktop + Mobile Drawer) -->
-            <aside id="app-sidebar" class="fixed lg:static inset-y-0 left-0 z-40 w-72 lg:w-64 glass-panel border-r border-white/10 p-4 space-y-2 flex-shrink-0 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out pt-20 lg:pt-4">
-                <div class="flex items-center justify-between lg:hidden mb-4 pb-3 border-b border-white/10 px-2">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Menu</span>
-                    <button onclick="toggleMobileSidebar()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <!-- Sidebar Navigation -->
+            <aside id="app-sidebar" class="fixed lg:static inset-y-0 left-0 z-40 w-72 lg:w-64 cyber-box border-r border-cyber-border p-4 space-y-2.5 flex-shrink-0 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out pt-20 lg:pt-6">
+                <div class="flex items-center justify-between lg:hidden mb-4 pb-3 border-b border-cyber-border px-2">
+                    <span class="text-xs cyber-font text-cyber-cyan uppercase tracking-widest">SYSTEM_NAV</span>
+                    <button onclick="toggleMobileSidebar()" class="text-slate-400 hover:text-cyber-cyan"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
-                <div class="text-[10px] font-bold text-slate-500 uppercase px-3 mb-2 tracking-widest hidden lg:block">Navigation</div>
-                <button onclick="switchAppView('dashboard')" id="nav-dashboard" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition bg-indigo-600 text-white shadow-lg">
-                    <i class="fa-solid fa-house w-5"></i><span>Dashboard</span>
+                <div class="text-[9px] cyber-font font-bold text-slate-500 uppercase px-3 mb-2 tracking-widest hidden lg:block">DIRECTORIES</div>
+                
+                <button onclick="switchAppView('dashboard')" id="nav-dashboard" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-semibold transition bg-cyber-cyan/15 text-cyber-cyan border border-cyber-cyan/40">
+                    <i class="fa-solid fa-chart-line w-5 text-cyber-cyan"></i><span>01 // DASHBOARD</span>
                 </button>
-                <button onclick="switchAppView('tasks')" id="nav-tasks" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition text-slate-400 hover:bg-white/5 hover:text-white">
-                    <i class="fa-solid fa-square-check w-5 text-indigo-400"></i><span>Tasks & Notes</span>
+                <button onclick="switchAppView('tasks')" id="nav-tasks" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
+                    <i class="fa-solid fa-list-check w-5 text-cyber-neon"></i><span>02 // TASKS & VAULT</span>
                 </button>
-                <button onclick="switchAppView('habits')" id="nav-habits" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition text-slate-400 hover:bg-white/5 hover:text-white">
-                    <i class="fa-solid fa-bullseye w-5 text-purple-400"></i><span>Habits & Goals</span>
+                <button onclick="switchAppView('habits')" id="nav-habits" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
+                    <i class="fa-solid fa-fire w-5 text-cyber-amber"></i><span>03 // HABIT MATRIX</span>
                 </button>
-                <button onclick="switchAppView('finances')" id="nav-finances" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition text-slate-400 hover:bg-white/5 hover:text-white">
-                    <i class="fa-solid fa-wallet w-5 text-emerald-400"></i><span>Finances</span>
+                <button onclick="switchAppView('finances')" id="nav-finances" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
+                    <i class="fa-solid fa-wallet w-5 text-cyber-neon"></i><span>04 // FINANCES</span>
                 </button>
-                <button onclick="switchAppView('schedule')" id="nav-schedule" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition text-slate-400 hover:bg-white/5 hover:text-white">
-                    <i class="fa-solid fa-calendar-days w-5 text-blue-400"></i><span>Schedule Planner</span>
+                <button onclick="switchAppView('schedule')" id="nav-schedule" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
+                    <i class="fa-solid fa-clock-rotate-left w-5 text-cyber-cyan"></i><span>05 // SCHEDULE PLANNER</span>
                 </button>
-                <button onclick="switchAppView('learning')" id="nav-learning" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition text-slate-400 hover:bg-white/5 hover:text-white">
-                    <i class="fa-solid fa-graduation-cap w-5 text-amber-400"></i><span>Study & Learning</span>
+                <button onclick="switchAppView('learning')" id="nav-learning" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
+                    <i class="fa-solid fa-graduation-cap w-5 text-cyber-purple"></i><span>06 // STUDY & TIMELINE</span>
                 </button>
-                <button onclick="switchAppView('settings')" id="nav-settings" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition text-slate-400 hover:bg-white/5 hover:text-white">
-                    <i class="fa-solid fa-gear w-5 text-slate-400"></i><span>Settings</span>
+                <button onclick="switchAppView('settings')" id="nav-settings" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
+                    <i class="fa-solid fa-sliders w-5 text-slate-400"></i><span>07 // SYS.CONFIG</span>
                 </button>
             </aside>
 
-            <!-- Backdrop for mobile sidebar -->
-            <div id="sidebar-backdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-black/60 z-30 hidden lg:hidden"></div>
+            <!-- Backdrop -->
+            <div id="sidebar-backdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-black/70 z-30 hidden lg:hidden"></div>
 
             <!-- Workspace Content Area -->
-            <main class="flex-grow p-4 sm:p-6 lg:p-10 overflow-y-auto max-w-full">
+            <main class="flex-grow p-4 sm:p-6 lg:p-8 overflow-y-auto max-w-full">
 
                 <!-- 1. DASHBOARD VIEW -->
-                <div id="view-dashboard" class="app-view space-y-6 sm:space-y-8">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div id="view-dashboard" class="app-view space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 cyber-box p-6 rounded-xl border border-cyber-border relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-cyber-cyan/5 rounded-full blur-2xl pointer-events-none"></div>
                         <div>
-                            <h1 class="text-2xl sm:text-3xl font-bold text-white">Welcome back, High Performer ✨</h1>
-                            <p class="text-slate-400 text-xs sm:text-sm mt-1">Here is your daily life overview and operational command center.</p>
+                            <h1 class="text-lg sm:text-2xl font-bold text-white cyber-font tracking-tight"><span class="text-cyber-cyan">&gt;</span> COMMAND_CENTER: ACTIVE_FEED</h1>
+                            <p class="text-slate-400 text-xs cyber-font mt-1">ALL LIFE PROTOCOLS SYNCHRONIZED & OPERATIONAL</p>
                         </div>
-                        <div class="flex items-center space-x-2">
-                            <button onclick="switchAppView('tasks')" class="px-4 py-2 rounded-xl gradient-bg text-white text-xs font-semibold shadow-lg">
-                                <i class="fa-solid fa-plus mr-1.5"></i> Quick Task
+                        <div class="flex items-center space-x-3 z-10">
+                            <button onclick="switchAppView('tasks')" class="px-4 py-2.5 rounded bg-cyber-cyan/15 hover:bg-cyber-cyan/25 text-cyber-cyan text-xs cyber-font font-semibold border border-cyber-cyan/40 transition cyber-glow">
+                                <i class="fa-solid fa-plus mr-1.5"></i> NEW_TASK
                             </button>
-                            <button onclick="switchAppView('learning')" class="px-4 py-2 rounded-xl glass-card border border-white/10 text-white text-xs font-semibold hover:bg-white/5">
-                                <i class="fa-solid fa-graduation-cap mr-1.5 text-amber-400"></i> Study Plans
+                            <button onclick="switchAppView('learning')" class="px-4 py-2.5 rounded cyber-box cyber-box-hover text-slate-200 text-xs cyber-font font-semibold transition">
+                                <i class="fa-solid fa-graduation-cap mr-1.5 text-cyber-purple"></i> STUDY_PLANS
                             </button>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-                        <div class="glass-card p-4 sm:p-6 rounded-2xl border border-white/5">
-                            <div class="text-[11px] sm:text-xs font-semibold text-slate-400 mb-1 sm:mb-2">Tasks Done</div>
-                            <div id="stat-tasks-done" class="text-xl sm:text-2xl font-bold text-white">0 / 0</div>
+                    <!-- Telemetry Metric Cards -->
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="cyber-box cyber-box-hover p-4 sm:p-5 rounded-xl border-l-2 border-l-cyber-cyan relative">
+                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">TASKS_COMPLETED</div>
+                            <div id="stat-tasks-done" class="text-xl sm:text-2xl font-bold text-white cyber-font">0 / 0</div>
+                            <div class="text-[9px] cyber-font text-cyber-cyan mt-1 flex items-center"><i class="fa-solid fa-circle-check mr-1"></i> QUEUE SYNCED</div>
                         </div>
-                        <div class="glass-card p-4 sm:p-6 rounded-2xl border border-white/5">
-                            <div class="text-[11px] sm:text-xs font-semibold text-slate-400 mb-1 sm:mb-2">Habits Streak</div>
-                            <div id="stat-habits-streak" class="text-xl sm:text-2xl font-bold text-white">Active</div>
+                        <div class="cyber-box cyber-box-hover p-4 sm:p-5 rounded-xl border-l-2 border-l-cyber-amber relative">
+                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">HABIT_STREAKS</div>
+                            <div id="stat-habits-streak" class="text-xl sm:text-2xl font-bold text-white cyber-font">ACTIVE</div>
+                            <div class="text-[9px] cyber-font text-cyber-amber mt-1 flex items-center"><i class="fa-solid fa-fire mr-1"></i> MOMENTUM STABLE</div>
                         </div>
-                        <div class="glass-card p-4 sm:p-6 rounded-2xl border border-white/5">
-                            <div class="text-[11px] sm:text-xs font-semibold text-slate-400 mb-1 sm:mb-2">Net Balance</div>
-                            <div id="stat-net-balance" class="text-xl sm:text-2xl font-bold text-white truncate">$0.00</div>
+                        <div class="cyber-box cyber-box-hover p-4 sm:p-5 rounded-xl border-l-2 border-l-cyber-neon relative">
+                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">NET_BALANCE</div>
+                            <div id="stat-net-balance" class="text-xl sm:text-2xl font-bold text-white cyber-font truncate">$0.00</div>
+                            <div class="text-[9px] cyber-font text-cyber-neon mt-1 flex items-center"><i class="fa-solid fa-wallet mr-1"></i> LEDGER VERIFIED</div>
                         </div>
-                        <div class="glass-card p-4 sm:p-6 rounded-2xl border border-white/5">
-                            <div class="text-[11px] sm:text-xs font-semibold text-slate-400 mb-1 sm:mb-2">Study Plans</div>
-                            <div id="stat-study-active" class="text-xl sm:text-2xl font-bold text-white">0 Active</div>
+                        <div class="cyber-box cyber-box-hover p-4 sm:p-5 rounded-xl border-l-2 border-l-cyber-purple relative">
+                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">STUDY_TIMELINES</div>
+                            <div id="stat-study-active" class="text-xl sm:text-2xl font-bold text-white cyber-font">0 Active</div>
+                            <div class="text-[9px] cyber-font text-cyber-purple mt-1 flex items-center"><i class="fa-solid fa-graduation-cap mr-1"></i> CURRICULUM ACTIVE</div>
                         </div>
                     </div>
 
-                    <!-- Dashboard Quick Widget Section -->
+                    <!-- Dashboard Sub-Widgets -->
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="font-bold text-white text-sm">Priority Tasks Today</h3>
-                                <button onclick="switchAppView('tasks')" class="text-xs text-indigo-400 hover:underline">View All</button>
+                        <div class="cyber-box p-5 rounded-xl space-y-4">
+                            <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase tracking-wider flex items-center"><span class="text-cyber-cyan mr-2">&gt;</span> PRIORITY TASK QUEUE</h3>
+                                <button onclick="switchAppView('tasks')" class="text-[11px] cyber-font text-cyber-cyan hover:underline">VIEW_ALL</button>
                             </div>
-                            <div id="dashboard-tasks-list" class="space-y-3"></div>
+                            <div id="dashboard-tasks-list" class="space-y-2.5"></div>
                         </div>
-                        <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="font-bold text-white text-sm">Active Study Timeline</h3>
-                                <button onclick="switchAppView('learning')" class="text-xs text-amber-400 hover:underline">Manage Plans</button>
+                        <div class="cyber-box p-5 rounded-xl space-y-4">
+                            <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase tracking-wider flex items-center"><span class="text-cyber-purple mr-2">&gt;</span> ACTIVE STUDY TIMELINE</h3>
+                                <button onclick="switchAppView('learning')" class="text-[11px] cyber-font text-cyber-purple hover:underline">MANAGE</button>
                             </div>
                             <div id="dashboard-study-list" class="space-y-3"></div>
                         </div>
@@ -169,50 +185,50 @@
 
                 <!-- 2. TASKS & NOTES VIEW -->
                 <div id="view-tasks" class="app-view hidden space-y-6">
-                    <h1 class="text-xl sm:text-2xl font-bold text-white">Tasks & Second Brain Notes</h1>
+                    <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-neon mr-2">&gt;</span> TASKS & SECOND BRAIN VAULT</h1>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4 h-fit">
-                            <h3 class="font-bold text-white text-sm">Create New Task</h3>
-                            <form id="task-form" onsubmit="handleAddTask(event)" class="space-y-4">
+                        <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">CREATE_TASK_OBJECT</h3>
+                            <form id="task-form" onsubmit="handleAddTask(event)" class="space-y-3.5">
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-400 mb-1">Task Title</label>
-                                    <input type="text" id="task-title" required placeholder="e.g. Complete report" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Task Title</label>
+                                    <input type="text" id="task-title" required placeholder="e.g. Execute algorithm deployment" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-400 mb-1">Priority</label>
-                                    <select id="task-priority" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
-                                        <option value="High">High Priority</option>
-                                        <option value="Medium" selected>Medium Priority</option>
-                                        <option value="Low">Low Priority</option>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Priority Level</label>
+                                    <select id="task-priority" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
+                                        <option value="High">HIGH_PRIORITY</option>
+                                        <option value="Medium" selected>MEDIUM_PRIORITY</option>
+                                        <option value="Low">LOW_PRIORITY</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-400 mb-1">Category</label>
-                                    <select id="task-category" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
-                                        <option value="Work">Work</option>
-                                        <option value="Personal">Personal</option>
-                                        <option value="Study">Study</option>
-                                        <option value="Finance">Finance</option>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Classification</label>
+                                    <select id="task-category" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
+                                        <option value="Work">WORK</option>
+                                        <option value="Personal">PERSONAL</option>
+                                        <option value="Study">STUDY</option>
+                                        <option value="Finance">FINANCE</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="w-full py-3 rounded-xl gradient-bg text-white font-semibold text-sm shadow-lg hover:opacity-90 transition">
-                                    Add Task
+                                <button type="submit" class="w-full py-2.5 rounded bg-cyber-cyan/20 hover:bg-cyber-cyan/30 text-cyber-cyan cyber-font text-xs font-semibold border border-cyber-cyan/40 transition">
+                                    INITIALIZE TASK
                                 </button>
                             </form>
                         </div>
                         <div class="lg:col-span-2 space-y-6">
-                            <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4">
-                                <div class="flex items-center justify-between">
-                                    <h3 class="font-bold text-white text-sm">Task Queue</h3>
-                                    <span id="task-count-badge" class="text-xs text-slate-400">0 tasks</span>
+                            <div class="cyber-box p-5 rounded-xl space-y-4">
+                                <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
+                                    <h3 class="font-bold text-white text-xs cyber-font uppercase">ACTIVE QUEUE</h3>
+                                    <span id="task-count-badge" class="text-[10px] cyber-font text-slate-400">0 tasks</span>
                                 </div>
-                                <div id="tasks-container" class="space-y-3"></div>
+                                <div id="tasks-container" class="space-y-2.5"></div>
                             </div>
-                            <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4">
-                                <h3 class="font-bold text-white text-sm">Second Brain Quick Note</h3>
-                                <textarea id="quick-note-input" rows="3" placeholder="Capture an idea..." class="w-full bg-dark-800 border border-white/10 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-indigo-500"></textarea>
-                                <button onclick="saveQuickNote()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold">Save Note</button>
-                                <div id="notes-container" class="space-y-2 mt-4"></div>
+                            <div class="cyber-box p-5 rounded-xl space-y-4">
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase">SECOND BRAIN NOTE VAULT</h3>
+                                <textarea id="quick-note-input" rows="3" placeholder="Log thought or meeting data into memory vault..." class="w-full bg-cyber-bg border border-cyber-border rounded p-3 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan"></textarea>
+                                <button onclick="saveQuickNote()" class="px-4 py-2 rounded bg-cyber-cyan/15 hover:bg-cyber-cyan/25 text-cyber-cyan text-xs cyber-font font-semibold border border-cyber-cyan/30">COMMIT NOTE</button>
+                                <div id="notes-container" class="space-y-2 mt-3"></div>
                             </div>
                         </div>
                     </div>
@@ -220,145 +236,147 @@
 
                 <!-- 3. HABITS & GOALS VIEW -->
                 <div id="view-habits" class="app-view hidden space-y-6">
-                    <h1 class="text-xl sm:text-2xl font-bold text-white">Habit & Goal Architecture</h1>
+                    <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-amber mr-2">&gt;</span> HABIT ARCHITECTURE & MOMENTUM</h1>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4 h-fit">
-                            <h3 class="font-bold text-white text-sm">Add New Habit</h3>
-                            <form onsubmit="handleAddHabit(event)" class="space-y-4">
+                        <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">NEW_HABIT_PROTOCOL</h3>
+                            <form onsubmit="handleAddHabit(event)" class="space-y-3.5">
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-400 mb-1">Habit Name</label>
-                                    <input type="text" id="habit-name" required placeholder="e.g. Read 20 mins" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500">
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Habit Descriptor</label>
+                                    <input type="text" id="habit-name" required placeholder="e.g. Deep Work 2 Hours" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-amber">
                                 </div>
-                                <button type="submit" class="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm shadow-lg transition">
-                                    Create Habit
+                                <button type="submit" class="w-full py-2.5 rounded bg-cyber-amber/20 hover:bg-cyber-amber/30 text-cyber-amber cyber-font text-xs font-semibold border border-cyber-amber/40 transition">
+                                    DEPLOY HABIT
                                 </button>
                             </form>
                         </div>
-                        <div class="lg:col-span-2 glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4">
-                            <h3 class="font-bold text-white text-sm">Streak Tracker</h3>
-                            <div id="habits-container" class="space-y-3"></div>
+                        <div class="lg:col-span-2 cyber-box p-5 rounded-xl space-y-4">
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">STREAK TRACKING MATRIX</h3>
+                            <div id="habits-container" class="space-y-2.5"></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- 4. FINANCES VIEW -->
                 <div id="view-finances" class="app-view hidden space-y-6">
-                    <h1 class="text-xl sm:text-2xl font-bold text-white">Financial & Subscription Ledger</h1>
+                    <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-neon mr-2">&gt;</span> FINANCIAL LEDGER & SUBSCRIPTION ENGINE</h1>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4 h-fit">
-                            <h3 class="font-bold text-white text-sm">Add Transaction</h3>
-                            <form onsubmit="handleAddTransaction(event)" class="space-y-4">
+                        <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">LOG_TRANSACTION</h3>
+                            <form onsubmit="handleAddTransaction(event)" class="space-y-3.5">
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-400 mb-1">Description</label>
-                                    <input type="text" id="tx-desc" required placeholder="e.g. Client Consulting" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Description</label>
+                                    <input type="text" id="tx-desc" required placeholder="e.g. Client Consulting" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-400 mb-1">Amount ($)</label>
-                                    <input type="number" step="0.01" id="tx-amount" required placeholder="e.g. 150.00" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Amount ($)</label>
+                                    <input type="number" step="0.01" id="tx-amount" required placeholder="150.00" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-400 mb-1">Type</label>
-                                    <select id="tx-type" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                                        <option value="Income">Income</option>
-                                        <option value="Expense">Expense</option>
-                                        <option value="Subscription">Subscription</option>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Classification Type</label>
+                                    <select id="tx-type" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
+                                        <option value="Income">INCOME</option>
+                                        <option value="Expense">EXPENSE</option>
+                                        <option value="Subscription">SUBSCRIPTION</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-lg transition">
-                                    Add Transaction
+                                <button type="submit" class="w-full py-2.5 rounded bg-cyber-neon/20 hover:bg-cyber-neon/30 text-cyber-neon cyber-font text-xs font-semibold border border-cyber-neon/40 transition">
+                                    COMMIT TRANSACTION
                                 </button>
                             </form>
                         </div>
-                        <div class="lg:col-span-2 glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4">
-                            <div class="flex items-center justify-between">
-                                <h3 class="font-bold text-white text-sm">Transaction Ledger</h3>
-                                <div class="text-sm font-bold text-emerald-400" id="finances-net-total">Net: $0.00</div>
+                        <div class="lg:col-span-2 cyber-box p-5 rounded-xl space-y-4">
+                            <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase">TRANSACTION LEDGER</h3>
+                                <div class="text-xs cyber-font font-bold text-cyber-neon" id="finances-net-total">Net: $0.00</div>
                             </div>
-                            <div id="finances-container" class="space-y-3"></div>
+                            <div id="finances-container" class="space-y-2.5"></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- 5. SCHEDULE PLANNER VIEW -->
                 <div id="view-schedule" class="app-view hidden space-y-6">
-                    <h1 class="text-xl sm:text-2xl font-bold text-white">Daily Schedule & Time-Blocking</h1>
+                    <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-cyan mr-2">&gt;</span> DAILY SCHEDULE & TIME-BLOCKING</h1>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4 h-fit">
-                            <h3 class="font-bold text-white text-sm">Add Time Block</h3>
-                            <form onsubmit="handleAddSchedule(event)" class="space-y-4">
+                        <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">ADD_TIME_BLOCK</h3>
+                            <form onsubmit="handleAddSchedule(event)" class="space-y-3.5">
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-400 mb-1">Time Block</label>
-                                    <input type="text" id="sched-time" required placeholder="e.g. 09:00 AM - 10:30 AM" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Time Slot</label>
+                                    <input type="text" id="sched-time" required placeholder="09:00 AM - 10:30 AM" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-400 mb-1">Activity</label>
-                                    <input type="text" id="sched-activity" required placeholder="e.g. Deep Work" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Activity Objective</label>
+                                    <input type="text" id="sched-activity" required placeholder="Deep Work Sprint" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
                                 </div>
-                                <button type="submit" class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-lg transition">
-                                    Add Block
+                                <button type="submit" class="w-full py-2.5 rounded bg-cyber-cyan/20 hover:bg-cyber-cyan/30 text-cyber-cyan cyber-font text-xs font-semibold border border-cyber-cyan/40 transition">
+                                    SCHEDULE BLOCK
                                 </button>
                             </form>
                         </div>
-                        <div class="lg:col-span-2 glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4">
-                            <h3 class="font-bold text-white text-sm">Today's Timeline</h3>
-                            <div id="schedule-container" class="space-y-3"></div>
+                        <div class="lg:col-span-2 cyber-box p-5 rounded-xl space-y-4">
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">TIMELINE BLOCKS</h3>
+                            <div id="schedule-container" class="space-y-2.5"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 6. STUDY PLAN & LEARNING TRACKER VIEW -->
+                <!-- 6. STUDY PLAN & TIMELINE TRACKER VIEW -->
                 <div id="view-learning" class="app-view hidden space-y-6">
-                    <div>
-                        <h1 class="text-xl sm:text-2xl font-bold text-white">Study Plan & Timeline Tracker</h1>
-                        <p class="text-slate-400 text-xs sm:text-sm mt-1">Build structured study curricula with sub-tasks, target dates, and estimated sub-times.</p>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-purple mr-2">&gt;</span> STUDY PLAN & TIMELINE TRACKER</h1>
+                            <p class="text-slate-400 text-xs cyber-font mt-0.5">Granular sub-tasks, target dates, estimated sub-times, and Pomodoro timer.</p>
+                        </div>
                     </div>
 
                     <!-- Pomodoro Widget -->
-                    <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <div class="flex items-center space-x-3 sm:space-x-4">
-                            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 flex-shrink-0">
-                                <i class="fa-solid fa-clock text-lg sm:text-xl"></i>
+                    <div class="cyber-box p-5 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4 border-l-2 border-l-cyber-amber">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded bg-cyber-amber/10 border border-cyber-amber/30 flex items-center justify-center text-cyber-amber">
+                                <i class="fa-solid fa-clock text-base"></i>
                             </div>
                             <div>
-                                <h3 class="font-bold text-white text-sm">Pomodoro Study Timer</h3>
-                                <p class="text-xs text-slate-400">Keep laser focus during study sessions.</p>
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase">POMODORO FOCUS ENGINE</h3>
+                                <p class="text-[10px] cyber-font text-slate-400">High-intensity study session timer.</p>
                             </div>
                         </div>
-                        <div class="flex items-center space-x-4 sm:space-x-6 w-full sm:w-auto justify-between sm:justify-start">
-                            <div id="pomodoro-display" class="text-2xl sm:text-3xl font-mono font-bold text-white tracking-widest">25:00</div>
+                        <div class="flex items-center space-x-5 w-full sm:w-auto justify-between sm:justify-start">
+                            <div id="pomodoro-display" class="text-2xl sm:text-3xl font-mono font-bold text-cyber-amber tracking-widest">25:00</div>
                             <div class="flex space-x-2">
-                                <button onclick="togglePomodoro()" id="pomodoro-toggle-btn" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold">Start</button>
-                                <button onclick="resetPomodoro()" class="px-4 py-2 rounded-xl glass-card border border-white/10 text-slate-300 text-xs font-semibold hover:bg-white/5">Reset</button>
+                                <button onclick="togglePomodoro()" id="pomodoro-toggle-btn" class="px-4 py-2 rounded bg-cyber-amber/20 hover:bg-cyber-amber/30 text-cyber-amber text-xs cyber-font font-semibold border border-cyber-amber/40">START</button>
+                                <button onclick="resetPomodoro()" class="px-3 py-2 rounded cyber-box text-slate-300 text-xs cyber-font font-semibold hover:bg-cyber-border">RESET</button>
                             </div>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4 h-fit">
-                            <h3 class="font-bold text-white text-sm">Create Study Plan</h3>
-                            <form onsubmit="handleCreateStudyPlan(event)" class="space-y-4">
+                        <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">NEW_STUDY_PLAN</h3>
+                            <form onsubmit="handleCreateStudyPlan(event)" class="space-y-3.5">
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-400 mb-1">Plan Title</label>
-                                    <input type="text" id="study-title" required placeholder="e.g. Advanced Architecture" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Plan Title</label>
+                                    <input type="text" id="study-title" required placeholder="Advanced Architecture" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-purple">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-400 mb-1">Due Date</label>
-                                    <input type="date" id="study-date" required class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Target Due Date</label>
+                                    <input type="date" id="study-date" required class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-purple">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-400 mb-1">Description</label>
-                                    <textarea id="study-desc" rows="2" placeholder="Overview..." class="w-full bg-dark-800 border border-white/10 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-amber-500"></textarea>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Description</label>
+                                    <textarea id="study-desc" rows="2" placeholder="Curriculum overview..." class="w-full bg-cyber-bg border border-cyber-border rounded p-3 text-xs cyber-font text-white focus:outline-none focus:border-cyber-purple"></textarea>
                                 </div>
-                                <button type="submit" class="w-full py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm shadow-lg transition">
-                                    Build Study Plan
+                                <button type="submit" class="w-full py-2.5 rounded bg-cyber-purple/20 hover:bg-cyber-purple/30 text-cyber-purple cyber-font text-xs font-semibold border border-cyber-purple/40 transition">
+                                    DEPLOY STUDY PLAN
                                 </button>
                             </form>
                         </div>
                         <div class="lg:col-span-2 space-y-6">
-                            <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4">
-                                <div class="flex items-center justify-between">
-                                    <h3 class="font-bold text-white text-sm">Active Study Plans</h3>
-                                    <span id="study-count-badge" class="text-xs text-slate-400">0 plans</span>
+                            <div class="cyber-box p-5 rounded-xl space-y-4">
+                                <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
+                                    <h3 class="font-bold text-white text-xs cyber-font uppercase">ACTIVE STUDY TIMELINES</h3>
+                                    <span id="study-count-badge" class="text-[10px] cyber-font text-slate-400">0 plans</span>
                                 </div>
                                 <div id="study-plans-container" class="space-y-4"></div>
                             </div>
@@ -368,12 +386,12 @@
 
                 <!-- 7. SETTINGS VIEW -->
                 <div id="view-settings" class="app-view hidden space-y-6">
-                    <h1 class="text-xl sm:text-2xl font-bold text-white">Workspace Settings</h1>
-                    <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4 max-w-xl">
-                        <h3 class="font-bold text-white text-sm">Data Privacy</h3>
-                        <p class="text-xs text-slate-400">All data is securely saved in your browser storage.</p>
-                        <button onclick="resetAllUserData()" class="px-4 py-2.5 rounded-xl bg-rose-600/20 text-rose-300 border border-rose-500/30 text-xs font-semibold">
-                            Reset All Workspace Data
+                    <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-slate-400 mr-2">&gt;</span> SYSTEM CONFIGURATION & DATA STORAGE</h1>
+                    <div class="cyber-box p-6 rounded-xl space-y-4 max-w-xl">
+                        <h3 class="font-bold text-white text-xs cyber-font uppercase text-cyber-cyan">LOCAL STORAGE SECURITY</h3>
+                        <p class="text-xs cyber-font text-slate-400 leading-relaxed">All telemetry data, tasks, habits, and study timelines are securely isolated within your browser's local storage.</p>
+                        <button onclick="resetAllUserData()" class="px-4 py-2.5 rounded bg-cyber-rose/20 hover:bg-cyber-rose/30 text-cyber-rose border border-cyber-rose/40 text-xs cyber-font font-semibold">
+                            WIPE ALL WORKSPACE DATA
                         </button>
                     </div>
                 </div>
@@ -382,7 +400,7 @@
         </div>
     </div>
 
-    <!-- ==================== JAVASCRIPT ==================== -->
+    <!-- ==================== SCRIPT LOGIC ==================== -->
     <script>
         function toggleMobileSidebar() {
             const sidebar = document.getElementById('app-sidebar');
@@ -399,14 +417,13 @@
                 const btn = document.getElementById('nav-' + name);
                 if (btn) {
                     if (name === viewName) {
-                        btn.className = 'w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition bg-indigo-600 text-white shadow-lg';
+                        btn.className = 'w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-semibold transition bg-cyber-cyan/15 text-cyber-cyan border border-cyber-cyan/40';
                     } else {
-                        btn.className = 'w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition text-slate-400 hover:bg-white/5 hover:text-white';
+                        btn.className = 'w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white';
                     }
                 }
             });
 
-            // Close mobile sidebar if open
             const sidebar = document.getElementById('app-sidebar');
             const backdrop = document.getElementById('sidebar-backdrop');
             if (!sidebar.classList.contains('-translate-x-full')) {
@@ -414,11 +431,11 @@
                 backdrop.classList.add('hidden');
             }
 
-            document.getElementById('app-current-view-title').textContent = viewName.charAt(0).toUpperCase() + viewName.slice(1);
+            document.getElementById('app-current-view-title').textContent = viewName.toUpperCase();
             window.scrollTo({ top: 0, behavior: 'instant' });
         }
 
-        const STORAGE_KEY = 'life_os_app_data_v7';
+        const STORAGE_KEY = 'life_os_cyber_data_v2';
 
         function getDefaultData() {
             return {
@@ -426,19 +443,19 @@
                     { id: 1, title: 'Review quarterly financial budget', completed: true, priority: 'High', category: 'Finance' },
                     { id: 2, title: 'Complete Chapter 4 study plan milestone', completed: false, priority: 'High', category: 'Study' }
                 ],
-                notes: [{ id: 1, text: 'Remember to review architecture documentation.' }],
+                notes: [{ id: 1, text: 'SYS.LOG: Architecture protocols verified.' }],
                 habits: [{ id: 1, name: 'Deep Work (2 Hours)', freq: 'Daily', streak: 14, completedToday: true }],
                 finances: [
                     { id: 1, desc: 'Client Consulting', amount: 3500.00, type: 'Income' },
                     { id: 2, desc: 'Apartment Rent', amount: 1400.00, type: 'Expense' }
                 ],
-                schedule: [{ id: 1, time: '09:00 AM - 10:30 AM', activity: 'Deep Work Sprint' }],
+                schedule: [{ id: 1, time: '09:00 - 10:30', activity: 'Deep Work Sprint' }],
                 studyPlans: [
                     {
                         id: 1,
                         title: 'Advanced System Architecture',
                         date: '2026-10-25',
-                        desc: 'Master distributed system design and caching patterns.',
+                        desc: 'Distributed systems & caching patterns.',
                         subtasks: [
                             { id: 101, title: 'Read Chapter 1: Load Balancers', dueDate: '2026-10-20', estTime: '90m', completed: true },
                             { id: 102, title: 'Complete DB Sharding Exercise', dueDate: '2026-10-22', estTime: '120m', completed: false }
@@ -482,14 +499,14 @@
 
             // Dashboard Tasks Preview
             document.getElementById('dashboard-tasks-list').innerHTML = data.tasks.slice(0, 3).map(t => `
-                <div class="flex items-center justify-between p-3 rounded-xl bg-dark-800/60 border border-white/5 text-sm gap-2">
+                <div class="flex items-center justify-between p-3 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font gap-2">
                     <div class="flex items-center space-x-3 min-w-0">
-                        <input type="checkbox" ${t.completed ? 'checked' : ''} onclick="toggleTask(${t.id})" class="rounded bg-dark-700 text-indigo-500 flex-shrink-0">
-                        <span class="${t.completed ? 'line-through text-slate-500' : 'text-slate-200'} truncate">${t.title}</span>
+                        <input type="checkbox" ${t.completed ? 'checked' : ''} onclick="toggleTask(${t.id})" class="rounded bg-cyber-card text-cyber-cyan flex-shrink-0 cursor-pointer">
+                        <span class="${t.completed ? 'line-through text-slate-600' : 'text-slate-200'} truncate">${t.title}</span>
                     </div>
-                    <span class="text-[10px] px-2 py-0.5 rounded ${t.priority === 'High' ? 'bg-rose-500/20 text-rose-300' : 'bg-indigo-500/20 text-indigo-300'} flex-shrink-0">${t.priority}</span>
+                    <span class="text-[9px] px-2 py-0.5 rounded ${t.priority === 'High' ? 'bg-cyber-rose/20 text-cyber-rose border border-cyber-rose/30' : 'bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan/30'} flex-shrink-0">${t.priority}</span>
                 </div>
-            `).join('') || '<p class="text-xs text-slate-500">No tasks yet.</p>';
+            `).join('') || '<p class="text-xs cyber-font text-slate-500">NO_TASKS_FOUND</p>';
 
             // Dashboard Study Preview
             document.getElementById('dashboard-study-list').innerHTML = data.studyPlans.slice(0, 2).map(sp => {
@@ -497,79 +514,79 @@
                 const totalSub = sp.subtasks.length;
                 const pct = totalSub > 0 ? Math.round((compSub / totalSub) * 100) : 0;
                 return `
-                    <div class="p-3 rounded-xl bg-dark-800/60 border border-white/5 space-y-2">
-                        <div class="flex justify-between text-xs font-bold text-white"><span class="truncate">${sp.title}</span><span class="text-amber-400 flex-shrink-0 ml-2">Due ${sp.date}</span></div>
+                    <div class="p-3.5 rounded bg-cyber-bg border border-cyber-border space-y-2 cyber-font text-xs">
+                        <div class="flex justify-between font-bold text-white"><span class="truncate">${sp.title}</span><span class="text-cyber-purple flex-shrink-0 ml-2">Due ${sp.date}</span></div>
                         <div class="flex justify-between text-[10px] text-slate-400"><span>Sub-tasks: ${compSub}/${totalSub}</span><span>${pct}% Done</span></div>
-                        <div class="w-full bg-dark-700 h-1.5 rounded-full overflow-hidden"><div class="bg-amber-500 h-full" style="width: ${pct}%"></div></div>
+                        <div class="w-full bg-cyber-border h-1.5 rounded overflow-hidden"><div class="bg-cyber-purple h-full" style="width: ${pct}%"></div></div>
                     </div>
                 `;
-            }).join('') || '<p class="text-xs text-slate-500">No active study plans.</p>';
+            }).join('') || '<p class="text-xs cyber-font text-slate-500">NO_STUDY_PLANS</p>';
 
             // Tasks View
             document.getElementById('task-count-badge').textContent = `${data.tasks.length} tasks`;
             document.getElementById('tasks-container').innerHTML = data.tasks.map(t => `
-                <div class="flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-dark-800 border border-white/5 text-sm gap-2">
+                <div class="flex items-center justify-between p-3 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font gap-2">
                     <div class="flex items-center space-x-3 min-w-0">
-                        <input type="checkbox" ${t.completed ? 'checked' : ''} onclick="toggleTask(${t.id})" class="rounded bg-dark-700 text-indigo-500 flex-shrink-0">
-                        <span class="${t.completed ? 'line-through text-slate-500' : 'text-slate-200'} truncate">${t.title}</span>
+                        <input type="checkbox" ${t.completed ? 'checked' : ''} onclick="toggleTask(${t.id})" class="rounded bg-cyber-card text-cyber-cyan flex-shrink-0 cursor-pointer">
+                        <span class="${t.completed ? 'line-through text-slate-600' : 'text-slate-200'} truncate">${t.title}</span>
                     </div>
-                    <button onclick="deleteTask(${t.id})" class="text-slate-500 hover:text-rose-400 text-xs flex-shrink-0 p-1"><i class="fa-solid fa-trash"></i></button>
+                    <button onclick="deleteTask(${t.id})" class="text-slate-500 hover:text-cyber-rose flex-shrink-0 p-1"><i class="fa-solid fa-trash"></i></button>
                 </div>
-            `).join('') || '<p class="text-xs text-slate-500">No tasks.</p>';
+            `).join('') || '<p class="text-xs cyber-font text-slate-500">NO_TASKS</p>';
 
             // Notes
             document.getElementById('notes-container').innerHTML = data.notes.map(n => `
-                <div class="p-3 rounded-xl bg-dark-800 border border-white/5 text-xs text-slate-300 flex justify-between items-start gap-2">
+                <div class="p-3 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font text-slate-300 flex justify-between items-start gap-2">
                     <span class="break-words">${n.text}</span>
-                    <button onclick="deleteNote(${n.id})" class="text-slate-500 hover:text-rose-400 flex-shrink-0"><i class="fa-solid fa-xmark"></i></button>
+                    <button onclick="deleteNote(${n.id})" class="text-slate-500 hover:text-cyber-rose flex-shrink-0"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             `).join('');
 
             // Habits
             document.getElementById('habits-container').innerHTML = data.habits.map(h => `
-                <div class="flex items-center justify-between p-3.5 sm:p-4 rounded-xl bg-dark-800 border border-white/5 text-sm gap-2">
+                <div class="flex items-center justify-between p-3.5 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font gap-2">
                     <div class="flex items-center space-x-3 min-w-0">
-                        <button onclick="toggleHabit(${h.id})" class="w-7 h-7 rounded-lg ${h.completedToday ? 'bg-emerald-500 text-white' : 'bg-dark-700 text-slate-400'} flex items-center justify-center flex-shrink-0">
+                        <button onclick="toggleHabit(${h.id})" class="w-7 h-7 rounded ${h.completedToday ? 'bg-cyber-amber text-black font-bold' : 'bg-cyber-card text-slate-400 border border-cyber-border'} flex items-center justify-center flex-shrink-0">
                             <i class="fa-solid fa-check text-xs"></i>
                         </button>
                         <div class="min-w-0">
                             <div class="font-semibold text-white truncate">${h.name}</div>
-                            <div class="text-xs text-purple-400">${h.streak} Day Streak</div>
+                            <div class="text-[10px] text-cyber-amber flex items-center mt-0.5"><i class="fa-solid fa-fire mr-1"></i> ${h.streak} Day Streak</div>
                         </div>
                     </div>
-                    <button onclick="deleteHabit(${h.id})" class="text-slate-500 hover:text-rose-400 text-xs flex-shrink-0 p-1"><i class="fa-solid fa-trash"></i></button>
+                    <button onclick="deleteHabit(${h.id})" class="text-slate-500 hover:text-cyber-rose p-1"><i class="fa-solid fa-trash"></i></button>
                 </div>
-            `).join('') || '<p class="text-xs text-slate-500">No habits.</p>';
+            `).join('') || '<p class="text-xs cyber-font text-slate-500">NO_HABITS</p>';
 
             // Finances
             document.getElementById('finances-container').innerHTML = data.finances.map(tx => {
-                const color = tx.type === 'Income' ? 'text-emerald-400' : 'text-rose-400';
+                const color = tx.type === 'Income' ? 'text-cyber-neon' : 'text-cyber-rose';
                 const sign = tx.type === 'Income' ? '+' : '-';
                 return `
-                    <div class="flex items-center justify-between p-3.5 rounded-xl bg-dark-800 border border-white/5 text-sm gap-2">
+                    <div class="flex items-center justify-between p-3.5 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font gap-2">
                         <div class="min-w-0">
                             <div class="font-semibold text-white truncate">${tx.desc}</div>
-                            <div class="text-[10px] text-slate-400 uppercase">${tx.type}</div>
+                            <div class="text-[9px] text-slate-400 uppercase">${tx.type}</div>
                         </div>
                         <div class="flex items-center space-x-3 flex-shrink-0">
-                            <span class="${color} font-mono font-bold text-xs sm:text-sm">${sign}$${Number(tx.amount).toFixed(2)}</span>
-                            <button onclick="deleteTransaction(${tx.id})" class="text-slate-500 hover:text-rose-400 text-xs p-1"><i class="fa-solid fa-trash"></i></button>
+                            <span class="${color} font-mono font-bold">${sign}$${Number(tx.amount).toFixed(2)}</span>
+                            <button onclick="deleteTransaction(${tx.id})" class="text-slate-500 hover:text-cyber-rose p-1"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
                 `;
-            }).join('') || '<p class="text-xs text-slate-500">No transactions.</p>';
+            }).join('') || '<p class="text-xs cyber-font text-slate-500">NO_TRANSACTIONS</p>';
             document.getElementById('finances-net-total').textContent = `Net: $${net.toFixed(2)}`;
 
             // Schedule
             document.getElementById('schedule-container').innerHTML = data.schedule.map(s => `
-                <div class="flex items-center justify-between p-3.5 rounded-xl bg-dark-800 border border-white/5 text-sm gap-2">
-                    <div class="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 min-w-0">
-                        <span class="text-[11px] font-mono font-semibold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-lg w-fit">${s.time}</span>
-                        <span class="text-slate-200 font-medium truncate">${s.activity}</span>
+                <div class="flex items-center justify-between p-3.5 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font gap-2">
+                    <div class="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-3 min-w-0">
+                        <span class="text-[10px] font-mono font-semibold text-cyber-cyan bg-cyber-cyan/10 px-2 py-0.5 rounded w-fit">${s.time}</span>
+                        <span class="text-slate-200 truncate">${s.activity}</span>
                     </div>
-                    <button onclick="deleteSchedule(${s.id})" class="text-slate-500 hover:text-rose-400 text-xs flex-shrink-0 p-1"><i class="fa-solid fa-trash"></i></button>
+                    <button onclick="deleteSchedule(${s.id})" class="text-slate-500 hover:text-cyber-rose p-1"><i class="fa-solid fa-trash"></i></button>
                 </div>
-            `).join('') || '<p class="text-xs text-slate-500">No schedule blocks.</p>';
+            `).join('') || '<p class="text-xs cyber-font text-slate-500">NO_SCHEDULE_BLOCKS</p>';
 
             // Study Plans
             document.getElementById('study-count-badge').textContent = `${data.studyPlans.length} plans`;
@@ -578,52 +595,52 @@
                 const totalSub = sp.subtasks.length;
                 const pct = totalSub > 0 ? Math.round((compSub / totalSub) * 100) : 0;
                 return `
-                    <div class="p-4 sm:p-5 rounded-2xl bg-dark-800 border border-white/5 space-y-4">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-white/5">
+                    <div class="p-4.5 rounded bg-cyber-bg border border-cyber-border space-y-3.5 cyber-font text-xs">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-cyber-border">
                             <div class="min-w-0">
-                                <h4 class="font-bold text-white text-base truncate">${sp.title}</h4>
-                                <p class="text-xs text-slate-400 mt-0.5 break-words">${sp.desc}</p>
+                                <h4 class="font-bold text-white text-sm truncate">${sp.title}</h4>
+                                <p class="text-[10px] text-slate-400 mt-0.5 break-words">${sp.desc}</p>
                             </div>
-                            <div class="flex items-center justify-between sm:justify-start space-x-3 flex-shrink-0">
-                                <span class="text-xs font-semibold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full">Due: ${sp.date}</span>
-                                <button onclick="deleteStudyPlan(${sp.id})" class="text-slate-500 hover:text-rose-400 text-xs p-1"><i class="fa-solid fa-trash"></i></button>
+                            <div class="flex items-center justify-between sm:justify-start space-x-2 flex-shrink-0">
+                                <span class="text-[10px] font-semibold text-cyber-purple bg-cyber-purple/10 px-2.5 py-1 rounded border border-cyber-purple/20">Due: ${sp.date}</span>
+                                <button onclick="deleteStudyPlan(${sp.id})" class="text-slate-500 hover:text-cyber-rose p-1"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </div>
 
                         <div class="space-y-1">
-                            <div class="flex justify-between text-xs text-slate-400"><span>Progress</span><span>${compSub}/${totalSub} (${pct}%)</span></div>
-                            <div class="w-full bg-dark-700 h-2 rounded-full overflow-hidden"><div class="bg-amber-500 h-full" style="width: ${pct}%"></div></div>
+                            <div class="flex justify-between text-[10px] text-slate-400"><span>Progress</span><span>${compSub}/${totalSub} (${pct}%)</span></div>
+                            <div class="w-full bg-cyber-border h-1.5 rounded overflow-hidden"><div class="bg-cyber-purple h-full transition-all" style="width: ${pct}%"></div></div>
                         </div>
 
-                        <div class="space-y-2 pt-2">
-                            <div class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Sub-Tasks & Target Dates:</div>
+                        <div class="space-y-2 pt-1">
+                            <div class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Sub-Tasks & Target Dates:</div>
                             ${sp.subtasks.map(st => `
-                                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-2.5 rounded-xl bg-dark-700/50 border border-white/5 text-xs gap-2">
-                                    <div class="flex items-center space-x-3 min-w-0">
-                                        <input type="checkbox" ${st.completed ? 'checked' : ''} onclick="toggleSubtask(${sp.id},${st.id})" class="rounded bg-dark-800 text-amber-500 flex-shrink-0">
-                                        <span class="${st.completed ? 'line-through text-slate-500' : 'text-slate-200'} font-medium truncate">${st.title}</span>
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-2.5 rounded bg-cyber-card border border-cyber-border text-xs gap-2">
+                                    <div class="flex items-center space-x-2.5 min-w-0">
+                                        <input type="checkbox" ${st.completed ? 'checked' : ''} onclick="toggleSubtask(${sp.id},${st.id})" class="rounded bg-cyber-bg text-cyber-purple flex-shrink-0 cursor-pointer">
+                                        <span class="${st.completed ? 'line-through text-slate-600' : 'text-slate-200'} truncate">${st.title}</span>
                                     </div>
-                                    <div class="flex items-center justify-between sm:justify-end space-x-3 text-slate-400 font-mono text-[11px] flex-shrink-0 pl-6 sm:pl-0">
-                                        <span><i class="fa-regular fa-calendar mr-1 text-amber-400"></i>${st.dueDate}</span>
-                                        <span class="bg-dark-800 px-2 py-0.5 rounded text-amber-300 font-semibold"><i class="fa-regular fa-clock mr-1"></i>${st.estTime}</span>
-                                        <button onclick="deleteSubtask(${sp.id},${st.id})" class="text-slate-500 hover:text-rose-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+                                    <div class="flex items-center justify-between sm:justify-end space-x-3 text-slate-400 font-mono text-[10px] flex-shrink-0 pl-5 sm:pl-0">
+                                        <span><i class="fa-regular fa-calendar mr-1 text-cyber-purple"></i>${st.dueDate}</span>
+                                        <span class="bg-cyber-bg px-2 py-0.5 rounded text-cyber-amber border border-cyber-amber/20"><i class="fa-regular fa-clock mr-1"></i>${st.estTime}</span>
+                                        <button onclick="deleteSubtask(${sp.id},${st.id})" class="text-slate-500 hover:text-cyber-rose p-1"><i class="fa-solid fa-xmark"></i></button>
                                     </div>
                                 </div>
-                            `).join('') || '<p class="text-xs text-slate-500">No sub-tasks yet.</p>'}
+                            `).join('') || '<p class="text-[10px] text-slate-500">NO_SUBTASKS</p>'}
 
-                            <form onsubmit="handleAddSubtask(event, ${sp.id})" class="flex flex-col sm:flex-row gap-2 mt-3 pt-3 border-t border-white/5">
-                                <input type="text" id="sub-title-${sp.id}" required placeholder="Sub-task title..." class="bg-dark-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500 flex-grow">
-                                <input type="date" id="sub-date-${sp.id}" required class="bg-dark-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
-                                <input type="text" id="sub-est-${sp.id}" required placeholder="Est. (e.g. 45m)" class="bg-dark-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500 sm:w-28">
-                                <button type="submit" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold">Add Sub-Task</button>
+                            <form onsubmit="handleAddSubtask(event, ${sp.id})" class="flex flex-col sm:flex-row gap-2 mt-2.5 pt-2.5 border-t border-cyber-border">
+                                <input type="text" id="sub-title-${sp.id}" required placeholder="Sub-task title..." class="bg-cyber-card border border-cyber-border rounded px-3 py-2 text-[11px] text-white focus:outline-none focus:border-cyber-purple flex-grow">
+                                <input type="date" id="sub-date-${sp.id}" required class="bg-cyber-card border border-cyber-border rounded px-3 py-2 text-[11px] text-white focus:outline-none focus:border-cyber-purple">
+                                <input type="text" id="sub-est-${sp.id}" required placeholder="Est (45m)" class="bg-cyber-card border border-cyber-border rounded px-3 py-2 text-[11px] text-white focus:outline-none focus:border-cyber-purple sm:w-24">
+                                <button type="submit" class="px-3.5 py-2 rounded bg-cyber-purple/20 hover:bg-cyber-purple/30 text-cyber-purple text-[11px] font-semibold border border-cyber-purple/40">ADD</button>
                             </form>
                         </div>
                     </div>
                 `;
-            }).join('') || '<p class="text-xs text-slate-500">No study plans created yet.</p>';
+            }).join('') || '<p class="text-xs cyber-font text-slate-500">NO_STUDY_PLANS</p>';
         }
 
-        // Action Handlers
+        // Actions
         function handleAddTask(e) {
             e.preventDefault();
             const data = loadAppData();
@@ -768,14 +785,14 @@
             }
         }
         function resetAllUserData() {
-            if (confirm('Are you sure you want to reset all data?')) {
+            if (confirm('WIPE ALL WORKSPACE DATA?')) {
                 localStorage.removeItem(STORAGE_KEY);
                 renderAllAppData();
-                alert('Reset complete.');
+                alert('SYSTEM RESET COMPLETE.');
             }
         }
 
-        // Pomodoro Timer
+        // Pomodoro
         let pomodoroSeconds = 25 * 60;
         let pomodoroTimerId = null;
         let pomodoroRunning = false;
@@ -784,12 +801,12 @@
             if (pomodoroRunning) {
                 clearInterval(pomodoroTimerId);
                 pomodoroRunning = false;
-                btn.textContent = 'Start';
-                btn.className = 'px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold';
+                btn.textContent = 'START';
+                btn.className = 'px-4 py-2 rounded bg-cyber-amber/20 hover:bg-cyber-amber/30 text-cyber-amber text-xs cyber-font font-semibold border border-cyber-amber/40';
             } else {
                 pomodoroRunning = true;
-                btn.textContent = 'Pause';
-                btn.className = 'px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold';
+                btn.textContent = 'PAUSE';
+                btn.className = 'px-4 py-2 rounded bg-cyber-rose/20 hover:bg-cyber-rose/30 text-cyber-rose text-xs cyber-font font-semibold border border-cyber-rose/40';
                 pomodoroTimerId = setInterval(() => {
                     if (pomodoroSeconds > 0) {
                         pomodoroSeconds--;
@@ -797,7 +814,7 @@
                     } else {
                         clearInterval(pomodoroTimerId);
                         pomodoroRunning = false;
-                        alert('Pomodoro session complete!');
+                        alert('POMODORO SESSION COMPLETE.');
                         resetPomodoro();
                     }
                 }, 1000);
@@ -809,8 +826,8 @@
             pomodoroSeconds = 25 * 60;
             updatePomodoroDisplay();
             const btn = document.getElementById('pomodoro-toggle-btn');
-            btn.textContent = 'Start';
-            btn.className = 'px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold';
+            btn.textContent = 'START';
+            btn.className = 'px-4 py-2 rounded bg-cyber-amber/20 hover:bg-cyber-amber/30 text-cyber-amber text-xs cyber-font font-semibold border border-cyber-amber/40';
         }
         function updatePomodoroDisplay() {
             const mins = Math.floor(pomodoroSeconds / 60);
