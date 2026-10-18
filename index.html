@@ -6,6 +6,9 @@
     <title>Life OS // Cyber-Matrix Intelligence Core</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Firebase App & Firestore Compatibility SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -74,7 +77,7 @@
                     </div>
                     <div class="flex flex-col">
                         <span class="text-xs sm:text-sm font-bold tracking-widest text-cyber-cyan cyber-font uppercase">LIFE_OS // v3.5</span>
-                        <span class="text-[9px] text-emerald-400 cyber-font flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1.5"></span>CORE_ONLINE</span>
+                        <span class="text-[9px] text-emerald-400 cyber-font flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1.5"></span>CLOUD_SYNC_ACTIVE</span>
                     </div>
                 </div>
             </div>
@@ -405,10 +408,10 @@
                 <div id="view-settings" class="app-view hidden space-y-6">
                     <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-slate-400 mr-2">&gt;</span> SYSTEM CONFIGURATION & DATA STORAGE</h1>
                     <div class="cyber-box p-6 rounded-xl space-y-4 max-w-xl">
-                        <h3 class="font-bold text-white text-xs cyber-font uppercase text-cyber-cyan">LOCAL STORAGE SECURITY</h3>
-                        <p class="text-xs cyber-font text-slate-400 leading-relaxed">All telemetry data, tasks, habits, and study timelines are securely isolated within your browser's local storage.</p>
+                        <h3 class="font-bold text-white text-xs cyber-font uppercase text-cyber-cyan">CLOUD STORAGE SYNC</h3>
+                        <p class="text-xs cyber-font text-slate-400 leading-relaxed">Your workspace is actively synchronized via Firebase Cloud Firestore across all connected devices.</p>
                         <button onclick="resetAllUserData()" class="px-4 py-2.5 rounded bg-cyber-rose/20 hover:bg-cyber-rose/30 text-cyber-rose border border-cyber-rose/40 text-xs cyber-font font-semibold">
-                            WIPE ALL WORKSPACE DATA
+                            WIPE CLOUD WORKSPACE DATA
                         </button>
                     </div>
                 </div>
@@ -419,6 +422,22 @@
 
     <!-- ==================== SCRIPT LOGIC ==================== -->
     <script>
+        // ==================== FIREBASE CLOUD CONFIG ====================
+        const firebaseConfig = {
+            apiKey: "AIzaSyAywBF5bNNKBHm7n1zxqVWIr23e9O-743Q",
+            authDomain: "aseemslifos.firebaseapp.com",
+            projectId: "aseemslifos",
+            storageBucket: "aseemslifos.firebasestorage.app",
+            messagingSenderId: "250702789405",
+            appId: "1:250702789405:web:c23cfe4224f30c7d3dbff4",
+            measurementId: "G-MCNLJ4NYH9"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const docRef = db.collection("life_os_workspaces").doc("primary_user");
+
+        let cachedAppData = null;
+
         // Web Audio API Sound Effects Engine
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playCyberSound(type) {
@@ -448,12 +467,11 @@
                     osc.start(now);
                     osc.stop(now + 0.3);
                 } else if (type === 'task-complete') {
-                    // Custom uplifting task completion chime
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(440, now);     // A4
-                    osc.frequency.setValueAtTime(554.37, now + 0.08); // C#5
-                    osc.frequency.setValueAtTime(659.25, now + 0.16); // E5
-                    osc.frequency.setValueAtTime(880, now + 0.24);    // A5
+                    osc.frequency.setValueAtTime(440, now);
+                    osc.frequency.setValueAtTime(554.37, now + 0.08);
+                    osc.frequency.setValueAtTime(659.25, now + 0.16);
+                    osc.frequency.setValueAtTime(880, now + 0.24);
                     gain.gain.setValueAtTime(0.12, now);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
                     osc.start(now);
@@ -517,15 +535,13 @@
             window.scrollTo({ top: 0, behavior: 'instant' });
         }
 
-        const STORAGE_KEY = 'life_os_cyber_data_v2';
-
         function getDefaultData() {
             return {
                 tasks: [
                     { id: 1, title: 'Review quarterly financial budget', completed: true, priority: 'High', category: 'Finance' },
                     { id: 2, title: 'Complete Chapter 4 study plan milestone', completed: false, priority: 'High', category: 'Study' }
                 ],
-                notes: [{ id: 1, text: 'SYS.LOG: Architecture protocols verified.' }],
+                notes: [{ id: 1, text: 'SYS.LOG: Cloud Architecture protocols verified.' }],
                 habits: [{ id: 1, name: 'Deep Work (2 Hours)', freq: 'Daily', streak: 14, completedToday: true }],
                 finances: [
                     { id: 1, desc: 'Client Consulting', amount: 3500.00, type: 'Income' },
@@ -548,18 +564,17 @@
         }
 
         function loadAppData() {
-            const data = localStorage.getItem(STORAGE_KEY);
-            if (!data) {
-                const def = getDefaultData();
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(def));
-                return def;
-            }
-            try { return JSON.parse(data); } catch(e) { return getDefaultData(); }
+            return cachedAppData || getDefaultData();
         }
 
-        function saveAppData(data) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        async function saveAppData(data) {
+            cachedAppData = data;
             renderAllAppData();
+            try {
+                await docRef.set(data);
+            } catch (e) {
+                console.error("Cloud sync save error:", e);
+            }
         }
 
         function renderAllAppData() {
@@ -572,7 +587,6 @@
             document.getElementById('stat-tasks-done').textContent = `${completedTasksCount} / ${data.tasks.length}`;
             document.getElementById('stat-study-active').textContent = `${data.studyPlans.length} Active`;
 
-            // Calculate overall habits completed today
             const totalHabits = data.habits.length;
             const completedHabitsToday = data.habits.filter(h => h.completedToday).length;
             document.getElementById('stat-habits-streak').textContent = `${completedHabitsToday} / ${totalHabits}`;
@@ -767,12 +781,7 @@
             const t = data.tasks.find(x => x.id === id);
             if (t) {
                 t.completed = !t.completed;
-                // Play task-complete sound if it was just checked as done, otherwise click sound
-                if (t.completed) {
-                    playCyberSound('task-complete');
-                } else {
-                    playCyberSound('click');
-                }
+                if (t.completed) { playCyberSound('task-complete'); } else { playCyberSound('click'); }
                 saveAppData(data);
             }
         }
@@ -916,12 +925,12 @@
                 saveAppData(data);
             }
         }
-        function resetAllUserData() {
-            if (confirm('WIPE ALL WORKSPACE DATA?')) {
+        async function resetAllUserData() {
+            if (confirm('WIPE ALL CLOUD WORKSPACE DATA?')) {
                 playCyberSound('delete');
-                localStorage.removeItem(STORAGE_KEY);
-                renderAllAppData();
-                alert('SYSTEM RESET COMPLETE.');
+                const def = getDefaultData();
+                await saveAppData(def);
+                alert('CLOUD SYSTEM RESET COMPLETE.');
             }
         }
 
@@ -971,7 +980,22 @@
             document.getElementById('pomodoro-display').textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
         }
 
-        window.addEventListener('DOMContentLoaded', () => { renderAllAppData(); });
+        // Real-time Cloud Listener Initialization on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            docRef.onSnapshot((doc) => {
+                if (doc.exists) {
+                    cachedAppData = doc.data();
+                } else {
+                    cachedAppData = getDefaultData();
+                    docRef.set(cachedAppData);
+                }
+                renderAllAppData();
+            }, (error) => {
+                console.error("Firestore sync error:", error);
+                cachedAppData = getDefaultData();
+                renderAllAppData();
+            });
+        });
     </script>
 </body>
 </html>
