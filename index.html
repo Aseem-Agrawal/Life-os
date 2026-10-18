@@ -96,20 +96,20 @@
                 <button onclick="switchAppView('dashboard')" id="nav-dashboard" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-semibold transition bg-cyber-cyan/15 text-cyber-cyan border border-cyber-cyan/40">
                     <i class="fa-solid fa-chart-line w-5 text-cyber-cyan"></i><span>01 // DASHBOARD</span>
                 </button>
+                <button onclick="switchAppView('schedule')" id="nav-schedule" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
+                    <i class="fa-solid fa-clock-rotate-left w-5 text-cyber-cyan"></i><span>02 // SCHEDULE PLANNER</span>
+                </button>
                 <button onclick="switchAppView('tasks')" id="nav-tasks" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
-                    <i class="fa-solid fa-list-check w-5 text-cyber-neon"></i><span>02 // TASKS & VAULT</span>
+                    <i class="fa-solid fa-list-check w-5 text-cyber-neon"></i><span>03 // TASKS & VAULT</span>
                 </button>
                 <button onclick="switchAppView('habits')" id="nav-habits" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
-                    <i class="fa-solid fa-fire w-5 text-cyber-amber"></i><span>03 // HABIT MATRIX</span>
-                </button>
-                <button onclick="switchAppView('finances')" id="nav-finances" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
-                    <i class="fa-solid fa-wallet w-5 text-cyber-neon"></i><span>04 // FINANCES</span>
-                </button>
-                <button onclick="switchAppView('schedule')" id="nav-schedule" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
-                    <i class="fa-solid fa-clock-rotate-left w-5 text-cyber-cyan"></i><span>05 // SCHEDULE PLANNER</span>
+                    <i class="fa-solid fa-fire w-5 text-cyber-amber"></i><span>04 // HABIT MATRIX</span>
                 </button>
                 <button onclick="switchAppView('learning')" id="nav-learning" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
-                    <i class="fa-solid fa-graduation-cap w-5 text-cyber-purple"></i><span>06 // STUDY & TIMELINE</span>
+                    <i class="fa-solid fa-graduation-cap w-5 text-cyber-purple"></i><span>05 // STUDY & TIMELINE</span>
+                </button>
+                <button onclick="switchAppView('finances')" id="nav-finances" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
+                    <i class="fa-solid fa-wallet w-5 text-cyber-neon"></i><span>06 // FINANCES</span>
                 </button>
                 <button onclick="switchAppView('settings')" id="nav-settings" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
                     <i class="fa-solid fa-sliders w-5 text-slate-400"></i><span>07 // SYS.CONFIG</span>
@@ -148,9 +148,9 @@
                             <div class="text-[9px] cyber-font text-cyber-cyan mt-1 flex items-center"><i class="fa-solid fa-circle-check mr-1"></i> QUEUE SYNCED</div>
                         </div>
                         <div class="cyber-box cyber-box-hover p-4 sm:p-5 rounded-xl border-l-2 border-l-cyber-amber relative">
-                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">HABIT_STREAKS</div>
-                            <div id="stat-habits-streak" class="text-xl sm:text-2xl font-bold text-white cyber-font">ACTIVE</div>
-                            <div class="text-[9px] cyber-font text-cyber-amber mt-1 flex items-center"><i class="fa-solid fa-fire mr-1"></i> MOMENTUM STABLE</div>
+                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">HABIT_COMPLETION</div>
+                            <div id="stat-habits-streak" class="text-xl sm:text-2xl font-bold text-white cyber-font">0 / 0</div>
+                            <div class="text-[9px] cyber-font text-cyber-amber mt-1 flex items-center"><i class="fa-solid fa-fire mr-1"></i> <span id="stat-habits-status">ALL PENDING</span></div>
                         </div>
                         <div class="cyber-box cyber-box-hover p-4 sm:p-5 rounded-xl border-l-2 border-l-cyber-neon relative">
                             <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">NET_BALANCE</div>
@@ -165,7 +165,8 @@
                     </div>
 
                     <!-- Dashboard Sub-Widgets -->
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Tasks Preview Widget -->
                         <div class="cyber-box p-5 rounded-xl space-y-4">
                             <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
                                 <h3 class="font-bold text-white text-xs cyber-font uppercase tracking-wider flex items-center"><span class="text-cyber-cyan mr-2">&gt;</span> PRIORITY TASK QUEUE</h3>
@@ -173,6 +174,17 @@
                             </div>
                             <div id="dashboard-tasks-list" class="space-y-2.5"></div>
                         </div>
+
+                        <!-- Schedule Preview Widget (Added) -->
+                        <div class="cyber-box p-5 rounded-xl space-y-4">
+                            <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase tracking-wider flex items-center"><span class="text-cyber-neon mr-2">&gt;</span> TODAY'S SCHEDULE</h3>
+                                <button onclick="switchAppView('schedule')" class="text-[11px] cyber-font text-cyber-neon hover:underline">MANAGE</button>
+                            </div>
+                            <div id="dashboard-schedule-list" class="space-y-2.5"></div>
+                        </div>
+
+                        <!-- Study Timeline Preview Widget -->
                         <div class="cyber-box p-5 rounded-xl space-y-4">
                             <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
                                 <h3 class="font-bold text-white text-xs cyber-font uppercase tracking-wider flex items-center"><span class="text-cyber-purple mr-2">&gt;</span> ACTIVE STUDY TIMELINE</h3>
@@ -183,7 +195,34 @@
                     </div>
                 </div>
 
-                <!-- 2. TASKS & NOTES VIEW -->
+                <!-- 2. SCHEDULE PLANNER VIEW -->
+                <div id="view-schedule" class="app-view hidden space-y-6">
+                    <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-cyan mr-2">&gt;</span> DAILY SCHEDULE & TIME-BLOCKING</h1>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">ADD_TIME_BLOCK</h3>
+                            <form onsubmit="handleAddSchedule(event)" class="space-y-3.5">
+                                <div>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Time Slot</label>
+                                    <input type="text" id="sched-time" required placeholder="09:00 AM - 10:30 AM" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Activity Objective</label>
+                                    <input type="text" id="sched-activity" required placeholder="Deep Work Sprint" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
+                                </div>
+                                <button type="submit" class="w-full py-2.5 rounded bg-cyber-cyan/20 hover:bg-cyber-cyan/30 text-cyber-cyan cyber-font text-xs font-semibold border border-cyber-cyan/40 transition">
+                                    SCHEDULE BLOCK
+                                </button>
+                            </form>
+                        </div>
+                        <div class="lg:col-span-2 cyber-box p-5 rounded-xl space-y-4">
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">TIMELINE BLOCKS</h3>
+                            <div id="schedule-container" class="space-y-2.5"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. TASKS & NOTES VIEW -->
                 <div id="view-tasks" class="app-view hidden space-y-6">
                     <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-neon mr-2">&gt;</span> TASKS & SECOND BRAIN VAULT</h1>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -234,7 +273,7 @@
                     </div>
                 </div>
 
-                <!-- 3. HABITS & GOALS VIEW -->
+                <!-- 4. HABITS & GOALS VIEW -->
                 <div id="view-habits" class="app-view hidden space-y-6">
                     <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-amber mr-2">&gt;</span> HABIT ARCHITECTURE & MOMENTUM</h1>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -257,72 +296,7 @@
                     </div>
                 </div>
 
-                <!-- 4. FINANCES VIEW -->
-                <div id="view-finances" class="app-view hidden space-y-6">
-                    <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-neon mr-2">&gt;</span> FINANCIAL LEDGER & SUBSCRIPTION ENGINE</h1>
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
-                            <h3 class="font-bold text-white text-xs cyber-font uppercase">LOG_TRANSACTION</h3>
-                            <form onsubmit="handleAddTransaction(event)" class="space-y-3.5">
-                                <div>
-                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Description</label>
-                                    <input type="text" id="tx-desc" required placeholder="e.g. Client Consulting" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Amount ($)</label>
-                                    <input type="number" step="0.01" id="tx-amount" required placeholder="150.00" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Classification Type</label>
-                                    <select id="tx-type" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
-                                        <option value="Income">INCOME</option>
-                                        <option value="Expense">EXPENSE</option>
-                                        <option value="Subscription">SUBSCRIPTION</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="w-full py-2.5 rounded bg-cyber-neon/20 hover:bg-cyber-neon/30 text-cyber-neon cyber-font text-xs font-semibold border border-cyber-neon/40 transition">
-                                    COMMIT TRANSACTION
-                                </button>
-                            </form>
-                        </div>
-                        <div class="lg:col-span-2 cyber-box p-5 rounded-xl space-y-4">
-                            <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
-                                <h3 class="font-bold text-white text-xs cyber-font uppercase">TRANSACTION LEDGER</h3>
-                                <div class="text-xs cyber-font font-bold text-cyber-neon" id="finances-net-total">Net: $0.00</div>
-                            </div>
-                            <div id="finances-container" class="space-y-2.5"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 5. SCHEDULE PLANNER VIEW -->
-                <div id="view-schedule" class="app-view hidden space-y-6">
-                    <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-cyan mr-2">&gt;</span> DAILY SCHEDULE & TIME-BLOCKING</h1>
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
-                            <h3 class="font-bold text-white text-xs cyber-font uppercase">ADD_TIME_BLOCK</h3>
-                            <form onsubmit="handleAddSchedule(event)" class="space-y-3.5">
-                                <div>
-                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Time Slot</label>
-                                    <input type="text" id="sched-time" required placeholder="09:00 AM - 10:30 AM" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Activity Objective</label>
-                                    <input type="text" id="sched-activity" required placeholder="Deep Work Sprint" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
-                                </div>
-                                <button type="submit" class="w-full py-2.5 rounded bg-cyber-cyan/20 hover:bg-cyber-cyan/30 text-cyber-cyan cyber-font text-xs font-semibold border border-cyber-cyan/40 transition">
-                                    SCHEDULE BLOCK
-                                </button>
-                            </form>
-                        </div>
-                        <div class="lg:col-span-2 cyber-box p-5 rounded-xl space-y-4">
-                            <h3 class="font-bold text-white text-xs cyber-font uppercase">TIMELINE BLOCKS</h3>
-                            <div id="schedule-container" class="space-y-2.5"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 6. STUDY PLAN & TIMELINE TRACKER VIEW -->
+                <!-- 5. STUDY PLAN & TIMELINE TRACKER VIEW -->
                 <div id="view-learning" class="app-view hidden space-y-6">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div>
@@ -384,6 +358,44 @@
                     </div>
                 </div>
 
+                <!-- 6. FINANCES VIEW -->
+                <div id="view-finances" class="app-view hidden space-y-6">
+                    <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-neon mr-2">&gt;</span> FINANCIAL LEDGER & SUBSCRIPTION ENGINE</h1>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">LOG_TRANSACTION</h3>
+                            <form onsubmit="handleAddTransaction(event)" class="space-y-3.5">
+                                <div>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Description</label>
+                                    <input type="text" id="tx-desc" required placeholder="e.g. Client Consulting" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Amount ($)</label>
+                                    <input type="number" step="0.01" id="tx-amount" required placeholder="150.00" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Classification Type</label>
+                                    <select id="tx-type" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
+                                        <option value="Income">INCOME</option>
+                                        <option value="Expense">EXPENSE</option>
+                                        <option value="Subscription">SUBSCRIPTION</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="w-full py-2.5 rounded bg-cyber-neon/20 hover:bg-cyber-neon/30 text-cyber-neon cyber-font text-xs font-semibold border border-cyber-neon/40 transition">
+                                    COMMIT TRANSACTION
+                                </button>
+                            </form>
+                        </div>
+                        <div class="lg:col-span-2 cyber-box p-5 rounded-xl space-y-4">
+                            <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase">TRANSACTION LEDGER</h3>
+                                <div class="text-xs cyber-font font-bold text-cyber-neon" id="finances-net-total">Net: $0.00</div>
+                            </div>
+                            <div id="finances-container" class="space-y-2.5"></div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 7. SETTINGS VIEW -->
                 <div id="view-settings" class="app-view hidden space-y-6">
                     <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-slate-400 mr-2">&gt;</span> SYSTEM CONFIGURATION & DATA STORAGE</h1>
@@ -413,7 +425,7 @@
             document.querySelectorAll('.app-view').forEach(el => el.classList.add('hidden'));
             document.getElementById('view-' + viewName).classList.remove('hidden');
 
-            ['dashboard', 'tasks', 'habits', 'finances', 'schedule', 'learning', 'settings'].forEach(name => {
+            ['dashboard', 'schedule', 'tasks', 'habits', 'learning', 'finances', 'settings'].forEach(name => {
                 const btn = document.getElementById('nav-' + name);
                 if (btn) {
                     if (name === viewName) {
@@ -490,6 +502,23 @@
             document.getElementById('stat-tasks-done').textContent = `${completedTasksCount} / ${data.tasks.length}`;
             document.getElementById('stat-study-active').textContent = `${data.studyPlans.length} Active`;
 
+            // Calculate overall habits completed today
+            const totalHabits = data.habits.length;
+            const completedHabitsToday = data.habits.filter(h => h.completedToday).length;
+            document.getElementById('stat-habits-streak').textContent = `${completedHabitsToday} / ${totalHabits}`;
+            
+            const habitStatusEl = document.getElementById('stat-habits-status');
+            if (totalHabits > 0 && completedHabitsToday === totalHabits) {
+                habitStatusEl.textContent = 'ALL COMPLETE ✓';
+                habitStatusEl.className = 'text-emerald-400 font-bold';
+            } else if (completedHabitsToday > 0) {
+                habitStatusEl.textContent = 'IN PROGRESS';
+                habitStatusEl.className = 'text-cyber-amber';
+            } else {
+                habitStatusEl.textContent = 'ALL PENDING';
+                habitStatusEl.className = 'text-slate-400';
+            }
+
             let net = 0;
             data.finances.forEach(tx => {
                 if (tx.type === 'Income') net += Number(tx.amount);
@@ -507,6 +536,14 @@
                     <span class="text-[9px] px-2 py-0.5 rounded ${t.priority === 'High' ? 'bg-cyber-rose/20 text-cyber-rose border border-cyber-rose/30' : 'bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan/30'} flex-shrink-0">${t.priority}</span>
                 </div>
             `).join('') || '<p class="text-xs cyber-font text-slate-500">NO_TASKS_FOUND</p>';
+
+            // Dashboard Schedule Preview (Added)
+            document.getElementById('dashboard-schedule-list').innerHTML = data.schedule.slice(0, 3).map(s => `
+                <div class="flex items-center justify-between p-3 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font gap-2">
+                    <span class="text-[10px] font-mono font-semibold text-cyber-cyan bg-cyber-cyan/10 px-2 py-0.5 rounded flex-shrink-0">${s.time}</span>
+                    <span class="text-slate-200 truncate">${s.activity}</span>
+                </div>
+            `).join('') || '<p class="text-xs cyber-font text-slate-500">NO_SCHEDULE_BLOCKS</p>';
 
             // Dashboard Study Preview
             document.getElementById('dashboard-study-list').innerHTML = data.studyPlans.slice(0, 2).map(sp => {
