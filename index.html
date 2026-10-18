@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Life OS — The Ultimate All-in-One Personal Productivity System</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#090d16',
+                            800: '#0f172a',
+                            700: '#1e293b',
+                            600: '#334155',
+                        },
+                        accent: {
+                            primary: '#6366f1',
+                            secondary: '#a855f7',
+                            glow: 'rgba(99, 102, 241, 0.15)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for crisp icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #090d16; color: #f8fafc; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        .glass-panel { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-card { background: rgba(30, 41, 59, 0.65); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.06); }
+        .glow-effect { box-shadow: 0 0 40px -10px rgba(99, 102, 241, 0.25); }
+        .gradient-text { background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #f472b6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .gradient-bg { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #090d16; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="bg-dark-900 text-slate-100 min-h-screen flex flex-col selection:bg-accent-primary selection:text-white">
+
+    <!-- ==================== LANDING PAGE WRAPPER ==================== -->
+    <div id="landing-page" class="w-full flex flex-col min-h-screen">
+        <!-- Sticky Navbar -->
+        <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+                <div class="flex items-center space-x-2.5 cursor-pointer" onclick="scrollToTop()">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-bg flex items-center justify-center glow-effect">
+                        <i class="fa-solid fa-layer-group text-white text-base sm:text-lg"></i>
+                    </div>
+                    <span class="text-lg sm:text-xl font-bold tracking-tight text-white">Life <span class="gradient-text">OS</span></span>
+                </div>
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                    <a href="#features" class="hover:text-white transition">Features</a>
+                    <a href="#testimonials" class="hover:text-white transition">Testimonials</a>
+                    <a href="#pricing" class="hover:text-white transition">Pricing</a>
+                    <a href="#faq" class="hover:text-white transition">FAQ</a>
+                </nav>
+                <div class="flex items-center space-x-3">
+                    <button onclick="openApp()" class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl gradient-bg text-white font-semibold text-xs sm:text-sm shadow-lg hover:opacity-90 transition glow-effect">
+                        Get Life OS
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative pt-28 pb-16 sm:pt-36 sm:pb-24 overflow-hidden flex-grow flex items-center">
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-indigo-600/15 rounded-full blur-[100px] pointer-events-none"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full text-center">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-card border border-white/10 mb-6 text-xs font-medium text-slate-300">
+                    <span>Trusted by <strong class="text-white">10,000+</strong> high performers</span>
+                </div>
+
+                <h1 class="text-3xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-[1.15] mb-5 sm:mb-6">
+                    Organize Your Entire Life in <span class="gradient-text">One Place</span>
+                </h1>
+                <p class="text-base sm:text-xl text-slate-400 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-2">
+                    The all-in-one personal productivity operating system for managing tasks, habits, finances, schedule, study plans, and long-term goals.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4 mb-12 sm:mb-16 px-4">
+                    <button onclick="openApp()" class="w-full sm:w-auto px-7 py-3.5 sm:py-4 rounded-xl gradient-bg text-white font-bold text-sm sm:text-base shadow-xl hover:opacity-90 transition glow-effect flex items-center justify-center space-x-2.5">
+                        <span>Launch Life OS Workspace</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Dashboard Mockup Preview -->
+                <div class="max-w-5xl mx-auto rounded-2xl glass-panel p-2 sm:p-3 shadow-2xl border border-white/10">
+                    <div class="bg-dark-800 rounded-xl overflow-hidden border border-white/5">
+                        <div class="bg-dark-700/80 px-3 sm:px-4 py-2.5 flex items-center justify-between border-b border-white/5">
+                            <div class="flex items-center space-x-1.5">
+                                <div class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
+                            </div>
+                            <div class="text-[10px] sm:text-xs text-slate-400 font-mono">life-os.workspace/dashboard</div>
+                        </div>
+                        <div class="p-4 sm:p-6 md:p-8 bg-dark-900 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-left">
+                            <div class="glass-card p-4 sm:p-5 rounded-xl border border-white/5">
+                                <div class="text-xs font-semibold text-indigo-400 uppercase tracking-wider mb-2">Today's Focus</div>
+                                <div class="text-xs sm:text-sm text-slate-200">Review quarterly financial budget & study plans</div>
+                            </div>
+                            <div class="glass-card p-4 sm:p-5 rounded-xl border border-white/5">
+                                <div class="text-xs font-semibold text-purple-400 uppercase tracking-wider mb-2">Habit Streaks</div>
+                                <div class="text-xs sm:text-sm text-slate-200">14 Day Streak on Deep Work & Study</div>
+                            </div>
+                            <div class="glass-card p-4 sm:p-5 rounded-xl border border-white/5">
+                                <div class="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Net Worth</div>
+                                <div class="text-xl sm:text-2xl font-bold text-white">$48,250.00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bento Grid Feature Showcase -->
+        <section id="features" class="py-16 sm:py-24 bg-dark-800/50 relative border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+                    <h2 class="text-2xl sm:text-4xl font-bold text-white mb-3">Everything You Need to Master Your Routine</h2>
+                    <p class="text-sm sm:text-base text-slate-400">Engineered for clarity, speed, and maximum cognitive leverage.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl border border-white/10 flex flex-col justify-between">
+                        <div>
+                            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-5 sm:mb-6">
+                                <i class="fa-solid fa-brain text-lg sm:text-xl"></i>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Second Brain & Notes</h3>
+                            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">Capture thoughts, meeting notes, and knowledge bases instantly.</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl border border-white/10 flex flex-col justify-between">
+                        <div>
+                            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 mb-5 sm:mb-6">
+                                <i class="fa-solid fa-bullseye text-lg sm:text-xl"></i>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Habit & Goal Architecture</h3>
+                            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">Break down visions into weekly milestones and daily micro-habits.</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl border border-white/10 flex flex-col justify-between">
+                        <div>
+                            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-5 sm:mb-6">
+                                <i class="fa-solid fa-wallet text-lg sm:text-xl"></i>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Financial Tracker</h3>
+                            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">Monitor income, expenses, and monthly subscriptions in real-time.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="py-16 sm:py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+                    <h2 class="text-2xl sm:text-4xl font-bold text-white mb-3">Simple Pricing</h2>
+                </div>
+                <div class="max-w-md mx-auto glass-panel p-6 sm:p-8 rounded-3xl border-2 border-indigo-500 text-center glow-effect">
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Pro Lifetime Access</h3>
+                    <div class="text-3xl sm:text-4xl font-bold text-white my-5">$99 <span class="text-xs text-slate-400 font-normal">one-time</span></div>
+                    <button onclick="openApp()" class="w-full py-3.5 rounded-xl gradient-bg text-white font-bold hover:opacity-90 transition text-sm shadow-xl">
+                        Launch Life OS Now
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-6 sm:py-8 border-t border-white/10 text-center text-xs text-slate-500 px-4">
+            &copy; 2026 Life OS Inc. All rights reserved.
+        </footer>
+    </div>
+
+
+    <!-- ==================== APP WORKSPACE (HIDDEN BY DEFAULT) ==================== -->
+    <div id="app-workspace" class="hidden w-full min-h-screen flex flex-col bg-dark-900">
+        <!-- App Header Bar -->
+        <header class="glass-panel border-b border-white/10 sticky top-0 z-50 px-4 sm:px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <!-- Mobile Sidebar Toggle Button -->
+                <button onclick="toggleMobileSidebar()" class="lg:hidden w-9 h-9 rounded-xl glass-card border border-white/10 flex items-center justify-center text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-bars text-sm"></i>
+                </button>
+                <div class="flex items-center space-x-2.5 cursor-pointer" onclick="closeApp()">
+                    <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center glow-effect">
+                        <i class="fa-solid fa-layer-group text-white text-xs"></i>
+                    </div>
+                    <span class="text-base sm:text-lg font-bold tracking-tight text-white">Life <span class="gradient-text">OS</span></span>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <span id="app-current-view-title" class="text-xs font-semibold text-indigo-400 uppercase tracking-wider hidden sm:inline">Dashboard</span>
+                <button onclick="closeApp()" class="px-3 py-1.5 rounded-xl glass-card border border-white/10 text-xs text-slate-300 hover:text-white transition flex items-center space-x-1.5">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span class="hidden sm:inline">Exit</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Workspace Body -->
+        <div class="flex flex-col lg:flex-row flex-grow relative">
+            <!-- Sidebar Navigation (Desktop + Mobile Drawer) -->
+            <aside id="app-sidebar" class="fixed lg:static inset-y-0 left-0 z-40 w-72 lg:w-64 glass-panel border-r border-white/10 p-4 space-y-2 flex-shrink-0 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out pt-20 lg:pt-4">
+                <div class="flex items-center justify-between lg:hidden mb-4 pb-3 border-b border-white/10 px-2">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Menu</span>
+                    <button onclick="toggleMobileSidebar()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase px-3 mb-2 tracking-widest hidden lg:block">Navigation</div>
+                <button onclick="switchAppView('dashboard')" id="nav-dashboard" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition bg-indigo-600 text-white shadow-lg">
+                    <i class="fa-solid fa-house w-5"></i><span>Dashboard</span>
+                </button>
+                <button onclick="switchAppView('tasks')" id="nav-tasks" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition text-slate-400 hover:bg-white/5 hover:text-white">
+                    <i class="fa-solid fa-square-check w-5 text-indigo-400"></i><span>Tasks & Notes</span>
+                </button>
+                <button onclick="switchAppView('habits')" id="nav-habits" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition text-slate-400 hover:bg-white/5 hover:text-white">
+                    <i class="fa-solid fa-bullseye w-5 text-purple-400"></i><span>Habits & Goals</span>
+                </button>
+                <button onclick="switchAppView('finances')" id="nav-finances" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition text-slate-400 hover:bg-white/5 hover:text-white">
+                    <i class="fa-solid fa-wallet w-5 text-emerald-400"></i><span>Finances</span>
+                </button>
+                <button onclick="switchAppView('schedule')" id="nav-schedule" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition text-slate-400 hover:bg-white/5 hover:text-white">
+                    <i class="fa-solid fa-calendar-days w-5 text-blue-400"></i><span>Schedule Planner</span>
+                </button>
+                <button onclick="switchAppView('learning')" id="nav-learning" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition text-slate-400 hover:bg-white/5 hover:text-white">
+                    <i class="fa-solid fa-graduation-cap w-5 text-amber-400"></i><span>Study & Learning</span>
+                </button>
+                <button onclick="switchAppView('settings')" id="nav-settings" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition text-slate-400 hover:bg-white/5 hover:text-white">
+                    <i class="fa-solid fa-gear w-5 text-slate-400"></i><span>Settings</span>
+                </button>
+            </aside>
+
+            <!-- Backdrop for mobile sidebar -->
+            <div id="sidebar-backdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-black/60 z-30 hidden lg:hidden"></div>
+
+            <!-- Workspace Content Area -->
+            <main class="flex-grow p-4 sm:p-6 lg:p-10 overflow-y-auto max-w-full">
+
+                <!-- 1. DASHBOARD VIEW -->
+                <div id="view-dashboard" class="app-view space-y-6 sm:space-y-8">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <h1 class="text-2xl sm:text-3xl font-bold text-white">Welcome back ✨</h1>
+                            <p class="text-slate-400 text-xs sm:text-sm mt-1">Here is your daily life overview.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+                        <div class="glass-card p-4 sm:p-6 rounded-2xl border border-white/5">
+                            <div class="text-[11px] sm:text-xs font-semibold text-slate-400 mb-1 sm:mb-2">Tasks Done</div>
+                            <div id="stat-tasks-done" class="text-xl sm:text-2xl font-bold text-white">0 / 0</div>
+                        </div>
+                        <div class="glass-card p-4 sm:p-6 rounded-2xl border border-white/5">
+                            <div class="text-[11px] sm:text-xs font-semibold text-slate-400 mb-1 sm:mb-2">Habits Streak</div>
+                            <div id="stat-habits-streak" class="text-xl sm:text-2xl font-bold text-white">Active</div>
+                        </div>
+                        <div class="glass-card p-4 sm:p-6 rounded-2xl border border-white/5">
+                            <div class="text-[11px] sm:text-xs font-semibold text-slate-400 mb-1 sm:mb-2">Net Balance</div>
+                            <div id="stat-net-balance" class="text-xl sm:text-2xl font-bold text-white truncate">$0.00</div>
+                        </div>
+                        <div class="glass-card p-4 sm:p-6 rounded-2xl border border-white/5">
+                            <div class="text-[11px] sm:text-xs font-semibold text-slate-400 mb-1 sm:mb-2">Study Plans</div>
+                            <div id="stat-study-active" class="text-xl sm:text-2xl font-bold text-white">0 Active</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. TASKS & NOTES VIEW -->
+                <div id="view-tasks" class="app-view hidden space-y-6">
+                    <h1 class="text-xl sm:text-2xl font-bold text-white">Tasks & Second Brain Notes</h1>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4 h-fit">
+                            <h3 class="font-bold text-white text-sm">Create New Task</h3>
+                            <form id="task-form" onsubmit="handleAddTask(event)" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Task Title</label>
+                                    <input type="text" id="task-title" required placeholder="e.g. Complete report" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Priority</label>
+                                    <select id="task-priority" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+                                        <option value="High">High Priority</option>
+                                        <option value="Medium" selected>Medium Priority</option>
+                                        <option value="Low">Low Priority</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Category</label>
+                                    <select id="task-category" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+                                        <option value="Work">Work</option>
+                                        <option value="Personal">Personal</option>
+                                        <option value="Study">Study</option>
+                                        <option value="Finance">Finance</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="w-full py-3 rounded-xl gradient-bg text-white font-semibold text-sm shadow-lg hover:opacity-90 transition">
+                                    Add Task
+                                </button>
+                            </form>
+                        </div>
+                        <div class="lg:col-span-2 space-y-6">
+                            <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-bold text-white text-sm">Task Queue</h3>
+                                    <span id="task-count-badge" class="text-xs text-slate-400">0 tasks</span>
+                                </div>
+                                <div id="tasks-container" class="space-y-3"></div>
+                            </div>
+                            <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4">
+                                <h3 class="font-bold text-white text-sm">Second Brain Quick Note</h3>
+                                <textarea id="quick-note-input" rows="3" placeholder="Capture an idea..." class="w-full bg-dark-800 border border-white/10 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-indigo-500"></textarea>
+                                <button onclick="saveQuickNote()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold">Save Note</button>
+                                <div id="notes-container" class="space-y-2 mt-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. HABITS & GOALS VIEW -->
+                <div id="view-habits" class="app-view hidden space-y-6">
+                    <h1 class="text-xl sm:text-2xl font-bold text-white">Habit & Goal Architecture</h1>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4 h-fit">
+                            <h3 class="font-bold text-white text-sm">Add New Habit</h3>
+                            <form onsubmit="handleAddHabit(event)" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Habit Name</label>
+                                    <input type="text" id="habit-name" required placeholder="e.g. Read 20 mins" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500">
+                                </div>
+                                <button type="submit" class="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm shadow-lg transition">
+                                    Create Habit
+                                </button>
+                            </form>
+                        </div>
+                        <div class="lg:col-span-2 glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4">
+                            <h3 class="font-bold text-white text-sm">Streak Tracker</h3>
+                            <div id="habits-container" class="space-y-3"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. FINANCES VIEW -->
+                <div id="view-finances" class="app-view hidden space-y-6">
+                    <h1 class="text-xl sm:text-2xl font-bold text-white">Financial & Subscription Ledger</h1>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4 h-fit">
+                            <h3 class="font-bold text-white text-sm">Add Transaction</h3>
+                            <form onsubmit="handleAddTransaction(event)" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Description</label>
+                                    <input type="text" id="tx-desc" required placeholder="e.g. Client Consulting" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Amount ($)</label>
+                                    <input type="number" step="0.01" id="tx-amount" required placeholder="e.g. 150.00" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Type</label>
+                                    <select id="tx-type" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                                        <option value="Income">Income</option>
+                                        <option value="Expense">Expense</option>
+                                        <option value="Subscription">Subscription</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-lg transition">
+                                    Add Transaction
+                                </button>
+                            </form>
+                        </div>
+                        <div class="lg:col-span-2 glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-white text-sm">Transaction Ledger</h3>
+                                <div class="text-sm font-bold text-emerald-400" id="finances-net-total">Net: $0.00</div>
+                            </div>
+                            <div id="finances-container" class="space-y-3"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. SCHEDULE PLANNER VIEW -->
+                <div id="view-schedule" class="app-view hidden space-y-6">
+                    <h1 class="text-xl sm:text-2xl font-bold text-white">Daily Schedule & Time-Blocking</h1>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4 h-fit">
+                            <h3 class="font-bold text-white text-sm">Add Time Block</h3>
+                            <form onsubmit="handleAddSchedule(event)" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Time Block</label>
+                                    <input type="text" id="sched-time" required placeholder="e.g. 09:00 AM - 10:30 AM" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Activity</label>
+                                    <input type="text" id="sched-activity" required placeholder="e.g. Deep Work" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+                                </div>
+                                <button type="submit" class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-lg transition">
+                                    Add Block
+                                </button>
+                            </form>
+                        </div>
+                        <div class="lg:col-span-2 glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4">
+                            <h3 class="font-bold text-white text-sm">Today's Timeline</h3>
+                            <div id="schedule-container" class="space-y-3"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. STUDY PLAN & LEARNING TRACKER VIEW -->
+                <div id="view-learning" class="app-view hidden space-y-6">
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-bold text-white">Study Plan & Timeline Tracker</h1>
+                        <p class="text-slate-400 text-xs sm:text-sm mt-1">Build structured study curricula with sub-tasks, target dates, and estimated sub-times.</p>
+                    </div>
+
+                    <!-- Pomodoro Widget -->
+                    <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 flex-shrink-0">
+                                <i class="fa-solid fa-clock text-lg sm:text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-sm">Pomodoro Study Timer</h3>
+                                <p class="text-xs text-slate-400">Keep laser focus during study sessions.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 sm:space-x-6 w-full sm:w-auto justify-between sm:justify-start">
+                            <div id="pomodoro-display" class="text-2xl sm:text-3xl font-mono font-bold text-white tracking-widest">25:00</div>
+                            <div class="flex space-x-2">
+                                <button onclick="togglePomodoro()" id="pomodoro-toggle-btn" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold">Start</button>
+                                <button onclick="resetPomodoro()" class="px-4 py-2 rounded-xl glass-card border border-white/10 text-slate-300 text-xs font-semibold hover:bg-white/5">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4 h-fit">
+                            <h3 class="font-bold text-white text-sm">Create Study Plan</h3>
+                            <form onsubmit="handleCreateStudyPlan(event)" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Plan Title</label>
+                                    <input type="text" id="study-title" required placeholder="e.g. Advanced Architecture" class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Due Date</label>
+                                    <input type="date" id="study-date" required class="w-full bg-dark-800 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Description</label>
+                                    <textarea id="study-desc" rows="2" placeholder="Overview..." class="w-full bg-dark-800 border border-white/10 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-amber-500"></textarea>
+                                </div>
+                                <button type="submit" class="w-full py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm shadow-lg transition">
+                                    Build Study Plan
+                                </button>
+                            </form>
+                        </div>
+                        <div class="lg:col-span-2 space-y-6">
+                            <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-bold text-white text-sm">Active Study Plans</h3>
+                                    <span id="study-count-badge" class="text-xs text-slate-400">0 plans</span>
+                                </div>
+                                <div id="study-plans-container" class="space-y-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. SETTINGS VIEW -->
+                <div id="view-settings" class="app-view hidden space-y-6">
+                    <h1 class="text-xl sm:text-2xl font-bold text-white">Workspace Settings</h1>
+                    <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 space-y-4 max-w-xl">
+                        <h3 class="font-bold text-white text-sm">Data Privacy</h3>
+                        <p class="text-xs text-slate-400">All data is securely saved in your browser storage.</p>
+                        <button onclick="resetAllUserData()" class="px-4 py-2.5 rounded-xl bg-rose-600/20 text-rose-300 border border-rose-500/30 text-xs font-semibold">
+                            Reset All Workspace Data
+                        </button>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        
+        function openApp() {
+            document.getElementById('landing-page').classList.add('hidden');
+            document.getElementById('app-workspace').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            renderAllAppData();
+        }
+
+        function closeApp() {
+            document.getElementById('app-workspace').classList.add('hidden');
+            document.getElementById('landing-page').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('app-sidebar');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            sidebar.classList.toggle('-translate-x-full');
+            backdrop.classList.toggle('hidden');
+        }
+
+        function switchAppView(viewName) {
+            document.querySelectorAll('.app-view').forEach(el => el.classList.add('hidden'));
+            document.getElementById('view-' + viewName).classList.remove('hidden');
+
+            ['dashboard', 'tasks', 'habits', 'finances', 'schedule', 'learning', 'settings'].forEach(name => {
+                const btn = document.getElementById('nav-' + name);
+                if (btn) {
+                    if (name === viewName) {
+                        btn.className = 'w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition bg-indigo-600 text-white shadow-lg';
+                    } else {
+                        btn.className = 'w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition text-slate-400 hover:bg-white/5 hover:text-white';
+                    }
+                }
+            });
+
+            // Close mobile sidebar if open
+            const sidebar = document.getElementById('app-sidebar');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            if (!sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.add('-translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+
+            document.getElementById('app-current-view-title').textContent = viewName.charAt(0).toUpperCase() + viewName.slice(1);
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        const STORAGE_KEY = 'life_os_app_data_v6';
+
+        function getDefaultData() {
+            return {
+                tasks: [
+                    { id: 1, title: 'Review quarterly financial budget', completed: true, priority: 'High', category: 'Finance' },
+                    { id: 2, title: 'Complete Chapter 4 study plan milestone', completed: false, priority: 'High', category: 'Study' }
+                ],
+                notes: [{ id: 1, text: 'Remember to review architecture documentation.' }],
+                habits: [{ id: 1, name: 'Deep Work (2 Hours)', freq: 'Daily', streak: 14, completedToday: true }],
+                finances: [
+                    { id: 1, desc: 'Client Consulting', amount: 3500.00, type: 'Income' },
+                    { id: 2, desc: 'Apartment Rent', amount: 1400.00, type: 'Expense' }
+                ],
+                schedule: [{ id: 1, time: '09:00 AM - 10:30 AM', activity: 'Deep Work Sprint' }],
+                studyPlans: [
+                    {
+                        id: 1,
+                        title: 'Advanced System Architecture',
+                        date: '2026-10-25',
+                        desc: 'Master distributed system design and caching patterns.',
+                        subtasks: [
+                            { id: 101, title: 'Read Chapter 1: Load Balancers', dueDate: '2026-10-20', estTime: '90m', completed: true },
+                            { id: 102, title: 'Complete DB Sharding Exercise', dueDate: '2026-10-22', estTime: '120m', completed: false }
+                        ]
+                    }
+                ]
+            };
+        }
+
+        function loadAppData() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            if (!data) {
+                const def = getDefaultData();
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(def));
+                return def;
+            }
+            try { return JSON.parse(data); } catch(e) { return getDefaultData(); }
+        }
+
+        function saveAppData(data) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            renderAllAppData();
+        }
+
+        function renderAllAppData() {
+            const data = loadAppData();
+
+            const completedTasksCount = data.tasks.filter(t => t.completed).length;
+            document.getElementById('stat-tasks-done').textContent = `${completedTasksCount} / ${data.tasks.length}`;
+            document.getElementById('stat-study-active').textContent = `${data.studyPlans.length} Active`;
+
+            let net = 0;
+            data.finances.forEach(tx => {
+                if (tx.type === 'Income') net += Number(tx.amount);
+                else net -= Number(tx.amount);
+            });
+            document.getElementById('stat-net-balance').textContent = `$${net.toFixed(2)}`;
+
+            // Tasks
+            document.getElementById('task-count-badge').textContent = `${data.tasks.length} tasks`;
+            document.getElementById('tasks-container').innerHTML = data.tasks.map(t => `
+                <div class="flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-dark-800 border border-white/5 text-sm gap-2">
+                    <div class="flex items-center space-x-3 min-w-0">
+                        <input type="checkbox" ${t.completed ? 'checked' : ''} onclick="toggleTask(${t.id})" class="rounded bg-dark-700 text-indigo-500 flex-shrink-0">
+                        <span class="${t.completed ? 'line-through text-slate-500' : 'text-slate-200'} truncate">${t.title}</span>
+                    </div>
+                    <button onclick="deleteTask(${t.id})" class="text-slate-500 hover:text-rose-400 text-xs flex-shrink-0 p-1"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('') || '<p class="text-xs text-slate-500">No tasks.</p>';
+
+            // Notes
+            document.getElementById('notes-container').innerHTML = data.notes.map(n => `
+                <div class="p-3 rounded-xl bg-dark-800 border border-white/5 text-xs text-slate-300 flex justify-between items-start gap-2">
+                    <span class="break-words">${n.text}</span>
+                    <button onclick="deleteNote(${n.id})" class="text-slate-500 hover:text-rose-400 flex-shrink-0"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            `).join('');
+
+            // Habits
+            document.getElementById('habits-container').innerHTML = data.habits.map(h => `
+                <div class="flex items-center justify-between p-3.5 sm:p-4 rounded-xl bg-dark-800 border border-white/5 text-sm gap-2">
+                    <div class="flex items-center space-x-3 min-w-0">
+                        <button onclick="toggleHabit(${h.id})" class="w-7 h-7 rounded-lg ${h.completedToday ? 'bg-emerald-500 text-white' : 'bg-dark-700 text-slate-400'} flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-check text-xs"></i>
+                        </button>
+                        <div class="min-w-0">
+                            <div class="font-semibold text-white truncate">${h.name}</div>
+                            <div class="text-xs text-purple-400">${h.streak} Day Streak</div>
+                        </div>
+                    </div>
+                    <button onclick="deleteHabit(${h.id})" class="text-slate-500 hover:text-rose-400 text-xs flex-shrink-0 p-1"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('') || '<p class="text-xs text-slate-500">No habits.</p>';
+
+            // Finances
+            document.getElementById('finances-container').innerHTML = data.finances.map(tx => {
+                const color = tx.type === 'Income' ? 'text-emerald-400' : 'text-rose-400';
+                const sign = tx.type === 'Income' ? '+' : '-';
+                return `
+                    <div class="flex items-center justify-between p-3.5 rounded-xl bg-dark-800 border border-white/5 text-sm gap-2">
+                        <div class="min-w-0">
+                            <div class="font-semibold text-white truncate">${tx.desc}</div>
+                            <div class="text-[10px] text-slate-400 uppercase">${tx.type}</div>
+                        </div>
+                        <div class="flex items-center space-x-3 flex-shrink-0">
+                            <span class="${color} font-mono font-bold text-xs sm:text-sm">${sign}$${Number(tx.amount).toFixed(2)}</span>
+                            <button onclick="deleteTransaction(${tx.id})" class="text-slate-500 hover:text-rose-400 text-xs p-1"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            }).join('') || '<p class="text-xs text-slate-500">No transactions.</p>';
+            document.getElementById('finances-net-total').textContent = `Net: $${net.toFixed(2)}`;
+
+            // Schedule
+            document.getElementById('schedule-container').innerHTML = data.schedule.map(s => `
+                <div class="flex items-center justify-between p-3.5 rounded-xl bg-dark-800 border border-white/5 text-sm gap-2">
+                    <div class="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 min-w-0">
+                        <span class="text-[11px] font-mono font-semibold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-lg w-fit">${s.time}</span>
+                        <span class="text-slate-200 font-medium truncate">${s.activity}</span>
+                    </div>
+                    <button onclick="deleteSchedule(${s.id})" class="text-slate-500 hover:text-rose-400 text-xs flex-shrink-0 p-1"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('') || '<p class="text-xs text-slate-500">No schedule blocks.</p>';
+
+            // Study Plans
+            document.getElementById('study-count-badge').textContent = `${data.studyPlans.length} plans`;
+            document.getElementById('study-plans-container').innerHTML = data.studyPlans.map(sp => {
+                const compSub = sp.subtasks.filter(st => st.completed).length;
+                const totalSub = sp.subtasks.length;
+                const pct = totalSub > 0 ? Math.round((compSub / totalSub) * 100) : 0;
+                return `
+                    <div class="p-4 sm:p-5 rounded-2xl bg-dark-800 border border-white/5 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-white/5">
+                            <div class="min-w-0">
+                                <h4 class="font-bold text-white text-base truncate">${sp.title}</h4>
+                                <p class="text-xs text-slate-400 mt-0.5 break-words">${sp.desc}</p>
+                            </div>
+                            <div class="flex items-center justify-between sm:justify-start space-x-3 flex-shrink-0">
+                                <span class="text-xs font-semibold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full">Due: ${sp.date}</span>
+                                <button onclick="deleteStudyPlan(${sp.id})" class="text-slate-500 hover:text-rose-400 text-xs p-1"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs text-slate-400"><span>Progress</span><span>${compSub}/${totalSub} (${pct}%)</span></div>
+                            <div class="w-full bg-dark-700 h-2 rounded-full overflow-hidden"><div class="bg-amber-500 h-full" style="width: ${pct}%"></div></div>
+                        </div>
+
+                        <div class="space-y-2 pt-2">
+                            <div class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Sub-Tasks & Target Dates:</div>
+                            ${sp.subtasks.map(st => `
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-2.5 rounded-xl bg-dark-700/50 border border-white/5 text-xs gap-2">
+                                    <div class="flex items-center space-x-3 min-w-0">
+                                        <input type="checkbox" ${st.completed ? 'checked' : ''} onclick="toggleSubtask(${sp.id},${st.id})" class="rounded bg-dark-800 text-amber-500 flex-shrink-0">
+                                        <span class="${st.completed ? 'line-through text-slate-500' : 'text-slate-200'} font-medium truncate">${st.title}</span>
+                                    </div>
+                                    <div class="flex items-center justify-between sm:justify-end space-x-3 text-slate-400 font-mono text-[11px] flex-shrink-0 pl-6 sm:pl-0">
+                                        <span><i class="fa-regular fa-calendar mr-1 text-amber-400"></i>${st.dueDate}</span>
+                                        <span class="bg-dark-800 px-2 py-0.5 rounded text-amber-300 font-semibold"><i class="fa-regular fa-clock mr-1"></i>${st.estTime}</span>
+                                        <button onclick="deleteSubtask(${sp.id},${st.id})" class="text-slate-500 hover:text-rose-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+                                    </div>
+                                </div>
+                            `).join('') || '<p class="text-xs text-slate-500">No sub-tasks yet.</p>'}
+
+                            <form onsubmit="handleAddSubtask(event, ${sp.id})" class="flex flex-col sm:flex-row gap-2 mt-3 pt-3 border-t border-white/5">
+                                <input type="text" id="sub-title-${sp.id}" required placeholder="Sub-task title..." class="bg-dark-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500 flex-grow">
+                                <input type="date" id="sub-date-${sp.id}" required class="bg-dark-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+                                <input type="text" id="sub-est-${sp.id}" required placeholder="Est. (e.g. 45m)" class="bg-dark-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500 sm:w-28">
+                                <button type="submit" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold">Add Sub-Task</button>
+                            </form>
+                        </div>
+                    </div>
+                `;
+            }).join('') || '<p class="text-xs text-slate-500">No study plans created yet.</p>';
+        }
+
+        // Action Handlers
+        function handleAddTask(e) {
+            e.preventDefault();
+            const data = loadAppData();
+            data.tasks.unshift({
+                id: Date.now(),
+                title: document.getElementById('task-title').value,
+                priority: document.getElementById('task-priority').value,
+                category: document.getElementById('task-category').value,
+                completed: false
+            });
+            saveAppData(data);
+            document.getElementById('task-form').reset();
+        }
+        function toggleTask(id) {
+            const data = loadAppData();
+            const t = data.tasks.find(x => x.id === id);
+            if (t) { t.completed = !t.completed; saveAppData(data); }
+        }
+        function deleteTask(id) {
+            const data = loadAppData();
+            data.tasks = data.tasks.filter(x => x.id !== id);
+            saveAppData(data);
+        }
+        function saveQuickNote() {
+            const input = document.getElementById('quick-note-input');
+            if (!input.value.trim()) return;
+            const data = loadAppData();
+            data.notes.unshift({ id: Date.now(), text: input.value.trim() });
+            saveAppData(data);
+            input.value = '';
+        }
+        function deleteNote(id) {
+            const data = loadAppData();
+            data.notes = data.notes.filter(x => x.id !== id);
+            saveAppData(data);
+        }
+        function handleAddHabit(e) {
+            e.preventDefault();
+            const data = loadAppData();
+            data.habits.push({ id: Date.now(), name: document.getElementById('habit-name').value, freq: 'Daily', streak: 1, completedToday: false });
+            saveAppData(data);
+            document.getElementById('habit-name').value = '';
+        }
+        function toggleHabit(id) {
+            const data = loadAppData();
+            const h = data.habits.find(x => x.id === id);
+            if (h) {
+                h.completedToday = !h.completedToday;
+                h.streak = h.completedToday ? h.streak + 1 : Math.max(0, h.streak - 1);
+                saveAppData(data);
+            }
+        }
+        function deleteHabit(id) {
+            const data = loadAppData();
+            data.habits = data.habits.filter(x => x.id !== id);
+            saveAppData(data);
+        }
+        function handleAddTransaction(e) {
+            e.preventDefault();
+            const data = loadAppData();
+            data.finances.unshift({
+                id: Date.now(),
+                desc: document.getElementById('tx-desc').value,
+                amount: parseFloat(document.getElementById('tx-amount').value),
+                type: document.getElementById('tx-type').value
+            });
+            saveAppData(data);
+            document.getElementById('tx-desc').value = '';
+            document.getElementById('tx-amount').value = '';
+        }
+        function deleteTransaction(id) {
+            const data = loadAppData();
+            data.finances = data.finances.filter(x => x.id !== id);
+            saveAppData(data);
+        }
+        function handleAddSchedule(e) {
+            e.preventDefault();
+            const data = loadAppData();
+            data.schedule.push({
+                id: Date.now(),
+                time: document.getElementById('sched-time').value,
+                activity: document.getElementById('sched-activity').value
+            });
+            saveAppData(data);
+            document.getElementById('sched-time').value = '';
+            document.getElementById('sched-activity').value = '';
+        }
+        function deleteSchedule(id) {
+            const data = loadAppData();
+            data.schedule = data.schedule.filter(x => x.id !== id);
+            saveAppData(data);
+        }
+        function handleCreateStudyPlan(e) {
+            e.preventDefault();
+            const data = loadAppData();
+            data.studyPlans.unshift({
+                id: Date.now(),
+                title: document.getElementById('study-title').value,
+                date: document.getElementById('study-date').value,
+                desc: document.getElementById('study-desc').value,
+                subtasks: []
+            });
+            saveAppData(data);
+            document.getElementById('study-title').value = '';
+            document.getElementById('study-date').value = '';
+            document.getElementById('study-desc').value = '';
+        }
+        function deleteStudyPlan(id) {
+            const data = loadAppData();
+            data.studyPlans = data.studyPlans.filter(x => x.id !== id);
+            saveAppData(data);
+        }
+        function handleAddSubtask(e, planId) {
+            e.preventDefault();
+            const data = loadAppData();
+            const plan = data.studyPlans.find(x => x.id === planId);
+            if (plan) {
+                plan.subtasks.push({
+                    id: Date.now(),
+                    title: document.getElementById(`sub-title-${planId}`).value,
+                    dueDate: document.getElementById(`sub-date-${planId}`).value,
+                    estTime: document.getElementById(`sub-est-${planId}`).value,
+                    completed: false
+                });
+                saveAppData(data);
+            }
+        }
+        function toggleSubtask(planId, subId) {
+            const data = loadAppData();
+            const plan = data.studyPlans.find(x => x.id === planId);
+            if (plan) {
+                const st = plan.subtasks.find(x => x.id === subId);
+                if (st) { st.completed = !st.completed; saveAppData(data); }
+            }
+        }
+        function deleteSubtask(planId, subId) {
+            const data = loadAppData();
+            const plan = data.studyPlans.find(x => x.id === planId);
+            if (plan) {
+                plan.subtasks = plan.subtasks.filter(x => x.id !== subId);
+                saveAppData(data);
+            }
+        }
+        function resetAllUserData() {
+            if (confirm('Are you sure you want to reset all data?')) {
+                localStorage.removeItem(STORAGE_KEY);
+                renderAllAppData();
+                alert('Reset complete.');
+            }
+        }
+
+        // Pomodoro Timer
+        let pomodoroSeconds = 25 * 60;
+        let pomodoroTimerId = null;
+        let pomodoroRunning = false;
+        function togglePomodoro() {
+            const btn = document.getElementById('pomodoro-toggle-btn');
+            if (pomodoroRunning) {
+                clearInterval(pomodoroTimerId);
+                pomodoroRunning = false;
+                btn.textContent = 'Start';
+                btn.className = 'px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold';
+            } else {
+                pomodoroRunning = true;
+                btn.textContent = 'Pause';
+                btn.className = 'px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold';
+                pomodoroTimerId = setInterval(() => {
+                    if (pomodoroSeconds > 0) {
+                        pomodoroSeconds--;
+                        updatePomodoroDisplay();
+                    } else {
+                        clearInterval(pomodoroTimerId);
+                        pomodoroRunning = false;
+                        alert('Pomodoro session complete!');
+                        resetPomodoro();
+                    }
+                }, 1000);
+            }
+        }
+        function resetPomodoro() {
+            clearInterval(pomodoroTimerId);
+            pomodoroRunning = false;
+            pomodoroSeconds = 25 * 60;
+            updatePomodoroDisplay();
+            const btn = document.getElementById('pomodoro-toggle-btn');
+            btn.textContent = 'Start';
+            btn.className = 'px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold';
+        }
+        function updatePomodoroDisplay() {
+            const mins = Math.floor(pomodoroSeconds / 60);
+            const secs = pomodoroSeconds % 60;
+            document.getElementById('pomodoro-display').textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => { loadAppData(); });
+    </script>
+</body>
+</html>
