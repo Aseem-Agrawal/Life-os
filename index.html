@@ -52,6 +52,10 @@
             50% { opacity: 0.8; }
         }
         .animate-pulse-glow { animation: pulseGlow 3s infinite ease-in-out; }
+        .sidebar-collapsed { width: 4.5rem !important; }
+        .sidebar-collapsed .nav-text, .sidebar-collapsed .sidebar-header-title { display: none !important; }
+        .sidebar-collapsed button span { display: none !important; }
+        .sidebar-collapsed button { justify-content: center !important; padding-left: 0 !important; padding-right: 0 !important; }
     </style>
 </head>
 <body class="bg-cyber-bg text-slate-100 min-h-screen flex flex-col cyber-grid selection:bg-cyber-cyan selection:text-black">
@@ -86,33 +90,34 @@
         <!-- Main Layout Body -->
         <div class="flex flex-col lg:flex-row flex-grow relative">
             <!-- Sidebar Navigation -->
-            <aside id="app-sidebar" class="fixed lg:static inset-y-0 left-0 z-40 w-72 lg:w-64 cyber-box border-r border-cyber-border p-4 space-y-2.5 flex-shrink-0 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out pt-20 lg:pt-6">
-                <div class="flex items-center justify-between lg:hidden mb-4 pb-3 border-b border-cyber-border px-2">
-                    <span class="text-xs cyber-font text-cyber-cyan uppercase tracking-widest">SYSTEM_NAV</span>
-                    <button onclick="toggleMobileSidebar()" class="text-slate-400 hover:text-cyber-cyan"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <aside id="app-sidebar" class="fixed lg:static inset-y-0 left-0 z-40 w-72 lg:w-64 cyber-box border-r border-cyber-border p-4 space-y-2.5 flex-shrink-0 transform -translate-x-full lg:translate-x-0 transition-all duration-200 ease-in-out pt-20 lg:pt-6">
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-cyber-border px-2">
+                    <span class="text-xs cyber-font text-cyber-cyan uppercase tracking-widest sidebar-header-title">SYSTEM_NAV</span>
+                    <button onclick="toggleDesktopSidebar()" class="hidden lg:flex text-slate-400 hover:text-cyber-cyan w-7 h-7 rounded items-center justify-center cyber-box"><i class="fa-solid fa-chevron-left text-xs" id="sidebar-toggle-icon"></i></button>
+                    <button onclick="toggleMobileSidebar()" class="lg:hidden text-slate-400 hover:text-cyber-cyan"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
-                <div class="text-[9px] cyber-font font-bold text-slate-500 uppercase px-3 mb-2 tracking-widest hidden lg:block">DIRECTORIES</div>
+                <div class="text-[9px] cyber-font font-bold text-slate-500 uppercase px-3 mb-2 tracking-widest hidden lg:block sidebar-header-title">DIRECTORIES</div>
                 
-                <button onclick="switchAppView('dashboard')" id="nav-dashboard" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-semibold transition bg-cyber-cyan/15 text-cyber-cyan border border-cyber-cyan/40">
-                    <i class="fa-solid fa-chart-line w-5 text-cyber-cyan"></i><span>01 // DASHBOARD</span>
+                <button onclick="switchAppView('dashboard')" id="nav-dashboard" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-semibold transition bg-cyber-cyan/15 text-cyber-cyan border border-cyber-cyan/40" title="Dashboard">
+                    <i class="fa-solid fa-chart-line w-5 text-cyber-cyan flex-shrink-0"></i><span class="nav-text">01 // DASHBOARD</span>
                 </button>
-                <button onclick="switchAppView('schedule')" id="nav-schedule" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
-                    <i class="fa-solid fa-clock-rotate-left w-5 text-cyber-cyan"></i><span>02 // SCHEDULE PLANNER</span>
+                <button onclick="switchAppView('schedule')" id="nav-schedule" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Schedule Planner">
+                    <i class="fa-solid fa-clock-rotate-left w-5 text-cyber-cyan flex-shrink-0"></i><span class="nav-text">02 // SCHEDULE PLANNER</span>
                 </button>
-                <button onclick="switchAppView('tasks')" id="nav-tasks" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
-                    <i class="fa-solid fa-list-check w-5 text-cyber-neon"></i><span>03 // TASKS & VAULT</span>
+                <button onclick="switchAppView('tasks')" id="nav-tasks" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Tasks & Vault">
+                    <i class="fa-solid fa-list-check w-5 text-cyber-neon flex-shrink-0"></i><span class="nav-text">03 // TASKS & VAULT</span>
                 </button>
-                <button onclick="switchAppView('habits')" id="nav-habits" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
-                    <i class="fa-solid fa-fire w-5 text-cyber-amber"></i><span>04 // HABIT MATRIX</span>
+                <button onclick="switchAppView('habits')" id="nav-habits" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Habit Matrix">
+                    <i class="fa-solid fa-fire w-5 text-cyber-amber flex-shrink-0"></i><span class="nav-text">04 // HABIT MATRIX</span>
                 </button>
-                <button onclick="switchAppView('learning')" id="nav-learning" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
-                    <i class="fa-solid fa-graduation-cap w-5 text-cyber-purple"></i><span>05 // STUDY & TIMELINE</span>
+                <button onclick="switchAppView('learning')" id="nav-learning" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Study & Timeline">
+                    <i class="fa-solid fa-graduation-cap w-5 text-cyber-purple flex-shrink-0"></i><span class="nav-text">05 // STUDY & TIMELINE</span>
                 </button>
-                <button onclick="switchAppView('finances')" id="nav-finances" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
-                    <i class="fa-solid fa-wallet w-5 text-cyber-neon"></i><span>06 // FINANCES</span>
+                <button onclick="switchAppView('finances')" id="nav-finances" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Finances">
+                    <i class="fa-solid fa-wallet w-5 text-cyber-neon flex-shrink-0"></i><span class="nav-text">06 // FINANCES</span>
                 </button>
-                <button onclick="switchAppView('settings')" id="nav-settings" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white">
-                    <i class="fa-solid fa-sliders w-5 text-slate-400"></i><span>07 // SYS.CONFIG</span>
+                <button onclick="switchAppView('settings')" id="nav-settings" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Sys.Config">
+                    <i class="fa-solid fa-sliders w-5 text-slate-400 flex-shrink-0"></i><span class="nav-text">07 // SYS.CONFIG</span>
                 </button>
             </aside>
 
@@ -131,10 +136,10 @@
                             <p class="text-slate-400 text-xs cyber-font mt-1">ALL LIFE PROTOCOLS SYNCHRONIZED & OPERATIONAL</p>
                         </div>
                         <div class="flex items-center space-x-3 z-10">
-                            <button onclick="switchAppView('tasks')" class="px-4 py-2.5 rounded bg-cyber-cyan/15 hover:bg-cyber-cyan/25 text-cyber-cyan text-xs cyber-font font-semibold border border-cyber-cyan/40 transition cyber-glow">
+                            <button onclick="playCyberSound('click'); switchAppView('tasks');" class="px-4 py-2.5 rounded bg-cyber-cyan/15 hover:bg-cyber-cyan/25 text-cyber-cyan text-xs cyber-font font-semibold border border-cyber-cyan/40 transition cyber-glow">
                                 <i class="fa-solid fa-plus mr-1.5"></i> NEW_TASK
                             </button>
-                            <button onclick="switchAppView('learning')" class="px-4 py-2.5 rounded cyber-box cyber-box-hover text-slate-200 text-xs cyber-font font-semibold transition">
+                            <button onclick="playCyberSound('click'); switchAppView('learning');" class="px-4 py-2.5 rounded cyber-box cyber-box-hover text-slate-200 text-xs cyber-font font-semibold transition">
                                 <i class="fa-solid fa-graduation-cap mr-1.5 text-cyber-purple"></i> STUDY_PLANS
                             </button>
                         </div>
@@ -170,16 +175,16 @@
                         <div class="cyber-box p-5 rounded-xl space-y-4">
                             <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
                                 <h3 class="font-bold text-white text-xs cyber-font uppercase tracking-wider flex items-center"><span class="text-cyber-cyan mr-2">&gt;</span> PRIORITY TASK QUEUE</h3>
-                                <button onclick="switchAppView('tasks')" class="text-[11px] cyber-font text-cyber-cyan hover:underline">VIEW_ALL</button>
+                                <button onclick="playCyberSound('click'); switchAppView('tasks');" class="text-[11px] cyber-font text-cyber-cyan hover:underline">VIEW_ALL</button>
                             </div>
                             <div id="dashboard-tasks-list" class="space-y-2.5"></div>
                         </div>
 
-                        <!-- Schedule Preview Widget (Added) -->
+                        <!-- Schedule Preview Widget -->
                         <div class="cyber-box p-5 rounded-xl space-y-4">
                             <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
                                 <h3 class="font-bold text-white text-xs cyber-font uppercase tracking-wider flex items-center"><span class="text-cyber-neon mr-2">&gt;</span> TODAY'S SCHEDULE</h3>
-                                <button onclick="switchAppView('schedule')" class="text-[11px] cyber-font text-cyber-neon hover:underline">MANAGE</button>
+                                <button onclick="playCyberSound('click'); switchAppView('schedule');" class="text-[11px] cyber-font text-cyber-neon hover:underline">MANAGE</button>
                             </div>
                             <div id="dashboard-schedule-list" class="space-y-2.5"></div>
                         </div>
@@ -188,7 +193,7 @@
                         <div class="cyber-box p-5 rounded-xl space-y-4">
                             <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
                                 <h3 class="font-bold text-white text-xs cyber-font uppercase tracking-wider flex items-center"><span class="text-cyber-purple mr-2">&gt;</span> ACTIVE STUDY TIMELINE</h3>
-                                <button onclick="switchAppView('learning')" class="text-[11px] cyber-font text-cyber-purple hover:underline">MANAGE</button>
+                                <button onclick="playCyberSound('click'); switchAppView('learning');" class="text-[11px] cyber-font text-cyber-purple hover:underline">MANAGE</button>
                             </div>
                             <div id="dashboard-study-list" class="space-y-3"></div>
                         </div>
@@ -414,14 +419,68 @@
 
     <!-- ==================== SCRIPT LOGIC ==================== -->
     <script>
+        // Web Audio API Sound Effects Engine
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playCyberSound(type) {
+            try {
+                if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+                if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(800, now);
+                    osc.frequency.exponentialRampToValueAtTime(400, now + 0.05);
+                    gain.gain.setValueAtTime(0.08, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+                    osc.start(now);
+                    osc.stop(now + 0.05);
+                } else if (type === 'success') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.08);
+                    osc.frequency.setValueAtTime(783.99, now + 0.16);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                } else if (type === 'delete') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(300, now);
+                    osc.frequency.linearRampToValueAtTime(100, now + 0.12);
+                    gain.gain.setValueAtTime(0.08, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                    osc.start(now);
+                    osc.stop(now + 0.12);
+                }
+            } catch (e) { console.log('Audio playback prevented or unsupported'); }
+        }
+
         function toggleMobileSidebar() {
+            playCyberSound('click');
             const sidebar = document.getElementById('app-sidebar');
             const backdrop = document.getElementById('sidebar-backdrop');
             sidebar.classList.toggle('-translate-x-full');
             backdrop.classList.toggle('hidden');
         }
 
+        function toggleDesktopSidebar() {
+            playCyberSound('click');
+            const sidebar = document.getElementById('app-sidebar');
+            const toggleIcon = document.getElementById('sidebar-toggle-icon');
+            sidebar.classList.toggle('sidebar-collapsed');
+            if (sidebar.classList.contains('sidebar-collapsed')) {
+                toggleIcon.className = 'fa-solid fa-chevron-right text-xs';
+            } else {
+                toggleIcon.className = 'fa-solid fa-chevron-left text-xs';
+            }
+        }
+
         function switchAppView(viewName) {
+            playCyberSound('click');
             document.querySelectorAll('.app-view').forEach(el => el.classList.add('hidden'));
             document.getElementById('view-' + viewName).classList.remove('hidden');
 
@@ -438,7 +497,7 @@
 
             const sidebar = document.getElementById('app-sidebar');
             const backdrop = document.getElementById('sidebar-backdrop');
-            if (!sidebar.classList.contains('-translate-x-full')) {
+            if (!sidebar.classList.contains('-translate-x-full') && window.innerWidth < 1024) {
                 sidebar.classList.add('-translate-x-full');
                 backdrop.classList.add('hidden');
             }
@@ -537,7 +596,7 @@
                 </div>
             `).join('') || '<p class="text-xs cyber-font text-slate-500">NO_TASKS_FOUND</p>';
 
-            // Dashboard Schedule Preview (Added)
+            // Dashboard Schedule Preview
             document.getElementById('dashboard-schedule-list').innerHTML = data.schedule.slice(0, 3).map(s => `
                 <div class="flex items-center justify-between p-3 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font gap-2">
                     <span class="text-[10px] font-mono font-semibold text-cyber-cyan bg-cyber-cyan/10 px-2 py-0.5 rounded flex-shrink-0">${s.time}</span>
@@ -680,6 +739,7 @@
         // Actions
         function handleAddTask(e) {
             e.preventDefault();
+            playCyberSound('success');
             const data = loadAppData();
             data.tasks.unshift({
                 id: Date.now(),
@@ -692,11 +752,13 @@
             document.getElementById('task-form').reset();
         }
         function toggleTask(id) {
+            playCyberSound('click');
             const data = loadAppData();
             const t = data.tasks.find(x => x.id === id);
             if (t) { t.completed = !t.completed; saveAppData(data); }
         }
         function deleteTask(id) {
+            playCyberSound('delete');
             const data = loadAppData();
             data.tasks = data.tasks.filter(x => x.id !== id);
             saveAppData(data);
@@ -704,24 +766,28 @@
         function saveQuickNote() {
             const input = document.getElementById('quick-note-input');
             if (!input.value.trim()) return;
+            playCyberSound('success');
             const data = loadAppData();
             data.notes.unshift({ id: Date.now(), text: input.value.trim() });
             saveAppData(data);
             input.value = '';
         }
         function deleteNote(id) {
+            playCyberSound('delete');
             const data = loadAppData();
             data.notes = data.notes.filter(x => x.id !== id);
             saveAppData(data);
         }
         function handleAddHabit(e) {
             e.preventDefault();
+            playCyberSound('success');
             const data = loadAppData();
             data.habits.push({ id: Date.now(), name: document.getElementById('habit-name').value, freq: 'Daily', streak: 1, completedToday: false });
             saveAppData(data);
             document.getElementById('habit-name').value = '';
         }
         function toggleHabit(id) {
+            playCyberSound('success');
             const data = loadAppData();
             const h = data.habits.find(x => x.id === id);
             if (h) {
@@ -731,12 +797,14 @@
             }
         }
         function deleteHabit(id) {
+            playCyberSound('delete');
             const data = loadAppData();
             data.habits = data.habits.filter(x => x.id !== id);
             saveAppData(data);
         }
         function handleAddTransaction(e) {
             e.preventDefault();
+            playCyberSound('success');
             const data = loadAppData();
             data.finances.unshift({
                 id: Date.now(),
@@ -749,12 +817,14 @@
             document.getElementById('tx-amount').value = '';
         }
         function deleteTransaction(id) {
+            playCyberSound('delete');
             const data = loadAppData();
             data.finances = data.finances.filter(x => x.id !== id);
             saveAppData(data);
         }
         function handleAddSchedule(e) {
             e.preventDefault();
+            playCyberSound('success');
             const data = loadAppData();
             data.schedule.push({
                 id: Date.now(),
@@ -766,12 +836,14 @@
             document.getElementById('sched-activity').value = '';
         }
         function deleteSchedule(id) {
+            playCyberSound('delete');
             const data = loadAppData();
             data.schedule = data.schedule.filter(x => x.id !== id);
             saveAppData(data);
         }
         function handleCreateStudyPlan(e) {
             e.preventDefault();
+            playCyberSound('success');
             const data = loadAppData();
             data.studyPlans.unshift({
                 id: Date.now(),
@@ -786,12 +858,14 @@
             document.getElementById('study-desc').value = '';
         }
         function deleteStudyPlan(id) {
+            playCyberSound('delete');
             const data = loadAppData();
             data.studyPlans = data.studyPlans.filter(x => x.id !== id);
             saveAppData(data);
         }
         function handleAddSubtask(e, planId) {
             e.preventDefault();
+            playCyberSound('success');
             const data = loadAppData();
             const plan = data.studyPlans.find(x => x.id === planId);
             if (plan) {
@@ -806,6 +880,7 @@
             }
         }
         function toggleSubtask(planId, subId) {
+            playCyberSound('click');
             const data = loadAppData();
             const plan = data.studyPlans.find(x => x.id === planId);
             if (plan) {
@@ -814,6 +889,7 @@
             }
         }
         function deleteSubtask(planId, subId) {
+            playCyberSound('delete');
             const data = loadAppData();
             const plan = data.studyPlans.find(x => x.id === planId);
             if (plan) {
@@ -823,6 +899,7 @@
         }
         function resetAllUserData() {
             if (confirm('WIPE ALL WORKSPACE DATA?')) {
+                playCyberSound('delete');
                 localStorage.removeItem(STORAGE_KEY);
                 renderAllAppData();
                 alert('SYSTEM RESET COMPLETE.');
@@ -834,6 +911,7 @@
         let pomodoroTimerId = null;
         let pomodoroRunning = false;
         function togglePomodoro() {
+            playCyberSound('click');
             const btn = document.getElementById('pomodoro-toggle-btn');
             if (pomodoroRunning) {
                 clearInterval(pomodoroTimerId);
@@ -851,6 +929,7 @@
                     } else {
                         clearInterval(pomodoroTimerId);
                         pomodoroRunning = false;
+                        playCyberSound('success');
                         alert('POMODORO SESSION COMPLETE.');
                         resetPomodoro();
                     }
@@ -858,6 +937,7 @@
             }
         }
         function resetPomodoro() {
+            playCyberSound('click');
             clearInterval(pomodoroTimerId);
             pomodoroRunning = false;
             pomodoroSeconds = 25 * 60;
