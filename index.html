@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Life OS // Cyber-Matrix Intelligence Core</title>
+    <title>Life OS ⚡ Personal Productivity Suite</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23070b14%22 stroke=%22%2300f0ff%22 stroke-width=%226%22/><text x=%2250%22 y=%2268%22 font-family=%22monospace%22 font-size=%2255%22 font-weight=%22bold%22 fill=%22%2300f0ff%22 text-anchor=%22middle%22>⚡</text></svg>">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Firebase App & Firestore Compatibility SDKs -->
@@ -35,30 +37,6 @@
             }
         }
     </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your App Name</title>
-
-  <!-- 1. Apple-Specific tags to force Full Screen standalone mode -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Your App Name">
-
-  <!-- 2. Link your App Icon (Replace with your actual image link) -->
-  <link rel="apple-touch-icon" href="https://yourwebsite.com">
-
-  <!-- 3. Inline Manifest (Triggers Chrome & Safari web app detection) -->
-  <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Your%20Website%20Name%22,%22short_name%22:%22App%20Name%22,%22start_url%22:%22/%22,%22display%22:%22standalone%22,%22background_color%22:%22%23ffffff%22,%22theme_color%22:%22%23000000%22}" />
-
-  <!-- 4. Fake "Service Worker" trick to satisfy basic PWA rules without an extra file -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      // Creates an on-the-fly virtual script file so you don't need a separate sw.js
-      const blob = new Blob(['// Fake SW'], { type: 'application/javascript' });
-      const workerUrl = URL.createObjectURL(blob);
-      navigator.serviceWorker.register(workerUrl);
-    }
-  </script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- FontAwesome -->
@@ -87,64 +65,94 @@
 </head>
 <body class="bg-cyber-bg text-slate-100 min-h-screen flex flex-col cyber-grid selection:bg-cyber-cyan selection:text-black">
 
-    <!-- ==================== CYBER MATRIX WORKSPACE ==================== -->
+    <!-- ==================== 🔒 PASSWORD LOCK SCREEN OVERLAY ==================== -->
+    <div id="auth-lock-screen" class="fixed inset-0 z-[100] bg-cyber-bg cyber-grid flex items-center justify-center p-4">
+        <div class="cyber-box p-6 sm:p-8 rounded-2xl max-w-sm w-full space-y-5 border border-cyber-cyan/40 text-center relative overflow-hidden">
+            <div class="w-14 h-14 rounded-2xl bg-cyber-cyan/10 border border-cyber-cyan/50 flex items-center justify-center text-2xl mx-auto cyber-glow">
+                🔐
+            </div>
+            <div>
+                <h2 class="text-lg font-bold text-white cyber-font tracking-wide">⚡ LIFE OS LOCKED</h2>
+                <p class="text-xs text-slate-400 cyber-font mt-1">Enter your workspace password to unlock this device.</p>
+            </div>
+            <form onsubmit="handleUnlockWorkspace(event)" class="space-y-3.5">
+                <input type="password" id="lock-password-input" required placeholder="Enter Password..." class="w-full bg-cyber-bg border border-cyber-border rounded-lg px-4 py-3 text-sm cyber-font text-center text-white focus:outline-none focus:border-cyber-cyan">
+                <p id="lock-error-msg" class="text-[11px] cyber-font text-cyber-rose hidden">❌ Incorrect password. Try again!</p>
+                <button type="submit" class="w-full py-3 rounded-lg bg-cyber-cyan/20 hover:bg-cyber-cyan/30 text-cyber-cyan cyber-font text-xs font-bold border border-cyber-cyan/50 transition cyber-glow">
+                    🔓 UNLOCK WORKSPACE
+                </button>
+            </form>
+            <p class="text-[10px] text-slate-500 cyber-font">Default first-time password: <span class="text-slate-300">1234</span> (Changeable in ⚙️ Settings)</p>
+        </div>
+    </div>
+
+    <!-- ==================== MAIN WORKSPACE ==================== -->
     <div id="app-workspace" class="w-full min-h-screen flex flex-col">
-        <!-- Telemetry Header -->
+        <!-- App Header -->
         <header class="cyber-box border-b border-cyber-border sticky top-0 z-50 px-4 sm:px-6 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3.5">
                 <button onclick="toggleMobileSidebar()" class="lg:hidden w-9 h-9 rounded cyber-box flex items-center justify-center text-cyber-cyan hover:bg-cyber-cyan/10">
-                    <i class="fa-solid fa-terminal text-sm"></i>
+                    <i class="fa-solid fa-bars text-sm"></i>
                 </button>
                 <div class="flex items-center space-x-3 cursor-pointer" onclick="switchAppView('dashboard')">
-                    <div class="w-9 h-9 rounded bg-cyber-cyan/10 border border-cyber-cyan/50 flex items-center justify-center text-cyber-cyan cyber-glow">
-                        <i class="fa-solid fa-microchip text-sm"></i>
+                    <div class="w-9 h-9 rounded bg-cyber-cyan/10 border border-cyber-cyan/50 flex items-center justify-center text-cyber-cyan cyber-glow text-base">
+                        ⚡
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-xs sm:text-sm font-bold tracking-widest text-cyber-cyan cyber-font uppercase">LIFE_OS // v3.5</span>
-                        <span class="text-[9px] text-emerald-400 cyber-font flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1.5"></span>CLOUD_SYNC_ACTIVE</span>
+                        <span class="text-xs sm:text-sm font-bold tracking-widest text-cyber-cyan cyber-font uppercase">LIFE OS</span>
+                        <span class="text-[9px] text-emerald-400 cyber-font flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1.5"></span>☁️ Cloud Synced</span>
                     </div>
                 </div>
             </div>
 
-            <div class="flex items-center space-x-4">
-                <span id="app-current-view-title" class="text-xs cyber-font font-semibold text-cyber-cyan uppercase tracking-widest hidden sm:inline px-3 py-1 rounded bg-cyber-cyan/10 border border-cyber-cyan/20">DASHBOARD</span>
+            <div class="flex items-center space-x-3 sm:space-x-4">
+                <span id="app-current-view-title" class="text-xs cyber-font font-semibold text-cyber-cyan uppercase tracking-widest hidden sm:inline px-3 py-1 rounded bg-cyber-cyan/10 border border-cyber-cyan/20">🏠 DASHBOARD</span>
                 <div class="text-xs cyber-font text-slate-400 hidden md:flex items-center space-x-2 pl-3 border-l border-cyber-border">
-                    <i class="fa-regular fa-clock text-cyber-neon"></i> <span id="app-date-display"></span>
+                    <span>📅</span> <span id="app-date-display"></span>
                 </div>
+                <button onclick="lockDeviceNow()" title="Lock Workspace on this Device" class="w-8 h-8 rounded cyber-box flex items-center justify-center text-xs hover:border-cyber-rose/50 transition">
+                    🔒
+                </button>
             </div>
         </header>
 
         <!-- Main Layout Body -->
         <div class="flex flex-col lg:flex-row flex-grow relative">
             <!-- Sidebar Navigation -->
-            <aside id="app-sidebar" class="fixed lg:static inset-y-0 left-0 z-40 w-72 lg:w-64 cyber-box border-r border-cyber-border p-4 space-y-2.5 flex-shrink-0 transform -translate-x-full lg:translate-x-0 transition-all duration-200 ease-in-out pt-20 lg:pt-6">
-                <div class="flex items-center justify-between mb-4 pb-3 border-b border-cyber-border px-2">
-                    <span class="text-xs cyber-font text-cyber-cyan uppercase tracking-widest sidebar-header-title">SYSTEM_NAV</span>
+            <aside id="app-sidebar" class="fixed lg:static inset-y-0 left-0 z-40 w-72 lg:w-64 cyber-box border-r border-cyber-border p-4 space-y-2 flex-shrink-0 transform -translate-x-full lg:translate-x-0 transition-all duration-200 ease-in-out pt-20 lg:pt-6">
+                <div class="flex items-center justify-between mb-3 pb-3 border-b border-cyber-border px-2">
+                    <span class="text-xs cyber-font text-cyber-cyan uppercase tracking-widest sidebar-header-title">🧭 Navigation</span>
                     <button onclick="toggleDesktopSidebar()" class="hidden lg:flex text-slate-400 hover:text-cyber-cyan w-7 h-7 rounded items-center justify-center cyber-box"><i class="fa-solid fa-chevron-left text-xs" id="sidebar-toggle-icon"></i></button>
                     <button onclick="toggleMobileSidebar()" class="lg:hidden text-slate-400 hover:text-cyber-cyan"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
-                <div class="text-[9px] cyber-font font-bold text-slate-500 uppercase px-3 mb-2 tracking-widest hidden lg:block sidebar-header-title">DIRECTORIES</div>
+                <div class="text-[9px] cyber-font font-bold text-slate-500 uppercase px-3 mb-1 tracking-widest hidden lg:block sidebar-header-title">Menu</div>
                 
-                <button onclick="switchAppView('dashboard')" id="nav-dashboard" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-semibold transition bg-cyber-cyan/15 text-cyber-cyan border border-cyber-cyan/40" title="Dashboard">
-                    <i class="fa-solid fa-chart-line w-5 text-cyber-cyan flex-shrink-0"></i><span class="nav-text">01 // DASHBOARD</span>
+                <button onclick="switchAppView('dashboard')" id="nav-dashboard" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded text-xs cyber-font font-semibold transition bg-cyber-cyan/15 text-cyber-cyan border border-cyber-cyan/40" title="Dashboard">
+                    <i class="fa-solid fa-chart-line w-5 text-cyber-cyan flex-shrink-0"></i><span class="nav-text">🏠 Dashboard</span>
                 </button>
-                <button onclick="switchAppView('schedule')" id="nav-schedule" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Schedule Planner">
-                    <i class="fa-solid fa-clock-rotate-left w-5 text-cyber-cyan flex-shrink-0"></i><span class="nav-text">02 // SCHEDULE PLANNER</span>
+                <button onclick="switchAppView('schedule')" id="nav-schedule" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Schedule Planner">
+                    <i class="fa-solid fa-clock-rotate-left w-5 text-cyber-cyan flex-shrink-0"></i><span class="nav-text">🗓️ Schedule Planner</span>
                 </button>
-                <button onclick="switchAppView('tasks')" id="nav-tasks" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Tasks & Vault">
-                    <i class="fa-solid fa-list-check w-5 text-cyber-neon flex-shrink-0"></i><span class="nav-text">03 // TASKS & VAULT</span>
+                <button onclick="switchAppView('tasks')" id="nav-tasks" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Tasks & Notes">
+                    <i class="fa-solid fa-list-check w-5 text-cyber-neon flex-shrink-0"></i><span class="nav-text">✅ Tasks & Notes</span>
                 </button>
-                <button onclick="switchAppView('habits')" id="nav-habits" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Habit Matrix">
-                    <i class="fa-solid fa-fire w-5 text-cyber-amber flex-shrink-0"></i><span class="nav-text">04 // HABIT MATRIX</span>
+                <button onclick="switchAppView('habits')" id="nav-habits" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Habit Tracker">
+                    <i class="fa-solid fa-fire w-5 text-cyber-amber flex-shrink-0"></i><span class="nav-text">🔥 Habit Tracker</span>
                 </button>
-                <button onclick="switchAppView('learning')" id="nav-learning" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Study & Timeline">
-                    <i class="fa-solid fa-graduation-cap w-5 text-cyber-purple flex-shrink-0"></i><span class="nav-text">05 // STUDY & TIMELINE</span>
+                <button onclick="switchAppView('learning')" id="nav-learning" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Learning Paths">
+                    <i class="fa-solid fa-graduation-cap w-5 text-cyber-purple flex-shrink-0"></i><span class="nav-text">🎓 Learning Paths</span>
                 </button>
-                <button onclick="switchAppView('finances')" id="nav-finances" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Finances">
-                    <i class="fa-solid fa-wallet w-5 text-cyber-neon flex-shrink-0"></i><span class="nav-text">06 // FINANCES</span>
+                <button onclick="switchAppView('workout')" id="nav-workout" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Workout Tracker">
+                    <i class="fa-solid fa-dumbbell w-5 text-cyber-rose flex-shrink-0"></i><span class="nav-text">💪 Workout Tracker</span>
                 </button>
-                <button onclick="switchAppView('settings')" id="nav-settings" class="w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Sys.Config">
-                    <i class="fa-solid fa-sliders w-5 text-slate-400 flex-shrink-0"></i><span class="nav-text">07 // SYS.CONFIG</span>
+                <button onclick="switchAppView('calories')" id="nav-calories" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Calorie Tracker">
+                    <i class="fa-solid fa-apple-whole w-5 text-cyber-neon flex-shrink-0"></i><span class="nav-text">🥗 Calorie Tracker</span>
+                </button>
+                <button onclick="switchAppView('finances')" id="nav-finances" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Finances">
+                    <i class="fa-solid fa-wallet w-5 text-cyber-cyan flex-shrink-0"></i><span class="nav-text">💰 Finances</span>
+                </button>
+                <button onclick="switchAppView('settings')" id="nav-settings" class="w-full flex items-center space-x-3 px-4 py-2.5 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white" title="Settings">
+                    <i class="fa-solid fa-sliders w-5 text-slate-400 flex-shrink-0"></i><span class="nav-text">⚙️ Settings</span>
                 </button>
             </aside>
 
@@ -159,68 +167,73 @@
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 cyber-box p-6 rounded-xl border border-cyber-border relative overflow-hidden">
                         <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-cyber-cyan/5 rounded-full blur-2xl pointer-events-none"></div>
                         <div>
-                            <h1 class="text-lg sm:text-2xl font-bold text-white cyber-font tracking-tight"><span class="text-cyber-cyan">&gt;</span> COMMAND_CENTER: ACTIVE_FEED</h1>
-                            <p class="text-slate-400 text-xs cyber-font mt-1">ALL LIFE PROTOCOLS SYNCHRONIZED & OPERATIONAL</p>
+                            <h1 class="text-lg sm:text-2xl font-bold text-white cyber-font tracking-tight">✨ Daily Overview</h1>
+                            <p class="text-slate-400 text-xs cyber-font mt-1">Your personal tasks, schedule, health, and learning progress in one place.</p>
                         </div>
-                        <div class="flex items-center space-x-3 z-10">
-                            <button onclick="playCyberSound('click'); switchAppView('tasks');" class="px-4 py-2.5 rounded bg-cyber-cyan/15 hover:bg-cyber-cyan/25 text-cyber-cyan text-xs cyber-font font-semibold border border-cyber-cyan/40 transition cyber-glow">
-                                <i class="fa-solid fa-plus mr-1.5"></i> NEW_TASK
+                        <div class="flex flex-wrap items-center gap-2.5 z-10">
+                            <button onclick="playCyberSound('click'); switchAppView('tasks');" class="px-3.5 py-2 rounded bg-cyber-cyan/15 hover:bg-cyber-cyan/25 text-cyber-cyan text-xs cyber-font font-semibold border border-cyber-cyan/40 transition cyber-glow">
+                                ➕ New Task
                             </button>
-                            <button onclick="playCyberSound('click'); switchAppView('learning');" class="px-4 py-2.5 rounded cyber-box cyber-box-hover text-slate-200 text-xs cyber-font font-semibold transition">
-                                <i class="fa-solid fa-graduation-cap mr-1.5 text-cyber-purple"></i> STUDY_PLANS
+                            <button onclick="playCyberSound('click'); switchAppView('workout');" class="px-3.5 py-2 rounded bg-cyber-rose/15 hover:bg-cyber-rose/25 text-cyber-rose text-xs cyber-font font-semibold border border-cyber-rose/40 transition">
+                                💪 Workout
+                            </button>
+                            <button onclick="playCyberSound('click'); switchAppView('calories');" class="px-3.5 py-2 rounded bg-cyber-neon/15 hover:bg-cyber-neon/25 text-cyber-neon text-xs cyber-font font-semibold border border-cyber-neon/40 transition">
+                                🥗 Calories
                             </button>
                         </div>
                     </div>
 
-                    <!-- Telemetry Metric Cards -->
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div class="cyber-box cyber-box-hover p-4 sm:p-5 rounded-xl border-l-2 border-l-cyber-cyan relative">
-                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">TASKS_COMPLETED</div>
-                            <div id="stat-tasks-done" class="text-xl sm:text-2xl font-bold text-white cyber-font">0 / 0</div>
-                            <div class="text-[9px] cyber-font text-cyber-cyan mt-1 flex items-center"><i class="fa-solid fa-circle-check mr-1"></i> QUEUE SYNCED</div>
+                    <!-- Overview Metric Cards -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                        <div onclick="switchAppView('tasks')" class="cyber-box cyber-box-hover p-4 rounded-xl border-l-2 border-l-cyber-cyan cursor-pointer relative">
+                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">✅ Tasks Done</div>
+                            <div id="stat-tasks-done" class="text-lg sm:text-xl font-bold text-white cyber-font">0 / 0</div>
+                            <div class="text-[9px] cyber-font text-cyber-cyan mt-1 flex items-center">📋 Active Queue</div>
                         </div>
-                        <div class="cyber-box cyber-box-hover p-4 sm:p-5 rounded-xl border-l-2 border-l-cyber-amber relative">
-                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">HABIT_COMPLETION</div>
-                            <div id="stat-habits-streak" class="text-xl sm:text-2xl font-bold text-white cyber-font">0 / 0</div>
-                            <div class="text-[9px] cyber-font text-cyber-amber mt-1 flex items-center"><i class="fa-solid fa-fire mr-1"></i> <span id="stat-habits-status">ALL PENDING</span></div>
+                        <div onclick="switchAppView('habits')" class="cyber-box cyber-box-hover p-4 rounded-xl border-l-2 border-l-cyber-amber cursor-pointer relative">
+                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">🔥 Daily Habits</div>
+                            <div id="stat-habits-streak" class="text-lg sm:text-xl font-bold text-white cyber-font">0 / 0</div>
+                            <div class="text-[9px] cyber-font text-cyber-amber mt-1 flex items-center">⚡ <span id="stat-habits-status" class="ml-1">All Pending</span></div>
                         </div>
-                        <div class="cyber-box cyber-box-hover p-4 sm:p-5 rounded-xl border-l-2 border-l-cyber-neon relative">
-                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">NET_BALANCE</div>
-                            <div id="stat-net-balance" class="text-xl sm:text-2xl font-bold text-white cyber-font truncate">$0.00</div>
-                            <div class="text-[9px] cyber-font text-cyber-neon mt-1 flex items-center"><i class="fa-solid fa-wallet mr-1"></i> LEDGER VERIFIED</div>
+                        <div onclick="switchAppView('calories')" class="cyber-box cyber-box-hover p-4 rounded-xl border-l-2 border-l-cyber-rose cursor-pointer relative">
+                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">🥗 Calories Today</div>
+                            <div id="stat-calories-today" class="text-lg sm:text-xl font-bold text-white cyber-font truncate">0 / 2200</div>
+                            <div id="stat-workout-summary" class="text-[9px] cyber-font text-cyber-rose mt-1 flex items-center">💪 0 Workouts Done</div>
                         </div>
-                        <div class="cyber-box cyber-box-hover p-4 sm:p-5 rounded-xl border-l-2 border-l-cyber-purple relative">
-                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">STUDY_TIMELINES</div>
-                            <div id="stat-study-active" class="text-xl sm:text-2xl font-bold text-white cyber-font">0 Active</div>
-                            <div class="text-[9px] cyber-font text-cyber-purple mt-1 flex items-center"><i class="fa-solid fa-graduation-cap mr-1"></i> CURRICULUM ACTIVE</div>
+                        <div onclick="switchAppView('finances')" class="cyber-box cyber-box-hover p-4 rounded-xl border-l-2 border-l-cyber-neon cursor-pointer relative">
+                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">💰 Net Balance</div>
+                            <div id="stat-net-balance" class="text-lg sm:text-xl font-bold text-white cyber-font truncate">$0.00</div>
+                            <div class="text-[9px] cyber-font text-cyber-neon mt-1 flex items-center">💳 Total Tracked</div>
+                        </div>
+                        <div onclick="switchAppView('learning')" class="cyber-box cyber-box-hover p-4 rounded-xl border-l-2 border-l-cyber-purple cursor-pointer relative col-span-2 sm:col-span-1">
+                            <div class="text-[10px] cyber-font font-semibold text-slate-400 uppercase tracking-widest mb-1">🎓 Learning Paths</div>
+                            <div id="stat-study-active" class="text-lg sm:text-xl font-bold text-white cyber-font">0 Paths</div>
+                            <div class="text-[9px] cyber-font text-cyber-purple mt-1 flex items-center">📚 Active Study</div>
                         </div>
                     </div>
 
                     <!-- Dashboard Sub-Widgets -->
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <!-- Tasks Preview Widget -->
                         <div class="cyber-box p-5 rounded-xl space-y-4">
                             <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
-                                <h3 class="font-bold text-white text-xs cyber-font uppercase tracking-wider flex items-center"><span class="text-cyber-cyan mr-2">&gt;</span> PRIORITY TASK QUEUE</h3>
-                                <button onclick="playCyberSound('click'); switchAppView('tasks');" class="text-[11px] cyber-font text-cyber-cyan hover:underline">VIEW_ALL</button>
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase tracking-wider flex items-center">🎯 Priority Tasks</h3>
+                                <button onclick="playCyberSound('click'); switchAppView('tasks');" class="text-[11px] cyber-font text-cyber-cyan hover:underline">View All ➡️</button>
                             </div>
                             <div id="dashboard-tasks-list" class="space-y-2.5"></div>
                         </div>
 
-                        <!-- Schedule Preview Widget -->
                         <div class="cyber-box p-5 rounded-xl space-y-4">
                             <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
-                                <h3 class="font-bold text-white text-xs cyber-font uppercase tracking-wider flex items-center"><span class="text-cyber-neon mr-2">&gt;</span> TODAY'S SCHEDULE</h3>
-                                <button onclick="playCyberSound('click'); switchAppView('schedule');" class="text-[11px] cyber-font text-cyber-neon hover:underline">MANAGE</button>
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase tracking-wider flex items-center">🗓️ Today's Schedule</h3>
+                                <button onclick="playCyberSound('click'); switchAppView('schedule');" class="text-[11px] cyber-font text-cyber-neon hover:underline">Manage ➡️</button>
                             </div>
                             <div id="dashboard-schedule-list" class="space-y-2.5"></div>
                         </div>
 
-                        <!-- Study Timeline Preview Widget -->
                         <div class="cyber-box p-5 rounded-xl space-y-4">
                             <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
-                                <h3 class="font-bold text-white text-xs cyber-font uppercase tracking-wider flex items-center"><span class="text-cyber-purple mr-2">&gt;</span> ACTIVE STUDY TIMELINE</h3>
-                                <button onclick="playCyberSound('click'); switchAppView('learning');" class="text-[11px] cyber-font text-cyber-purple hover:underline">MANAGE</button>
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase tracking-wider flex items-center">🎓 Learning Paths</h3>
+                                <button onclick="playCyberSound('click'); switchAppView('learning');" class="text-[11px] cyber-font text-cyber-purple hover:underline">Open All ➡️</button>
                             </div>
                             <div id="dashboard-study-list" class="space-y-3"></div>
                         </div>
@@ -229,26 +242,26 @@
 
                 <!-- 2. SCHEDULE PLANNER VIEW -->
                 <div id="view-schedule" class="app-view hidden space-y-6">
-                    <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-cyan mr-2">&gt;</span> DAILY SCHEDULE & TIME-BLOCKING</h1>
+                    <h1 class="text-lg font-bold text-white cyber-font flex items-center">🗓️ Daily Schedule & Time-Blocking</h1>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
-                            <h3 class="font-bold text-white text-xs cyber-font uppercase">ADD_TIME_BLOCK</h3>
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">⏰ Add Time Block</h3>
                             <form onsubmit="handleAddSchedule(event)" class="space-y-3.5">
                                 <div>
                                     <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Time Slot</label>
                                     <input type="text" id="sched-time" required placeholder="09:00 AM - 10:30 AM" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Activity Objective</label>
-                                    <input type="text" id="sched-activity" required placeholder="Deep Work Sprint" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Activity</label>
+                                    <input type="text" id="sched-activity" required placeholder="Deep Work Session" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
                                 </div>
                                 <button type="submit" class="w-full py-2.5 rounded bg-cyber-cyan/20 hover:bg-cyber-cyan/30 text-cyber-cyan cyber-font text-xs font-semibold border border-cyber-cyan/40 transition">
-                                    SCHEDULE BLOCK
+                                    ➕ Add to Schedule
                                 </button>
                             </form>
                         </div>
                         <div class="lg:col-span-2 cyber-box p-5 rounded-xl space-y-4">
-                            <h3 class="font-bold text-white text-xs cyber-font uppercase">TIMELINE BLOCKS</h3>
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">📌 Scheduled Blocks</h3>
                             <div id="schedule-container" class="space-y-2.5"></div>
                         </div>
                     </div>
@@ -256,49 +269,49 @@
 
                 <!-- 3. TASKS & NOTES VIEW -->
                 <div id="view-tasks" class="app-view hidden space-y-6">
-                    <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-neon mr-2">&gt;</span> TASKS & SECOND BRAIN VAULT</h1>
+                    <h1 class="text-lg font-bold text-white cyber-font flex items-center">✅ Tasks & Quick Notes</h1>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
-                            <h3 class="font-bold text-white text-xs cyber-font uppercase">CREATE_TASK_OBJECT</h3>
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">📝 Create New Task</h3>
                             <form id="task-form" onsubmit="handleAddTask(event)" class="space-y-3.5">
                                 <div>
                                     <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Task Title</label>
-                                    <input type="text" id="task-title" required placeholder="e.g. Execute algorithm deployment" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
+                                    <input type="text" id="task-title" required placeholder="e.g. Finish project report" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
                                 </div>
                                 <div>
                                     <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Priority Level</label>
                                     <select id="task-priority" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
-                                        <option value="High">HIGH_PRIORITY</option>
-                                        <option value="Medium" selected>MEDIUM_PRIORITY</option>
-                                        <option value="Low">LOW_PRIORITY</option>
+                                        <option value="High">🔴 High Priority</option>
+                                        <option value="Medium" selected>🟡 Medium Priority</option>
+                                        <option value="Low">🟢 Low Priority</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Classification</label>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Category</label>
                                     <select id="task-category" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
-                                        <option value="Work">WORK</option>
-                                        <option value="Personal">PERSONAL</option>
-                                        <option value="Study">STUDY</option>
-                                        <option value="Finance">FINANCE</option>
+                                        <option value="Work">💼 Work</option>
+                                        <option value="Personal">🏠 Personal</option>
+                                        <option value="Study">📚 Study</option>
+                                        <option value="Finance">💰 Finance</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="w-full py-2.5 rounded bg-cyber-cyan/20 hover:bg-cyber-cyan/30 text-cyber-cyan cyber-font text-xs font-semibold border border-cyber-cyan/40 transition">
-                                    INITIALIZE TASK
+                                    ➕ Add Task
                                 </button>
                             </form>
                         </div>
                         <div class="lg:col-span-2 space-y-6">
                             <div class="cyber-box p-5 rounded-xl space-y-4">
                                 <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
-                                    <h3 class="font-bold text-white text-xs cyber-font uppercase">ACTIVE QUEUE</h3>
+                                    <h3 class="font-bold text-white text-xs cyber-font uppercase">📋 Task List</h3>
                                     <span id="task-count-badge" class="text-[10px] cyber-font text-slate-400">0 tasks</span>
                                 </div>
                                 <div id="tasks-container" class="space-y-2.5"></div>
                             </div>
                             <div class="cyber-box p-5 rounded-xl space-y-4">
-                                <h3 class="font-bold text-white text-xs cyber-font uppercase">SECOND BRAIN NOTE VAULT</h3>
-                                <textarea id="quick-note-input" rows="3" placeholder="Log thought or meeting data into memory vault..." class="w-full bg-cyber-bg border border-cyber-border rounded p-3 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan"></textarea>
-                                <button onclick="saveQuickNote()" class="px-4 py-2 rounded bg-cyber-cyan/15 hover:bg-cyber-cyan/25 text-cyber-cyan text-xs cyber-font font-semibold border border-cyber-cyan/30">COMMIT NOTE</button>
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase">💡 Quick Notes</h3>
+                                <textarea id="quick-note-input" rows="3" placeholder="Write down a quick note, reminder, or idea..." class="w-full bg-cyber-bg border border-cyber-border rounded p-3 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan"></textarea>
+                                <button onclick="saveQuickNote()" class="px-4 py-2 rounded bg-cyber-cyan/15 hover:bg-cyber-cyan/25 text-cyber-cyan text-xs cyber-font font-semibold border border-cyber-cyan/30">💾 Save Note</button>
                                 <div id="notes-container" class="space-y-2 mt-3"></div>
                             </div>
                         </div>
@@ -307,120 +320,414 @@
 
                 <!-- 4. HABITS & GOALS VIEW -->
                 <div id="view-habits" class="app-view hidden space-y-6">
-                    <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-amber mr-2">&gt;</span> HABIT ARCHITECTURE & MOMENTUM</h1>
+                    <h1 class="text-lg font-bold text-white cyber-font flex items-center">🔥 Daily Habit Tracker</h1>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
-                            <h3 class="font-bold text-white text-xs cyber-font uppercase">NEW_HABIT_PROTOCOL</h3>
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">✨ Add New Habit</h3>
                             <form onsubmit="handleAddHabit(event)" class="space-y-3.5">
                                 <div>
-                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Habit Descriptor</label>
-                                    <input type="text" id="habit-name" required placeholder="e.g. Deep Work 2 Hours" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-amber">
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Habit Name</label>
+                                    <input type="text" id="habit-name" required placeholder="e.g. Read 20 Pages 📖" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-amber">
                                 </div>
                                 <button type="submit" class="w-full py-2.5 rounded bg-cyber-amber/20 hover:bg-cyber-amber/30 text-cyber-amber cyber-font text-xs font-semibold border border-cyber-amber/40 transition">
-                                    DEPLOY HABIT
+                                    ➕ Create Habit
                                 </button>
                             </form>
                         </div>
                         <div class="lg:col-span-2 cyber-box p-5 rounded-xl space-y-4">
-                            <h3 class="font-bold text-white text-xs cyber-font uppercase">STREAK TRACKING MATRIX</h3>
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">🏆 Your Habits & Streaks</h3>
                             <div id="habits-container" class="space-y-2.5"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 5. STUDY PLAN & TIMELINE TRACKER VIEW -->
+                <!-- 5. LEARNING PATHS, TOPICS & SUB-TOPICS VIEW -->
                 <div id="view-learning" class="app-view hidden space-y-6">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div>
-                            <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-purple mr-2">&gt;</span> STUDY PLAN & TIMELINE TRACKER</h1>
-                            <p class="text-slate-400 text-xs cyber-font mt-0.5">Granular sub-tasks, target dates, estimated sub-times, and Pomodoro timer.</p>
+                            <h1 class="text-lg font-bold text-white cyber-font flex items-center">🎓 Learning Paths & Study Planner</h1>
+                            <p class="text-slate-400 text-xs cyber-font mt-0.5">Organize your courses and subjects into topics, sub-tasks, target dates, and study notes.</p>
                         </div>
                     </div>
 
-                    <!-- Pomodoro Widget -->
-                    <div class="cyber-box p-5 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4 border-l-2 border-l-cyber-amber">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 rounded bg-cyber-amber/10 border border-cyber-amber/30 flex items-center justify-center text-cyber-amber">
-                                <i class="fa-solid fa-clock text-base"></i>
+                    <!-- ⏱️ Customizable Timer Widget -->
+                    <div class="cyber-box p-5 rounded-xl flex flex-col lg:flex-row items-center justify-between gap-4 border-l-2 border-l-cyber-amber">
+                        <div class="flex items-center space-x-3 w-full lg:w-auto">
+                            <div class="w-10 h-10 rounded bg-cyber-amber/10 border border-cyber-amber/30 flex items-center justify-center text-lg">
+                                ⏱️
                             </div>
                             <div>
-                                <h3 class="font-bold text-white text-xs cyber-font uppercase">POMODORO FOCUS ENGINE</h3>
-                                <p class="text-[10px] cyber-font text-slate-400">High-intensity study session timer.</p>
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase">Customizable Focus Timer</h3>
+                                <p class="text-[10px] cyber-font text-slate-400">Set your own study duration or pick a quick preset below.</p>
                             </div>
                         </div>
-                        <div class="flex items-center space-x-5 w-full sm:w-auto justify-between sm:justify-start">
+
+                        <!-- Custom Time Controls & Presets -->
+                        <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-start lg:justify-center">
+                            <div class="flex items-center space-x-1.5 bg-cyber-bg px-2.5 py-1.5 rounded border border-cyber-border">
+                                <input type="number" id="custom-timer-mins" min="1" max="300" value="25" onchange="setCustomTimerMinutes(this.value)" class="w-12 bg-transparent text-xs cyber-font text-white font-bold text-center focus:outline-none">
+                                <span class="text-[10px] cyber-font text-slate-400">mins</span>
+                                <button onclick="setCustomTimerMinutes(document.getElementById('custom-timer-mins').value)" class="text-[10px] cyber-font text-cyber-amber hover:underline ml-1">Set</button>
+                            </div>
+                            <button onclick="setCustomTimerMinutes(15)" class="px-2 py-1 rounded bg-cyber-card hover:bg-cyber-amber/20 text-slate-300 hover:text-cyber-amber text-[10px] cyber-font border border-cyber-border">15m</button>
+                            <button onclick="setCustomTimerMinutes(25)" class="px-2 py-1 rounded bg-cyber-card hover:bg-cyber-amber/20 text-slate-300 hover:text-cyber-amber text-[10px] cyber-font border border-cyber-border">25m</button>
+                            <button onclick="setCustomTimerMinutes(45)" class="px-2 py-1 rounded bg-cyber-card hover:bg-cyber-amber/20 text-slate-300 hover:text-cyber-amber text-[10px] cyber-font border border-cyber-border">45m</button>
+                            <button onclick="setCustomTimerMinutes(60)" class="px-2 py-1 rounded bg-cyber-card hover:bg-cyber-amber/20 text-slate-300 hover:text-cyber-amber text-[10px] cyber-font border border-cyber-border">60m</button>
+                            <button onclick="setCustomTimerMinutes(90)" class="px-2 py-1 rounded bg-cyber-card hover:bg-cyber-amber/20 text-slate-300 hover:text-cyber-amber text-[10px] cyber-font border border-cyber-border">90m</button>
+                        </div>
+
+                        <div class="flex items-center space-x-5 w-full lg:w-auto justify-between lg:justify-end">
                             <div id="pomodoro-display" class="text-2xl sm:text-3xl font-mono font-bold text-cyber-amber tracking-widest">25:00</div>
                             <div class="flex space-x-2">
-                                <button onclick="togglePomodoro()" id="pomodoro-toggle-btn" class="px-4 py-2 rounded bg-cyber-amber/20 hover:bg-cyber-amber/30 text-cyber-amber text-xs cyber-font font-semibold border border-cyber-amber/40">START</button>
-                                <button onclick="resetPomodoro()" class="px-3 py-2 rounded cyber-box text-slate-300 text-xs cyber-font font-semibold hover:bg-cyber-border">RESET</button>
+                                <button onclick="togglePomodoro()" id="pomodoro-toggle-btn" class="px-4 py-2 rounded bg-cyber-amber/20 hover:bg-cyber-amber/30 text-cyber-amber text-xs cyber-font font-semibold border border-cyber-amber/40">▶️ START</button>
+                                <button onclick="resetPomodoro()" class="px-3 py-2 rounded cyber-box text-slate-300 text-xs cyber-font font-semibold hover:bg-cyber-border">🔄 RESET</button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- LEVEL 1: ALL LEARNING PATHS LIST VIEW -->
+                    <div id="learning-paths-overview" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
-                            <h3 class="font-bold text-white text-xs cyber-font uppercase">NEW_STUDY_PLAN</h3>
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">🚀 Create Learning Path</h3>
                             <form onsubmit="handleCreateStudyPlan(event)" class="space-y-3.5">
                                 <div>
-                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Plan Title</label>
-                                    <input type="text" id="study-title" required placeholder="Advanced Architecture" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-purple">
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Path Title</label>
+                                    <input type="text" id="study-title" required placeholder="e.g. Full-Stack Web Development" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-purple">
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Target Due Date</label>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Target Date</label>
                                     <input type="date" id="study-date" required class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-purple">
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Description</label>
-                                    <textarea id="study-desc" rows="2" placeholder="Curriculum overview..." class="w-full bg-cyber-bg border border-cyber-border rounded p-3 text-xs cyber-font text-white focus:outline-none focus:border-cyber-purple"></textarea>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Overview / Goal</label>
+                                    <textarea id="study-desc" rows="2" placeholder="What do you want to achieve in this path?" class="w-full bg-cyber-bg border border-cyber-border rounded p-3 text-xs cyber-font text-white focus:outline-none focus:border-cyber-purple"></textarea>
                                 </div>
                                 <button type="submit" class="w-full py-2.5 rounded bg-cyber-purple/20 hover:bg-cyber-purple/30 text-cyber-purple cyber-font text-xs font-semibold border border-cyber-purple/40 transition">
-                                    DEPLOY STUDY PLAN
+                                    ➕ Create Learning Path
                                 </button>
                             </form>
                         </div>
-                        <div class="lg:col-span-2 space-y-6">
+
+                        <div class="lg:col-span-2 space-y-4">
                             <div class="cyber-box p-5 rounded-xl space-y-4">
                                 <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
-                                    <h3 class="font-bold text-white text-xs cyber-font uppercase">ACTIVE STUDY TIMELINES</h3>
-                                    <span id="study-count-badge" class="text-[10px] cyber-font text-slate-400">0 plans</span>
+                                    <h3 class="font-bold text-white text-xs cyber-font uppercase">📚 Your Learning Paths</h3>
+                                    <span id="study-count-badge" class="text-[10px] cyber-font text-slate-400">0 paths</span>
                                 </div>
-                                <div id="study-plans-container" class="space-y-4"></div>
+                                <div id="study-plans-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- LEVEL 2 & 3: SINGLE LEARNING PATH DETAIL VIEW -->
+                    <div id="learning-path-detail" class="hidden space-y-6">
+                        <div class="cyber-box p-5 rounded-xl border-l-2 border-l-cyber-purple flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div class="space-y-1">
+                                <button onclick="closeLearningPath()" class="text-xs cyber-font text-cyber-cyan hover:underline flex items-center mb-2">
+                                    ⬅️ Back to All Learning Paths
+                                </button>
+                                <h2 id="active-path-title" class="text-lg sm:text-xl font-bold text-white cyber-font"></h2>
+                                <p id="active-path-desc" class="text-xs cyber-font text-slate-400"></p>
+                            </div>
+                            <div class="flex flex-col sm:items-end justify-between space-y-2 flex-shrink-0">
+                                <span id="active-path-date" class="text-[10px] cyber-font font-semibold text-cyber-purple bg-cyber-purple/10 px-3 py-1 rounded border border-cyber-purple/30 w-fit"></span>
+                                <div class="w-full sm:w-44 space-y-1">
+                                    <div class="flex justify-between text-[10px] cyber-font text-slate-400">
+                                        <span>Overall Progress</span>
+                                        <span id="active-path-pct">0%</span>
+                                    </div>
+                                    <div class="w-full bg-cyber-border h-1.5 rounded overflow-hidden">
+                                        <div id="active-path-bar" class="bg-cyber-purple h-full transition-all duration-300" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase flex items-center">
+                                    📂 Add Topic to Path
+                                </h3>
+                                <form onsubmit="handleAddTopic(event)" class="space-y-3.5">
+                                    <div>
+                                        <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Topic Name</label>
+                                        <input type="text" id="new-topic-title" required placeholder="e.g. State Management & Hooks" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-purple">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Topic Target Date</label>
+                                        <input type="date" id="new-topic-date" required class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-purple">
+                                    </div>
+                                    <button type="submit" class="w-full py-2.5 rounded bg-cyber-purple/20 hover:bg-cyber-purple/30 text-cyber-purple cyber-font text-xs font-semibold border border-cyber-purple/40 transition">
+                                        ➕ Add Topic
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div class="lg:col-span-2 space-y-4" id="active-path-topics-container"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 6. FINANCES VIEW -->
+                <!-- 6. WORKOUT TRACKER VIEW -->
+                <div id="view-workout" class="app-view hidden space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <h1 class="text-lg font-bold text-white cyber-font flex items-center">💪 Workout & Exercise Search</h1>
+                            <p class="text-slate-400 text-xs cyber-font mt-0.5">Search any gym, home, yoga, or sports exercise — click to auto-fill and calculate calorie burn.</p>
+                        </div>
+                    </div>
+
+                    <!-- Workout Summary Cards -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="cyber-box p-4 rounded-xl border-l-2 border-l-cyber-rose">
+                            <div class="text-[10px] cyber-font text-slate-400 uppercase">✅ Exercises Done</div>
+                            <div id="workout-stat-done" class="text-lg sm:text-2xl font-bold text-white cyber-font mt-1">0 / 0</div>
+                        </div>
+                        <div class="cyber-box p-4 rounded-xl border-l-2 border-l-cyber-amber">
+                            <div class="text-[10px] cyber-font text-slate-400 uppercase">🔥 Calories Burned</div>
+                            <div id="workout-stat-burn" class="text-lg sm:text-2xl font-bold text-cyber-amber cyber-font mt-1">0 kcal</div>
+                        </div>
+                        <div class="cyber-box p-4 rounded-xl border-l-2 border-l-cyber-cyan">
+                            <div class="text-[10px] cyber-font text-slate-400 uppercase">⚡ Workout Status</div>
+                            <div id="workout-stat-status" class="text-xs sm:text-sm font-bold text-cyber-cyan cyber-font mt-2">Not Started</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Search & Add Workout Panel -->
+                        <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase flex items-center">
+                                    🔍 Search & Add Exercise
+                                </h3>
+                                <span class="text-[9px] cyber-font bg-cyber-rose/15 text-cyber-rose px-2 py-0.5 rounded border border-cyber-rose/30">Live Search</span>
+                            </div>
+
+                            <div class="space-y-2 relative">
+                                <div class="flex space-x-2">
+                                    <input type="text" id="wo-search-input" oninput="searchExercisesLive()" placeholder="Search exercise (e.g. Pushups, Surya Namaskar, Cricket)..." class="w-full bg-cyber-bg border border-cyber-cyan/40 rounded px-3 py-2 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
+                                    <button type="button" onclick="searchExercisesWeb()" class="px-3 py-2 rounded bg-cyber-cyan/15 hover:bg-cyber-cyan/25 text-cyber-cyan text-xs cyber-font font-semibold border border-cyber-cyan/30 flex-shrink-0" title="Search Online">
+                                        🌐
+                                    </button>
+                                </div>
+                                <div id="wo-search-results" class="hidden max-h-48 overflow-y-auto rounded-lg bg-cyber-panel border border-cyber-cyan/40 divide-y divide-cyber-border shadow-xl"></div>
+                            </div>
+
+                            <form id="workout-form" onsubmit="handleAddWorkout(event)" class="space-y-3.5 pt-2 border-t border-cyber-border">
+                                <div>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Selected Exercise Name</label>
+                                    <input type="text" id="wo-name" oninput="autoCalculateWorkoutBurn()" required placeholder="Selected exercise appears here..." class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2 text-xs cyber-font text-white focus:outline-none focus:border-cyber-rose">
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Category</label>
+                                        <select id="wo-type" onchange="autoCalculateWorkoutBurn()" class="w-full bg-cyber-bg border border-cyber-border rounded px-3 py-2 text-xs cyber-font text-white focus:outline-none focus:border-cyber-rose">
+                                            <option value="Strength">🏋️ Strength</option>
+                                            <option value="Cardio">🏃 Cardio / Sports</option>
+                                            <option value="Mobility">🧘 Yoga / HIIT</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Sets x Reps OR Mins</label>
+                                        <input type="text" id="wo-sets" oninput="autoCalculateWorkoutBurn()" required placeholder="e.g. 4 x 12 or 30m" class="w-full bg-cyber-bg border border-cyber-border rounded px-3 py-2 text-xs cyber-font text-white focus:outline-none focus:border-cyber-rose">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Weight / Distance (Opt)</label>
+                                        <input type="text" id="wo-weight" oninput="autoCalculateWorkoutBurn()" placeholder="e.g. 50 kg or 3 km" class="w-full bg-cyber-bg border border-cyber-border rounded px-3 py-2 text-xs cyber-font text-white focus:outline-none focus:border-cyber-rose">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] cyber-font text-cyber-amber uppercase mb-1">🔥 Auto Burn (kcal)</label>
+                                        <input type="number" id="wo-cal" placeholder="Auto" class="w-full bg-cyber-card border border-cyber-amber/40 rounded px-3 py-2 text-xs cyber-font text-cyber-amber font-bold focus:outline-none">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Date</label>
+                                    <input type="date" id="wo-date" required class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2 text-xs cyber-font text-white focus:outline-none focus:border-cyber-rose">
+                                </div>
+                                <button type="submit" class="w-full py-2.5 rounded bg-cyber-rose/20 hover:bg-cyber-rose/30 text-cyber-rose cyber-font text-xs font-semibold border border-cyber-rose/40 transition">
+                                    ➕ Add & Save Exercise
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Workout Queue List -->
+                        <div class="lg:col-span-2 cyber-box p-5 rounded-xl space-y-4">
+                            <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase">📋 Workout Log</h3>
+                                <span id="workout-count-badge" class="text-[10px] cyber-font text-slate-400">0 exercises</span>
+                            </div>
+                            <div id="workouts-container" class="space-y-2.5"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. CALORIE & MACRO TRACKER VIEW -->
+                <div id="view-calories" class="app-view hidden space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <h1 class="text-lg font-bold text-white cyber-font flex items-center">🥗 Smart Calorie & Web Food Search</h1>
+                            <p class="text-slate-400 text-xs cyber-font mt-0.5">Search any Indian meal, street food, or global dish — click to auto-fill calories & macros!</p>
+                        </div>
+                    </div>
+
+                    <!-- Daily Calorie Target & Macro Bar -->
+                    <div class="cyber-box p-5 rounded-xl space-y-4 border-l-2 border-l-cyber-neon">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div>
+                                <div class="text-[10px] cyber-font text-slate-400 uppercase tracking-widest">🔥 Daily Calorie Intake</div>
+                                <div class="flex items-baseline space-x-2 mt-1">
+                                    <span id="cal-total-display" class="text-2xl sm:text-3xl font-bold text-white cyber-font">0</span>
+                                    <span class="text-xs cyber-font text-slate-400">/ <span id="cal-goal-display">2200</span> kcal</span>
+                                    <span id="cal-remaining-badge" class="text-[10px] cyber-font px-2 py-0.5 rounded bg-cyber-neon/15 text-cyber-neon border border-cyber-neon/30 ml-2">2200 left</span>
+                                </div>
+                            </div>
+                            <form onsubmit="handleUpdateCalorieGoal(event)" class="flex items-center space-x-2">
+                                <input type="number" id="cal-goal-input" required placeholder="Daily Goal (kcal)" class="bg-cyber-bg border border-cyber-border rounded px-3 py-1.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon w-36">
+                                <button type="submit" class="px-3 py-1.5 rounded bg-cyber-cyan/15 hover:bg-cyber-cyan/25 text-cyber-cyan text-[10px] cyber-font font-semibold border border-cyber-cyan/30">
+                                    🎯 Update Goal
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="w-full bg-cyber-border h-2 rounded overflow-hidden">
+                            <div id="cal-progress-bar" class="bg-cyber-neon h-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+
+                        <!-- Macro Breakdown Pills -->
+                        <div class="grid grid-cols-3 gap-3 pt-2">
+                            <div class="p-3 rounded bg-cyber-bg border border-cyber-border flex items-center justify-between">
+                                <span class="text-[10px] cyber-font text-slate-400 uppercase">🥩 Protein</span>
+                                <span id="macro-protein-total" class="text-xs sm:text-sm font-bold text-cyber-cyan cyber-font">0g</span>
+                            </div>
+                            <div class="p-3 rounded bg-cyber-bg border border-cyber-border flex items-center justify-between">
+                                <span class="text-[10px] cyber-font text-slate-400 uppercase">🍚 Carbs</span>
+                                <span id="macro-carbs-total" class="text-xs sm:text-sm font-bold text-cyber-amber cyber-font">0g</span>
+                            </div>
+                            <div class="p-3 rounded bg-cyber-bg border border-cyber-border flex items-center justify-between">
+                                <span class="text-[10px] cyber-font text-slate-400 uppercase">🥑 Fats</span>
+                                <span id="macro-fats-total" class="text-xs sm:text-sm font-bold text-cyber-purple cyber-font">0g</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Live Food Search & Auto-Logger -->
+                        <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase flex items-center">
+                                    🔍 Search Any Meal / Web DB
+                                </h3>
+                                <span id="food-search-status" class="text-[9px] cyber-font bg-cyber-neon/15 text-cyber-neon px-2 py-0.5 rounded border border-cyber-neon/30">Instant + Web</span>
+                            </div>
+
+                            <!-- Live Search Bar -->
+                            <div class="space-y-2 relative">
+                                <div class="flex space-x-2">
+                                    <input type="text" id="food-search-query" oninput="searchFoodLocalAndWeb()" placeholder="Search e.g. Sattu, Litti, Paratha, Maggi, Momos..." class="w-full bg-cyber-bg border border-cyber-cyan/40 rounded px-3 py-2 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
+                                    <button type="button" onclick="triggerWebFoodSearch()" class="px-3 py-2 rounded bg-cyber-cyan/15 hover:bg-cyber-cyan/25 text-cyber-cyan text-xs cyber-font font-semibold border border-cyber-cyan/30 flex-shrink-0" title="Search Global Web Database">
+                                        🌐 Web
+                                    </button>
+                                </div>
+                                <div id="food-search-results" class="hidden max-h-56 overflow-y-auto rounded-lg bg-cyber-panel border border-cyber-cyan/40 divide-y divide-cyber-border shadow-xl"></div>
+                            </div>
+
+                            <form id="calorie-form" onsubmit="handleAddCalorieEntry(event)" class="space-y-3.5 pt-2 border-t border-cyber-border">
+                                <div>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Selected Meal Name</label>
+                                    <input type="text" id="cal-food-name" required placeholder="Click a search result above or type meal..." class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-[10px] cyber-font text-cyber-cyan uppercase mb-1">🔢 Quantity / Servings</label>
+                                        <input type="number" step="0.25" min="0.25" id="cal-qty" value="1" oninput="multiplySelectedFoodMacros()" class="w-full bg-cyber-bg border border-cyber-cyan/40 rounded px-3 py-2 text-xs cyber-font text-white font-bold focus:outline-none focus:border-cyber-cyan">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">🍽️ Meal Timing</label>
+                                        <select id="cal-meal-type" class="w-full bg-cyber-bg border border-cyber-border rounded px-3 py-2 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
+                                            <option value="Breakfast">🌅 Breakfast</option>
+                                            <option value="Lunch">☀️ Lunch</option>
+                                            <option value="Dinner">🌙 Dinner</option>
+                                            <option value="Snack">🥤 Snack / Shake</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="p-3 rounded-lg bg-cyber-card border border-cyber-border space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[10px] cyber-font text-slate-400 uppercase">✨ Auto-Filled Nutrition</span>
+                                        <span id="food-serving-hint" class="text-[9px] cyber-font text-cyber-neon">Select meal above</span>
+                                    </div>
+                                    <div class="grid grid-cols-4 gap-2">
+                                        <div>
+                                            <label class="block text-[8px] cyber-font text-slate-400 uppercase">Kcal</label>
+                                            <input type="number" id="cal-amount" required placeholder="0" class="w-full bg-cyber-bg border border-cyber-border rounded px-2 py-1.5 text-xs cyber-font text-white font-bold focus:outline-none">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[8px] cyber-font text-cyber-cyan uppercase">Prot (g)</label>
+                                            <input type="number" id="cal-protein" placeholder="0" class="w-full bg-cyber-bg border border-cyber-border rounded px-2 py-1.5 text-xs cyber-font text-cyber-cyan font-bold focus:outline-none">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[8px] cyber-font text-cyber-amber uppercase">Carb (g)</label>
+                                            <input type="number" id="cal-carbs" placeholder="0" class="w-full bg-cyber-bg border border-cyber-border rounded px-2 py-1.5 text-xs cyber-font text-cyber-amber font-bold focus:outline-none">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[8px] cyber-font text-cyber-purple uppercase">Fat (g)</label>
+                                            <input type="number" id="cal-fats" placeholder="0" class="w-full bg-cyber-bg border border-cyber-border rounded px-2 py-1.5 text-xs cyber-font text-cyber-purple font-bold focus:outline-none">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="w-full py-2.5 rounded bg-cyber-neon/20 hover:bg-cyber-neon/30 text-cyber-neon cyber-font text-xs font-semibold border border-cyber-neon/40 transition">
+                                    ➕ Log Meal & Save to Library
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Meal Log List -->
+                        <div class="lg:col-span-2 cyber-box p-5 rounded-xl space-y-4">
+                            <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase">🍽️ Today's Food Log</h3>
+                                <button onclick="clearTodayMeals()" class="text-[10px] cyber-font text-slate-400 hover:text-cyber-rose">🗑️ Clear All</button>
+                            </div>
+                            <div id="calories-container" class="space-y-2.5"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. FINANCES VIEW -->
                 <div id="view-finances" class="app-view hidden space-y-6">
-                    <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-cyber-neon mr-2">&gt;</span> FINANCIAL LEDGER & SUBSCRIPTION ENGINE</h1>
+                    <h1 class="text-lg font-bold text-white cyber-font flex items-center">💰 Finances & Expense Tracker</h1>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div class="cyber-box p-5 rounded-xl space-y-4 h-fit">
-                            <h3 class="font-bold text-white text-xs cyber-font uppercase">LOG_TRANSACTION</h3>
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase">💳 Add Transaction</h3>
                             <form onsubmit="handleAddTransaction(event)" class="space-y-3.5">
                                 <div>
                                     <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Description</label>
-                                    <input type="text" id="tx-desc" required placeholder="e.g. Client Consulting" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
+                                    <input type="text" id="tx-desc" required placeholder="e.g. Freelance Project" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
                                 </div>
                                 <div>
                                     <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Amount ($)</label>
                                     <input type="number" step="0.01" id="tx-amount" required placeholder="150.00" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Classification Type</label>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">Transaction Type</label>
                                     <select id="tx-type" class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2.5 text-xs cyber-font text-white focus:outline-none focus:border-cyber-neon">
-                                        <option value="Income">INCOME</option>
-                                        <option value="Expense">EXPENSE</option>
-                                        <option value="Subscription">SUBSCRIPTION</option>
+                                        <option value="Income">📈 Income</option>
+                                        <option value="Expense">📉 Expense</option>
+                                        <option value="Subscription">🔄 Subscription</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="w-full py-2.5 rounded bg-cyber-neon/20 hover:bg-cyber-neon/30 text-cyber-neon cyber-font text-xs font-semibold border border-cyber-neon/40 transition">
-                                    COMMIT TRANSACTION
+                                    ➕ Save Transaction
                                 </button>
                             </form>
                         </div>
                         <div class="lg:col-span-2 cyber-box p-5 rounded-xl space-y-4">
                             <div class="flex items-center justify-between pb-3 border-b border-cyber-border">
-                                <h3 class="font-bold text-white text-xs cyber-font uppercase">TRANSACTION LEDGER</h3>
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase">🧾 Transaction History</h3>
                                 <div class="text-xs cyber-font font-bold text-cyber-neon" id="finances-net-total">Net: $0.00</div>
                             </div>
                             <div id="finances-container" class="space-y-2.5"></div>
@@ -428,15 +735,46 @@
                     </div>
                 </div>
 
-                <!-- 7. SETTINGS VIEW -->
+                <!-- 9. SETTINGS VIEW (WITH PASSWORD SYSTEM) -->
                 <div id="view-settings" class="app-view hidden space-y-6">
-                    <h1 class="text-lg font-bold text-white cyber-font flex items-center"><span class="text-slate-400 mr-2">&gt;</span> SYSTEM CONFIGURATION & DATA STORAGE</h1>
-                    <div class="cyber-box p-6 rounded-xl space-y-4 max-w-xl">
-                        <h3 class="font-bold text-white text-xs cyber-font uppercase text-cyber-cyan">CLOUD STORAGE SYNC</h3>
-                        <p class="text-xs cyber-font text-slate-400 leading-relaxed">Your workspace is actively synchronized via Firebase Cloud Firestore across all connected devices.</p>
-                        <button onclick="resetAllUserData()" class="px-4 py-2.5 rounded bg-cyber-rose/20 hover:bg-cyber-rose/30 text-cyber-rose border border-cyber-rose/40 text-xs cyber-font font-semibold">
-                            WIPE CLOUD WORKSPACE DATA
-                        </button>
+                    <h1 class="text-lg font-bold text-white cyber-font flex items-center">⚙️ Settings & Security</h1>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
+                        <!-- Password Management Card -->
+                        <div class="cyber-box p-6 rounded-xl space-y-4 border-l-2 border-l-cyber-cyan">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-white text-xs cyber-font uppercase text-cyber-cyan">🔐 Device Access Password</h3>
+                                <span class="text-[10px] cyber-font bg-cyber-cyan/10 text-cyber-cyan px-2 py-0.5 rounded border border-cyber-cyan/30">Cloud Protected</span>
+                            </div>
+                            <p class="text-xs cyber-font text-slate-400 leading-relaxed">
+                                Whenever you open Life OS on a new phone or browser, it will ask for this password.
+                            </p>
+                            <form onsubmit="handleChangePassword(event)" class="space-y-3">
+                                <div>
+                                    <label class="block text-[10px] cyber-font text-slate-400 uppercase mb-1">New Password</label>
+                                    <input type="password" id="new-app-password" required placeholder="Enter new password..." class="w-full bg-cyber-bg border border-cyber-border rounded px-3.5 py-2 text-xs cyber-font text-white focus:outline-none focus:border-cyber-cyan">
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <button type="submit" class="px-4 py-2 rounded bg-cyber-cyan/20 hover:bg-cyber-cyan/30 text-cyber-cyan border border-cyber-cyan/40 text-xs cyber-font font-semibold transition">
+                                        🔑 Update Password
+                                    </button>
+                                    <button type="button" onclick="lockDeviceNow()" class="px-4 py-2 rounded cyber-box hover:border-cyber-amber text-slate-300 text-xs cyber-font font-semibold transition">
+                                        🔒 Lock This Device
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Cloud Sync & Reset Card -->
+                        <div class="cyber-box p-6 rounded-xl space-y-4 border-l-2 border-l-cyber-rose h-fit">
+                            <h3 class="font-bold text-white text-xs cyber-font uppercase text-cyber-rose">☁️ Cloud Sync & Data Reset</h3>
+                            <p class="text-xs cyber-font text-slate-400 leading-relaxed">
+                                Your workspace data and custom saved foods/exercises are automatically synced across all your devices using Firebase Cloud Firestore.
+                            </p>
+                            <button onclick="resetAllUserData()" class="px-4 py-2.5 rounded bg-cyber-rose/20 hover:bg-cyber-rose/30 text-cyber-rose border border-cyber-rose/40 text-xs cyber-font font-semibold transition">
+                                🗑️ Reset All Workspace Data
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -460,7 +798,445 @@
         const db = firebase.firestore();
         const docRef = db.collection("life_os_workspaces").doc("primary_user");
 
+        const DEVICE_AUTH_KEY = "life_os_device_unlocked_v1";
         let cachedAppData = null;
+        let currentOpenPathId = null;
+
+        let activeBaseFood = { cal: 0, p: 0, c: 0, f: 0, unit: "1 serving" };
+        let activeBaseExercise = { ratePerMin: 8, calPerSet: 22, type: "Strength" };
+
+        // ==================== 🔒 PASSWORD LOCK SYSTEM ====================
+        function checkDeviceLockState() {
+            const data = loadAppData();
+            const currentPass = data.appPassword || "1234";
+            const savedToken = localStorage.getItem(DEVICE_AUTH_KEY);
+            const lockScreen = document.getElementById('auth-lock-screen');
+
+            if (savedToken === currentPass) {
+                lockScreen.classList.add('hidden');
+            } else {
+                lockScreen.classList.remove('hidden');
+            }
+        }
+
+        function handleUnlockWorkspace(e) {
+            e.preventDefault();
+            const input = document.getElementById('lock-password-input').value;
+            const data = loadAppData();
+            const currentPass = data.appPassword || "1234";
+            const errEl = document.getElementById('lock-error-msg');
+
+            if (input === currentPass) {
+                playCyberSound('task-complete');
+                localStorage.setItem(DEVICE_AUTH_KEY, currentPass);
+                document.getElementById('auth-lock-screen').classList.add('hidden');
+                document.getElementById('lock-password-input').value = '';
+                errEl.classList.add('hidden');
+            } else {
+                playCyberSound('delete');
+                errEl.classList.remove('hidden');
+            }
+        }
+
+        function handleChangePassword(e) {
+            e.preventDefault();
+            const newPass = document.getElementById('new-app-password').value.trim();
+            if (!newPass) return;
+            playCyberSound('success');
+            const data = loadAppData();
+            data.appPassword = newPass;
+            localStorage.setItem(DEVICE_AUTH_KEY, newPass);
+            saveAppData(data);
+            document.getElementById('new-app-password').value = '';
+            alert('✅ Password updated! Any new device will now require this password.');
+        }
+
+        function lockDeviceNow() {
+            playCyberSound('click');
+            localStorage.removeItem(DEVICE_AUTH_KEY);
+            document.getElementById('auth-lock-screen').classList.remove('hidden');
+        }
+
+        // ==================== EXPANDED INDIAN & GLOBAL FOOD LIBRARY ====================
+        const BUILTIN_FOOD_DB = [
+            { name: "Roti / Chapati (1 Medium)", unit: "1 piece", cal: 104, p: 3.5, c: 20, f: 1 },
+            { name: "Plain Paratha (1 Medium)", unit: "1 paratha", cal: 180, p: 4, c: 24, f: 7 },
+            { name: "Aloo Paratha (1 Medium)", unit: "1 paratha", cal: 290, p: 6, c: 38, f: 12 },
+            { name: "Paneer Paratha (1 Medium)", unit: "1 paratha", cal: 320, p: 11, c: 34, f: 15 },
+            { name: "Sattu Paratha / Litti (1 Piece)", unit: "1 piece", cal: 195, p: 7, c: 28, f: 6 },
+            { name: "Litti Chokha (2 Littis + Chokha)", unit: "1 plate", cal: 450, p: 14, c: 62, f: 16 },
+            { name: "Sattu Drink / Sharbat (1 Glass)", unit: "1 glass (40g sattu)", cal: 165, p: 10, c: 24, f: 2.5 },
+            { name: "Steamed White Rice (1 Bowl / 150g)", unit: "1 bowl", cal: 195, p: 4, c: 42, f: 0.5 },
+            { name: "Jeera Rice / Pulao (1 Bowl)", unit: "1 bowl", cal: 240, p: 4.5, c: 44, f: 5 },
+            { name: "Dal Tadka / Yellow Dal (1 Bowl)", unit: "1 bowl", cal: 185, p: 10, c: 26, f: 4.5 },
+            { name: "Dal Makhani (1 Bowl)", unit: "1 bowl", cal: 280, p: 11, c: 28, f: 14 },
+            { name: "Rajma Masala (1 Bowl)", unit: "1 bowl", cal: 240, p: 12, c: 34, f: 6 },
+            { name: "Rajma Chawal (1 Full Plate)", unit: "1 plate", cal: 435, p: 16, c: 76, f: 6.5 },
+            { name: "Chole / Chickpea Curry (1 Bowl)", unit: "1 bowl", cal: 260, p: 12, c: 36, f: 8 },
+            { name: "Chole Bhature (2 Bhature + Chole)", unit: "1 plate", cal: 680, p: 18, c: 82, f: 30 },
+            { name: "Paneer Butter Masala / Kadai Paneer (1 Bowl)", unit: "1 bowl", cal: 360, p: 16, c: 12, f: 28 },
+            { name: "Palak Paneer (1 Bowl)", unit: "1 bowl", cal: 280, p: 15, c: 10, f: 20 },
+            { name: "Raw Paneer / Cottage Cheese (100g)", unit: "100g", cal: 265, p: 18, c: 3, f: 20 },
+            { name: "Aloo Gobi / Mixed Veg Sabzi (1 Bowl)", unit: "1 bowl", cal: 160, p: 4, c: 22, f: 6 },
+            { name: "Bhindi Masala / Kurkuri Bhindi (1 Bowl)", unit: "1 bowl", cal: 150, p: 3, c: 16, f: 8 },
+            { name: "Aloo Bhujia Sabzi (1 Bowl)", unit: "1 bowl", cal: 210, p: 3, c: 28, f: 9 },
+            { name: "Khichdi (Dal + Rice, 1 Bowl)", unit: "1 bowl", cal: 230, p: 8, c: 38, f: 4.5 },
+            { name: "Boiled Egg (1 Large)", unit: "1 egg", cal: 78, p: 6.3, c: 0.6, f: 5.3 },
+            { name: "Egg Whites (3 Whites)", unit: "3 whites", cal: 51, p: 11, c: 0.7, f: 0.2 },
+            { name: "Masala Egg Omelette (2 Eggs)", unit: "1 omelette", cal: 195, p: 13, c: 2, f: 15 },
+            { name: "Egg Bhurji (2 Eggs)", unit: "1 bowl", cal: 220, p: 14, c: 4, f: 16 },
+            { name: "Egg Curry (2 Eggs + Gravy)", unit: "1 bowl", cal: 290, p: 15, c: 8, f: 21 },
+            { name: "Chicken Curry (Home Style, 1 Bowl)", unit: "1 bowl (200g)", cal: 310, p: 28, c: 8, f: 18 },
+            { name: "Butter Chicken (1 Bowl)", unit: "1 bowl", cal: 430, p: 30, c: 14, f: 28 },
+            { name: "Grilled / Boiled Chicken Breast (150g)", unit: "150g", cal: 248, p: 46, c: 0, f: 5 },
+            { name: "Tandoori Chicken (2 Pieces)", unit: "2 pieces", cal: 290, p: 34, c: 4, f: 14 },
+            { name: "Chicken Biryani (1 Plate)", unit: "1 plate", cal: 580, p: 28, c: 65, f: 22 },
+            { name: "Mutton Curry (1 Bowl)", unit: "1 bowl", cal: 380, p: 26, c: 7, f: 28 },
+            { name: "Fish Curry / Rohu Fish (2 Pieces)", unit: "1 bowl", cal: 270, p: 24, c: 6, f: 16 },
+            { name: "Poha (1 Bowl)", unit: "1 bowl", cal: 250, p: 5, c: 45, f: 6 },
+            { name: "Upma (1 Bowl)", unit: "1 bowl", cal: 240, p: 6, c: 40, f: 6 },
+            { name: "Besan Chilla (1 Medium)", unit: "1 chilla", cal: 140, p: 7, c: 18, f: 4.5 },
+            { name: "Moong Dal Chilla (1 Medium)", unit: "1 chilla", cal: 135, p: 8, c: 19, f: 3 },
+            { name: "Idli (2 Pieces with Sambar)", unit: "2 idlis", cal: 190, p: 6, c: 36, f: 2 },
+            { name: "Masala Dosa (1 Whole)", unit: "1 dosa", cal: 340, p: 7, c: 52, f: 11 },
+            { name: "Plain Dosa (1 Whole)", unit: "1 dosa", cal: 180, p: 4, c: 30, f: 4.5 },
+            { name: "Oats / Oatmeal with Milk (1 Bowl)", unit: "1 bowl", cal: 280, p: 11, c: 44, f: 6.5 },
+            { name: "Muesli with Milk (1 Bowl)", unit: "1 bowl", cal: 310, p: 10, c: 52, f: 7 },
+            { name: "Brown Bread Peanut Butter Toast (2 Slices)", unit: "2 slices + 1 tbsp PB", cal: 260, p: 10, c: 31, f: 11 },
+            { name: "Veg Sandwich / Grilled Sandwich", unit: "1 sandwich", cal: 280, p: 7, c: 38, f: 10 },
+            { name: "Maggi / Instant Noodles (1 Pack)", unit: "1 pack cooked", cal: 310, p: 6, c: 44, f: 12 },
+            { name: "Veg Momos (6 Pieces Steamed)", unit: "6 pieces", cal: 240, p: 6, c: 38, f: 6 },
+            { name: "Chicken Momos (6 Pieces Steamed)", unit: "6 pieces", cal: 270, p: 15, c: 34, f: 7 },
+            { name: "Samosa (1 Piece)", unit: "1 piece", cal: 250, p: 4, c: 28, f: 13 },
+            { name: "Chowmein / Hakka Noodles (1 Plate)", unit: "1 plate", cal: 420, p: 8, c: 58, f: 16 },
+            { name: "Egg Roll / Chicken Roll (1 Roll)", unit: "1 roll", cal: 460, p: 18, c: 48, f: 21 },
+            { name: "Sprouts Salad (Chana + Moong, 1 Bowl)", unit: "1 bowl", cal: 160, p: 11, c: 26, f: 1.5 },
+            { name: "Roasted Chana / Bhuna Chana (50g)", unit: "1 handful (50g)", cal: 180, p: 10, c: 29, f: 2.5 },
+            { name: "Makhana / Fox Nuts Roasted (1 Bowl / 30g)", unit: "1 bowl", cal: 115, p: 3, c: 22, f: 1.5 },
+            { name: "Soya Chunks Cooked (50g Dry Weight)", unit: "1 bowl", cal: 172, p: 26, c: 16, f: 0.5 },
+            { name: "Whey Protein Shake (1 Scoop in Water)", unit: "1 scoop", cal: 120, p: 24, c: 3, f: 1.5 },
+            { name: "Banana Shake with Milk (1 Glass)", unit: "1 glass", cal: 280, p: 9, c: 45, f: 7 },
+            { name: "Curd / Dahi (1 Bowl / 150g)", unit: "1 bowl", cal: 100, p: 6, c: 7, f: 5 },
+            { name: "Milk (1 Glass / 250ml)", unit: "1 glass", cal: 150, p: 8, c: 12, f: 8 },
+            { name: "Chai / Milk Tea with Sugar (1 Cup)", unit: "1 cup", cal: 90, p: 2.5, c: 12, f: 3 },
+            { name: "Black Coffee (1 Cup)", unit: "1 cup", cal: 5, p: 0, c: 1, f: 0 },
+            { name: "Banana (1 Medium)", unit: "1 banana", cal: 105, p: 1.3, c: 27, f: 0.4 },
+            { name: "Apple (1 Medium)", unit: "1 apple", cal: 95, p: 0.5, c: 25, f: 0.3 },
+            { name: "Papaya / Mango / Fruit Bowl", unit: "1 bowl", cal: 110, p: 1, c: 26, f: 0.5 },
+            { name: "Almonds / Walnuts / Cashews (Handful / 30g)", unit: "30g", cal: 175, p: 6, c: 5, f: 15 }
+        ];
+
+        // ==================== EXPANDED EXERCISE DATABASE ====================
+        const BUILTIN_EXERCISE_DB = [
+            { name: "Barbell / Dumbbell Bench Press", type: "Strength", defaultSets: "4 x 10", calPerSet: 25 },
+            { name: "Incline Dumbbell Press", type: "Strength", defaultSets: "4 x 10", calPerSet: 24 },
+            { name: "Chest Fly / Pec Deck Machine", type: "Strength", defaultSets: "3 x 12", calPerSet: 18 },
+            { name: "Push-Ups (Bodyweight)", type: "Strength", defaultSets: "4 x 20", calPerSet: 20 },
+            { name: "Pull-Ups / Chin-Ups", type: "Strength", defaultSets: "4 x 10", calPerSet: 26 },
+            { name: "Lat Pulldown", type: "Strength", defaultSets: "4 x 12", calPerSet: 22 },
+            { name: "Seated Cable Row / Bent-Over Row", type: "Strength", defaultSets: "4 x 10", calPerSet: 24 },
+            { name: "Deadlift", type: "Strength", defaultSets: "4 x 8", calPerSet: 38 },
+            { name: "Barbell / Bodyweight Squats", type: "Strength", defaultSets: "4 x 12", calPerSet: 34 },
+            { name: "Leg Press Machine", type: "Strength", defaultSets: "4 x 12", calPerSet: 30 },
+            { name: "Walking Lunges / Split Squats", type: "Strength", defaultSets: "3 x 12", calPerSet: 26 },
+            { name: "Leg Extension & Hamstring Curl", type: "Strength", defaultSets: "4 x 12", calPerSet: 20 },
+            { name: "Calf Raises", type: "Strength", defaultSets: "4 x 15", calPerSet: 14 },
+            { name: "Overhead Shoulder Press", type: "Strength", defaultSets: "4 x 10", calPerSet: 23 },
+            { name: "Lateral Raises (Side Delts)", type: "Strength", defaultSets: "4 x 15", calPerSet: 16 },
+            { name: "Face Pulls / Rear Delt Fly", type: "Strength", defaultSets: "3 x 15", calPerSet: 15 },
+            { name: "Dumbbell / Barbell Bicep Curls", type: "Strength", defaultSets: "4 x 12", calPerSet: 16 },
+            { name: "Hammer Curls / Preacher Curls", type: "Strength", defaultSets: "3 x 12", calPerSet: 15 },
+            { name: "Tricep Rope Pushdown", type: "Strength", defaultSets: "4 x 12", calPerSet: 16 },
+            { name: "Overhead Tricep Extension / Skullcrushers", type: "Strength", defaultSets: "3 x 12", calPerSet: 17 },
+            { name: "Parallel Bar Dips / Bench Dips", type: "Strength", defaultSets: "3 x 12", calPerSet: 22 },
+            { name: "Plank Hold", type: "Mobility", defaultSets: "5m", ratePerMin: 5 },
+            { name: "Crunches / Hanging Leg Raises / Abs", type: "Strength", defaultSets: "4 x 20", calPerSet: 18 },
+            { name: "Burpees", type: "Mobility", defaultSets: "15m", ratePerMin: 12 },
+            { name: "Mountain Climbers / High Knees", type: "Mobility", defaultSets: "15m", ratePerMin: 10 },
+            { name: "Jumping Jacks", type: "Cardio", defaultSets: "15m", ratePerMin: 8.5 },
+            { name: "Surya Namaskar (Sun Salutations)", type: "Mobility", defaultSets: "20m", ratePerMin: 7.5 },
+            { name: "Hindu Push-Ups (Dand) & Baithak", type: "Strength", defaultSets: "4 x 20", calPerSet: 28 },
+            { name: "Yoga Asana & Pranayama Flow", type: "Mobility", defaultSets: "30m", ratePerMin: 4.5 },
+            { name: "Full Body Stretching & Mobility", type: "Mobility", defaultSets: "20m", ratePerMin: 3.5 },
+            { name: "HIIT Full Body Circuit", type: "Mobility", defaultSets: "20m", ratePerMin: 11 },
+            { name: "Running / Outdoor Jogging", type: "Cardio", defaultSets: "30m", ratePerMin: 11 },
+            { name: "Treadmill Incline Walk / Run", type: "Cardio", defaultSets: "30m", ratePerMin: 8.5 },
+            { name: "Brisk Walking / Evening Walk", type: "Cardio", defaultSets: "45m", ratePerMin: 5 },
+            { name: "Cycling (Outdoor or Stationary)", type: "Cardio", defaultSets: "30m", ratePerMin: 8.5 },
+            { name: "Jump Rope / Skipping", type: "Cardio", defaultSets: "15m", ratePerMin: 12 },
+            { name: "Cricket (Playing / Net Practice)", type: "Cardio", defaultSets: "60m", ratePerMin: 6.5 },
+            { name: "Badminton", type: "Cardio", defaultSets: "45m", ratePerMin: 7.5 },
+            { name: "Football / Basketball", type: "Cardio", defaultSets: "45m", ratePerMin: 9.5 },
+            { name: "Swimming", type: "Cardio", defaultSets: "30m", ratePerMin: 10 },
+            { name: "Stair Climbing", type: "Cardio", defaultSets: "15m", ratePerMin: 9 }
+        ];
+
+        // ==================== LIVE FOOD SEARCH ====================
+        let webSearchTimeout = null;
+
+        function getCombinedFoodDB() {
+            const data = loadAppData();
+            const customFoods = data.customFoods || [];
+            return [...customFoods, ...BUILTIN_FOOD_DB];
+        }
+
+        function searchFoodLocalAndWeb() {
+            const query = document.getElementById('food-search-query').value.trim().toLowerCase();
+            const resultsBox = document.getElementById('food-search-results');
+            const statusBadge = document.getElementById('food-search-status');
+
+            if (!query) {
+                resultsBox.classList.add('hidden');
+                return;
+            }
+
+            const allLocal = getCombinedFoodDB();
+            const localMatches = allLocal.filter(f => f.name.toLowerCase().includes(query)).slice(0, 8);
+
+            renderFoodSearchResults(localMatches, query, false);
+
+            if (webSearchTimeout) clearTimeout(webSearchTimeout);
+            if (query.length >= 3) {
+                statusBadge.textContent = "Searching Web...";
+                webSearchTimeout = setTimeout(() => {
+                    fetchWebFoodResults(query, localMatches);
+                }, 450);
+            }
+        }
+
+        async function triggerWebFoodSearch() {
+            const query = document.getElementById('food-search-query').value.trim();
+            if (!query) return;
+            playCyberSound('click');
+            const allLocal = getCombinedFoodDB();
+            const localMatches = allLocal.filter(f => f.name.toLowerCase().includes(query.toLowerCase())).slice(0, 5);
+            await fetchWebFoodResults(query, localMatches);
+        }
+
+        async function fetchWebFoodResults(query, existingLocalMatches = []) {
+            const statusBadge = document.getElementById('food-search-status');
+            statusBadge.textContent = "Fetching Web...";
+            try {
+                const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(query)}&search_simple=1&action=process&json=1&page_size=6`;
+                const res = await fetch(url);
+                const data = await res.json();
+                const webItems = [];
+
+                if (data && data.products) {
+                    data.products.forEach(prod => {
+                        const name = prod.product_name || prod.generic_name;
+                        const nut = prod.nutriments || {};
+                        const kcal = Math.round(nut['energy-kcal_100g'] || nut['energy-kcal_serving'] || (nut['energy_100g'] ? nut['energy_100g'] / 4.184 : 0));
+                        if (name && kcal > 0) {
+                            webItems.push({
+                                name: `${name} (Web - 100g)`,
+                                unit: "100g / serving",
+                                cal: kcal,
+                                p: Math.round(nut.proteins_100g || 0),
+                                c: Math.round(nut.carbohydrates_100g || 0),
+                                f: Math.round(nut.fat_100g || 0),
+                                isWeb: true
+                            });
+                        }
+                    });
+                }
+                statusBadge.textContent = "Web Synced ✓";
+                renderFoodSearchResults([...existingLocalMatches, ...webItems], query, true);
+            } catch (err) {
+                statusBadge.textContent = "Local Smart Mode";
+                renderFoodSearchResults(existingLocalMatches, query, true);
+            }
+        }
+
+        function renderFoodSearchResults(items, rawQuery, webChecked) {
+            const resultsBox = document.getElementById('food-search-results');
+            resultsBox.classList.remove('hidden');
+
+            let html = items.map((item) => `
+                <div onclick='selectFoodFromSearch(${JSON.stringify(item).replace(/'/g, "&#39;")})' class="p-2.5 hover:bg-cyber-cyan/15 cursor-pointer transition flex items-center justify-between gap-2 text-xs cyber-font">
+                    <div class="min-w-0">
+                        <div class="font-semibold text-white truncate flex items-center gap-1.5">
+                            <span>${item.isWeb ? '🌐' : '🍲'}</span>
+                            <span>${item.name}</span>
+                        </div>
+                        <div class="text-[10px] text-slate-400 font-mono">
+                            P: ${item.p}g | C: ${item.c}g | F: ${item.f}g (${item.unit || '1 serving'})
+                        </div>
+                    </div>
+                    <span class="text-cyber-neon font-bold font-mono text-xs flex-shrink-0">${item.cal} kcal</span>
+                </div>
+            `).join('');
+
+            const cleanTitle = rawQuery.charAt(0).toUpperCase() + rawQuery.slice(1);
+            html += `
+                <div onclick='selectSmartEstimatedFood(${JSON.stringify(cleanTitle)})' class="p-2.5 bg-cyber-card hover:bg-cyber-purple/20 cursor-pointer transition flex items-center justify-between gap-2 text-xs cyber-font">
+                    <div>
+                        <div class="font-semibold text-cyber-purple">✨ Auto-Estimate "${cleanTitle}"</div>
+                        <div class="text-[10px] text-slate-400">Smart macro calculation & save to your custom foods</div>
+                    </div>
+                    <span class="text-[10px] bg-cyber-purple/20 text-cyber-purple px-2 py-0.5 rounded border border-cyber-purple/40">Select</span>
+                </div>
+            `;
+
+            resultsBox.innerHTML = html;
+        }
+
+        function selectFoodFromSearch(item) {
+            playCyberSound('click');
+            activeBaseFood = { cal: item.cal, p: item.p, c: item.c, f: item.f, unit: item.unit || '1 serving' };
+            document.getElementById('cal-food-name').value = item.name;
+            document.getElementById('cal-qty').value = 1;
+            multiplySelectedFoodMacros();
+            document.getElementById('food-search-results').classList.add('hidden');
+            document.getElementById('food-search-query').value = '';
+        }
+
+        function selectSmartEstimatedFood(title) {
+            playCyberSound('click');
+            const lower = title.toLowerCase();
+            let cal = 260, p = 10, c = 32, f = 9;
+            if (lower.includes('chicken') || lower.includes('fish') || lower.includes('meat') || lower.includes('egg')) {
+                cal = 310; p = 28; c = 8; f = 16;
+            } else if (lower.includes('paneer') || lower.includes('cheese') || lower.includes('curd')) {
+                cal = 290; p = 15; c = 10; f = 20;
+            } else if (lower.includes('shake') || lower.includes('sattu') || lower.includes('protein')) {
+                cal = 210; p = 18; c = 24; f = 4;
+            } else if (lower.includes('sweet') || lower.includes('halwa') || lower.includes('cake') || lower.includes('ice cream')) {
+                cal = 340; p = 4; c = 48; f = 14;
+            }
+            activeBaseFood = { cal, p, c, f, unit: "1 serving (Auto-Est)" };
+            document.getElementById('cal-food-name').value = title;
+            document.getElementById('cal-qty').value = 1;
+            multiplySelectedFoodMacros();
+            document.getElementById('food-search-results').classList.add('hidden');
+            document.getElementById('food-search-query').value = '';
+        }
+
+        function multiplySelectedFoodMacros() {
+            const qty = parseFloat(document.getElementById('cal-qty').value) || 1;
+            if (activeBaseFood.cal > 0) {
+                document.getElementById('cal-amount').value = Math.round(activeBaseFood.cal * qty);
+                document.getElementById('cal-protein').value = Math.round(activeBaseFood.p * qty);
+                document.getElementById('cal-carbs').value = Math.round(activeBaseFood.c * qty);
+                document.getElementById('cal-fats').value = Math.round(activeBaseFood.f * qty);
+                document.getElementById('food-serving-hint').textContent = `${qty}x (${activeBaseFood.unit})`;
+            }
+        }
+
+        // ==================== LIVE EXERCISE SEARCH ====================
+        function getCombinedExerciseDB() {
+            const data = loadAppData();
+            const customEx = data.customExercises || [];
+            return [...customEx, ...BUILTIN_EXERCISE_DB];
+        }
+
+        function searchExercisesLive() {
+            const query = document.getElementById('wo-search-input').value.trim().toLowerCase();
+            const resultsBox = document.getElementById('wo-search-results');
+
+            if (!query) {
+                resultsBox.classList.add('hidden');
+                return;
+            }
+
+            const allEx = getCombinedExerciseDB();
+            const matches = allEx.filter(ex => ex.name.toLowerCase().includes(query)).slice(0, 8);
+
+            resultsBox.classList.remove('hidden');
+            const cleanTitle = query.charAt(0).toUpperCase() + query.slice(1);
+
+            let html = matches.map(ex => `
+                <div onclick='selectExerciseFromSearch(${JSON.stringify(ex).replace(/'/g, "&#39;")})' class="p-2.5 hover:bg-cyber-rose/15 cursor-pointer transition flex items-center justify-between gap-2 text-xs cyber-font">
+                    <div>
+                        <div class="font-semibold text-white">💪 ${ex.name}</div>
+                        <div class="text-[10px] text-slate-400">${ex.type} • Default: ${ex.defaultSets || '4 x 10'}</div>
+                    </div>
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-cyber-rose/15 text-cyber-rose border border-cyber-rose/30">Select</span>
+                </div>
+            `).join('');
+
+            html += `
+                <div onclick='selectCustomExerciseSearch(${JSON.stringify(cleanTitle)})' class="p-2.5 bg-cyber-card hover:bg-cyber-cyan/20 cursor-pointer transition flex items-center justify-between gap-2 text-xs cyber-font">
+                    <div>
+                        <div class="font-semibold text-cyber-cyan">➕ Use "${cleanTitle}" & Auto-Calculate Burn</div>
+                        <div class="text-[10px] text-slate-400">Saves to your exercise library automatically</div>
+                    </div>
+                    <span class="text-[10px] text-cyber-cyan font-bold">Add</span>
+                </div>
+            `;
+
+            resultsBox.innerHTML = html;
+        }
+
+        function searchExercisesWeb() {
+            playCyberSound('click');
+            searchExercisesLive();
+        }
+
+        function selectExerciseFromSearch(ex) {
+            playCyberSound('click');
+            document.getElementById('wo-name').value = ex.name;
+            document.getElementById('wo-type').value = ex.type || 'Strength';
+            document.getElementById('wo-sets').value = ex.defaultSets || '4 x 10';
+            activeBaseExercise = {
+                ratePerMin: ex.ratePerMin || 8.5,
+                calPerSet: ex.calPerSet || 24,
+                type: ex.type || 'Strength'
+            };
+            autoCalculateWorkoutBurn();
+            document.getElementById('wo-search-results').classList.add('hidden');
+            document.getElementById('wo-search-input').value = '';
+        }
+
+        function selectCustomExerciseSearch(title) {
+            playCyberSound('click');
+            document.getElementById('wo-name').value = title;
+            if (!document.getElementById('wo-sets').value) {
+                document.getElementById('wo-sets').value = '4 x 10';
+            }
+            autoCalculateWorkoutBurn();
+            document.getElementById('wo-search-results').classList.add('hidden');
+            document.getElementById('wo-search-input').value = '';
+        }
+
+        function autoCalculateWorkoutBurn() {
+            const name = document.getElementById('wo-name').value.toLowerCase();
+            const typeEl = document.getElementById('wo-type');
+            const setsInput = document.getElementById('wo-sets').value.toLowerCase();
+            const weightInput = document.getElementById('wo-weight').value.toLowerCase();
+
+            const type = typeEl.value;
+            let estBurn = 120;
+
+            const setsMatch = setsInput.match(/(\d+)\s*[x\*]\s*(\d+)/);
+            const minsMatch = setsInput.match(/(\d+)\s*(m|min|mins|minute)/);
+            const singleNum = setsInput.match(/^(\d+)$/);
+
+            if (type === 'Cardio') {
+                let mins = minsMatch ? parseInt(minsMatch[1]) : (singleNum ? parseInt(singleNum[1]) : 30);
+                let ratePerMin = activeBaseExercise.ratePerMin || 8.5;
+                if (name.includes('run') || name.includes('skip') || name.includes('rope')) ratePerMin = 11.5;
+                else if (name.includes('walk')) ratePerMin = 5.2;
+                estBurn = Math.round(mins * ratePerMin);
+            } else if (type === 'Mobility') {
+                let mins = minsMatch ? parseInt(minsMatch[1]) : (singleNum ? parseInt(singleNum[1]) : 20);
+                let ratePerMin = name.includes('hiit') || name.includes('burpee') ? 10.5 : (name.includes('surya') ? 7.5 : 4.5);
+                estBurn = Math.round(mins * ratePerMin);
+            } else {
+                let sets = setsMatch ? parseInt(setsMatch[1]) : (singleNum ? parseInt(singleNum[1]) : 4);
+                let reps = setsMatch ? parseInt(setsMatch[2]) : 10;
+                let calPerSet = activeBaseExercise.calPerSet || 23;
+                if (name.includes('squat') || name.includes('deadlift') || name.includes('leg')) calPerSet = 34;
+
+                const weightNum = parseFloat(weightInput);
+                const weightFactor = (!isNaN(weightNum) && weightNum > 40) ? 1.25 : 1.0;
+                estBurn = Math.round(sets * calPerSet * (reps / 10) * weightFactor);
+            }
+
+            if (name || setsInput) {
+                document.getElementById('wo-cal').value = Math.max(20, estBurn);
+            }
+        }
 
         // Web Audio API Sound Effects Engine
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -537,13 +1313,14 @@
             document.querySelectorAll('.app-view').forEach(el => el.classList.add('hidden'));
             document.getElementById('view-' + viewName).classList.remove('hidden');
 
-            ['dashboard', 'schedule', 'tasks', 'habits', 'learning', 'finances', 'settings'].forEach(name => {
+            const allViews = ['dashboard', 'schedule', 'tasks', 'habits', 'learning', 'workout', 'calories', 'finances', 'settings'];
+            allViews.forEach(name => {
                 const btn = document.getElementById('nav-' + name);
                 if (btn) {
                     if (name === viewName) {
-                        btn.className = 'w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-semibold transition bg-cyber-cyan/15 text-cyber-cyan border border-cyber-cyan/40';
+                        btn.className = 'w-full flex items-center space-x-3 px-4 py-2.5 rounded text-xs cyber-font font-semibold transition bg-cyber-cyan/15 text-cyber-cyan border border-cyber-cyan/40';
                     } else {
-                        btn.className = 'w-full flex items-center space-x-3 px-4 py-3 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white';
+                        btn.className = 'w-full flex items-center space-x-3 px-4 py-2.5 rounded text-xs cyber-font font-medium transition text-slate-400 hover:bg-cyber-border/50 hover:text-white';
                     }
                 }
             });
@@ -561,44 +1338,104 @@
 
         function getDefaultData() {
             return {
+                appPassword: "1234",
                 tasks: [
                     { id: 1, title: 'Review quarterly financial budget', completed: true, priority: 'High', category: 'Finance' },
-                    { id: 2, title: 'Complete Chapter 4 study plan milestone', completed: false, priority: 'High', category: 'Study' }
+                    { id: 2, title: 'Complete Chapter 4 study milestone', completed: false, priority: 'High', category: 'Study' }
                 ],
-                notes: [{ id: 1, text: 'SYS.LOG: Cloud Architecture protocols verified.' }],
+                notes: [{ id: 1, text: 'Quick Note: All devices connected to cloud sync.' }],
                 habits: [{ id: 1, name: 'Deep Work (2 Hours)', freq: 'Daily', streak: 14, completedToday: true }],
                 finances: [
                     { id: 1, desc: 'Client Consulting', amount: 3500.00, type: 'Income' },
                     { id: 2, desc: 'Apartment Rent', amount: 1400.00, type: 'Expense' }
                 ],
-                schedule: [{ id: 1, time: '09:00 - 10:30', activity: 'Deep Work Sprint' }],
+                schedule: [{ id: 1, time: '09:00 - 10:30', activity: 'Deep Work Session' }],
+                workouts: [
+                    { id: 1, name: 'Barbell / Dumbbell Bench Press', type: 'Strength', sets: '4 x 10', weight: '60 kg', calories: 125, date: '2026-10-19', completed: true },
+                    { id: 2, name: 'Running / Outdoor Jogging', type: 'Cardio', sets: '25m', weight: '4 km', calories: 275, date: '2026-10-19', completed: false }
+                ],
+                customFoods: [],
+                customExercises: [],
+                calorieGoal: 2200,
+                calorieLogs: [
+                    { id: 1, food: '2x Boiled Egg (1 Large)', calories: 156, meal: 'Breakfast', protein: 13, carbs: 1, fats: 11 },
+                    { id: 2, food: '1x Sattu Drink / Sharbat (1 Glass)', calories: 165, meal: 'Snack', protein: 10, carbs: 24, fats: 3 }
+                ],
                 studyPlans: [
                     {
                         id: 1,
-                        title: 'Advanced System Architecture',
-                        date: '2026-10-25',
-                        desc: 'Distributed systems & caching patterns.',
-                        subtasks: [
-                            { id: 101, title: 'Read Chapter 1: Load Balancers', dueDate: '2026-10-20', estTime: '90m', completed: true },
-                            { id: 102, title: 'Complete DB Sharding Exercise', dueDate: '2026-10-22', estTime: '120m', completed: false }
+                        title: 'System Design & Architecture',
+                        date: '2026-11-20',
+                        desc: 'Distributed systems, caching patterns & high-availability engineering.',
+                        topics: [
+                            {
+                                id: 201,
+                                title: 'Load Balancing & Reverse Proxies',
+                                targetDate: '2026-11-01',
+                                notes: 'Focus on L4 vs L7 load balancing and consistent hashing rings.',
+                                subtasks: [
+                                    { id: 301, title: 'Read Chapter 1: Consistent Hashing', dueDate: '2026-10-25', estTime: '45m', completed: true },
+                                    { id: 302, title: 'Configure Nginx Reverse Proxy Lab', dueDate: '2026-10-28', estTime: '60m', completed: false }
+                                ]
+                            }
                         ]
                     }
                 ]
             };
         }
 
+        function normalizeAppData(data) {
+            if (!data.appPassword) data.appPassword = "1234";
+            if (!data.studyPlans) data.studyPlans = [];
+            data.studyPlans.forEach(sp => {
+                if (!sp.topics) {
+                    sp.topics = [];
+                    if (sp.subtasks && sp.subtasks.length > 0) {
+                        sp.topics.push({
+                            id: Date.now() + Math.floor(Math.random() * 1000),
+                            title: 'Core Module',
+                            targetDate: sp.date || '',
+                            notes: '',
+                            subtasks: sp.subtasks
+                        });
+                    }
+                    delete sp.subtasks;
+                }
+            });
+            if (!data.workouts) data.workouts = [];
+            if (!data.customFoods) data.customFoods = [];
+            if (!data.customExercises) data.customExercises = [];
+            if (!data.calorieGoal) data.calorieGoal = 2200;
+            if (!data.calorieLogs) data.calorieLogs = [];
+            return data;
+        }
+
         function loadAppData() {
-            return cachedAppData || getDefaultData();
+            const raw = cachedAppData || getDefaultData();
+            return normalizeAppData(raw);
         }
 
         async function saveAppData(data) {
-            cachedAppData = data;
+            cachedAppData = normalizeAppData(data);
             renderAllAppData();
             try {
-                await docRef.set(data);
+                await docRef.set(cachedAppData);
             } catch (e) {
                 console.error("Cloud sync save error:", e);
             }
+        }
+
+        function getPathProgress(sp) {
+            let totalSub = 0;
+            let compSub = 0;
+            (sp.topics || []).forEach(topic => {
+                (topic.subtasks || []).forEach(st => {
+                    totalSub++;
+                    if (st.completed) compSub++;
+                });
+            });
+            const pct = totalSub > 0 ? Math.round((compSub / totalSub) * 100) : 0;
+            return { totalSub, compSub, pct, topicCount: (sp.topics || []).length };
         }
 
         function renderAllAppData() {
@@ -607,9 +1444,14 @@
             const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
             document.getElementById('app-date-display').textContent = new Date().toLocaleDateString('en-US', options);
 
+            const woDateInput = document.getElementById('wo-date');
+            if (woDateInput && !woDateInput.value) {
+                woDateInput.value = new Date().toISOString().split('T')[0];
+            }
+
             const completedTasksCount = data.tasks.filter(t => t.completed).length;
             document.getElementById('stat-tasks-done').textContent = `${completedTasksCount} / ${data.tasks.length}`;
-            document.getElementById('stat-study-active').textContent = `${data.studyPlans.length} Active`;
+            document.getElementById('stat-study-active').textContent = `${data.studyPlans.length} Paths`;
 
             const totalHabits = data.habits.length;
             const completedHabitsToday = data.habits.filter(h => h.completedToday).length;
@@ -617,14 +1459,14 @@
             
             const habitStatusEl = document.getElementById('stat-habits-status');
             if (totalHabits > 0 && completedHabitsToday === totalHabits) {
-                habitStatusEl.textContent = 'ALL COMPLETE ✓';
-                habitStatusEl.className = 'text-emerald-400 font-bold';
+                habitStatusEl.textContent = 'All Complete 🎉';
+                habitStatusEl.className = 'text-emerald-400 font-bold ml-1';
             } else if (completedHabitsToday > 0) {
-                habitStatusEl.textContent = 'IN PROGRESS';
-                habitStatusEl.className = 'text-cyber-amber';
+                habitStatusEl.textContent = 'In Progress 🔥';
+                habitStatusEl.className = 'text-cyber-amber ml-1';
             } else {
-                habitStatusEl.textContent = 'ALL PENDING';
-                habitStatusEl.className = 'text-slate-400';
+                habitStatusEl.textContent = 'All Pending ⏳';
+                habitStatusEl.className = 'text-slate-400 ml-1';
             }
 
             let net = 0;
@@ -634,7 +1476,96 @@
             });
             document.getElementById('stat-net-balance').textContent = `$${net.toFixed(2)}`;
 
-            // Dashboard Tasks Preview
+            // ==================== RENDER WORKOUT TRACKER ====================
+            const totalWorkouts = data.workouts.length;
+            const doneWorkouts = data.workouts.filter(w => w.completed).length;
+            const totalBurn = data.workouts.filter(w => w.completed).reduce((acc, w) => acc + (Number(w.calories) || 0), 0);
+
+            document.getElementById('workout-stat-done').textContent = `${doneWorkouts} / ${totalWorkouts}`;
+            document.getElementById('workout-stat-burn').textContent = `${totalBurn} kcal`;
+            document.getElementById('workout-stat-status').textContent = (totalWorkouts > 0 && doneWorkouts === totalWorkouts) ? 'Completed 🏆' : (doneWorkouts > 0 ? 'In Progress 💪' : 'Not Started');
+            document.getElementById('workout-count-badge').textContent = `${totalWorkouts} exercises`;
+            document.getElementById('stat-workout-summary').innerHTML = `💪 ${doneWorkouts}/${totalWorkouts} Workouts Done`;
+
+            document.getElementById('workouts-container').innerHTML = data.workouts.map(w => {
+                const badgeColor = w.type === 'Cardio' ? 'bg-cyber-cyan/15 text-cyber-cyan border-cyber-cyan/30' : (w.type === 'Mobility' ? 'bg-cyber-purple/15 text-cyber-purple border-cyber-purple/30' : 'bg-cyber-rose/15 text-cyber-rose border-cyber-rose/30');
+                return `
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font gap-3">
+                        <div class="flex items-start sm:items-center space-x-3 min-w-0">
+                            <input type="checkbox" ${w.completed ? 'checked' : ''} onclick="toggleWorkout(${w.id})" class="mt-1 sm:mt-0 rounded bg-cyber-card text-cyber-rose flex-shrink-0 cursor-pointer">
+                            <div class="min-w-0">
+                                <div class="flex items-center space-x-2">
+                                    <span class="${w.completed ? 'line-through text-slate-500' : 'text-white font-semibold'} truncate">${w.name}</span>
+                                    <span class="text-[9px] px-2 py-0.5 rounded border ${badgeColor} uppercase">${w.type}</span>
+                                </div>
+                                <div class="text-[10px] text-slate-400 mt-1 flex flex-wrap items-center gap-3">
+                                    <span>🔁 ${w.sets}</span>
+                                    ${w.weight ? `<span>🏋️ ${w.weight}</span>` : ''}
+                                    ${w.calories ? `<span class="text-cyber-amber">🔥 ${w.calories} kcal</span>` : ''}
+                                    <span class="text-slate-500">📅 ${w.date}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="deleteWorkout(${w.id})" class="text-slate-500 hover:text-cyber-rose self-end sm:self-center p-1"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            }).join('') || '<p class="text-xs cyber-font text-slate-500">No workouts logged yet. Search above to add one!</p>';
+
+            // ==================== RENDER CALORIE & MACRO TRACKER ====================
+            const calGoal = Number(data.calorieGoal) || 2200;
+            let totalCal = 0, totalP = 0, totalC = 0, totalF = 0;
+            data.calorieLogs.forEach(item => {
+                totalCal += Number(item.calories) || 0;
+                totalP += Number(item.protein) || 0;
+                totalC += Number(item.carbs) || 0;
+                totalF += Number(item.fats) || 0;
+            });
+
+            const calPct = Math.min(100, Math.round((totalCal / calGoal) * 100));
+            const calDiff = calGoal - totalCal;
+
+            document.getElementById('stat-calories-today').textContent = `${totalCal} / ${calGoal}`;
+            document.getElementById('cal-total-display').textContent = totalCal;
+            document.getElementById('cal-goal-display').textContent = calGoal;
+
+            const remBadge = document.getElementById('cal-remaining-badge');
+            const calBar = document.getElementById('cal-progress-bar');
+            if (calDiff >= 0) {
+                remBadge.textContent = `${calDiff} kcal remaining`;
+                remBadge.className = 'text-[10px] cyber-font px-2 py-0.5 rounded bg-cyber-neon/15 text-cyber-neon border border-cyber-neon/30 ml-2';
+                calBar.className = 'bg-cyber-neon h-full transition-all duration-300';
+            } else {
+                remBadge.textContent = `${Math.abs(calDiff)} kcal over goal`;
+                remBadge.className = 'text-[10px] cyber-font px-2 py-0.5 rounded bg-cyber-rose/20 text-cyber-rose border border-cyber-rose/40 ml-2';
+                calBar.className = 'bg-cyber-rose h-full transition-all duration-300';
+            }
+            calBar.style.width = `${calPct}%`;
+
+            document.getElementById('macro-protein-total').textContent = `${totalP}g`;
+            document.getElementById('macro-carbs-total').textContent = `${totalC}g`;
+            document.getElementById('macro-fats-total').textContent = `${totalF}g`;
+
+            document.getElementById('calories-container').innerHTML = data.calorieLogs.map(item => `
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font gap-2">
+                    <div class="min-w-0">
+                        <div class="flex items-center space-x-2">
+                            <span class="font-bold text-white truncate">🍽️ ${item.food}</span>
+                            <span class="text-[9px] px-2 py-0.5 rounded bg-cyber-card text-slate-300 border border-cyber-border uppercase">${item.meal}</span>
+                        </div>
+                        <div class="text-[10px] text-slate-400 mt-1 flex items-center space-x-3 font-mono">
+                            <span class="text-cyber-cyan">🥩 P: ${item.protein || 0}g</span>
+                            <span class="text-cyber-amber">🍚 C: ${item.carbs || 0}g</span>
+                            <span class="text-cyber-purple">🥑 F: ${item.fats || 0}g</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between sm:justify-end space-x-3 flex-shrink-0">
+                        <span class="text-cyber-neon font-mono font-bold text-sm">+${item.calories} kcal</span>
+                        <button onclick="deleteCalorieEntry(${item.id})" class="text-slate-500 hover:text-cyber-rose p-1"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('') || '<p class="text-xs cyber-font text-slate-500">No meals logged today. Use the search bar to find your meal!</p>';
+
+            // Dashboard Previews
             document.getElementById('dashboard-tasks-list').innerHTML = data.tasks.slice(0, 3).map(t => `
                 <div class="flex items-center justify-between p-3 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font gap-2">
                     <div class="flex items-center space-x-3 min-w-0">
@@ -643,29 +1574,25 @@
                     </div>
                     <span class="text-[9px] px-2 py-0.5 rounded ${t.priority === 'High' ? 'bg-cyber-rose/20 text-cyber-rose border border-cyber-rose/30' : 'bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan/30'} flex-shrink-0">${t.priority}</span>
                 </div>
-            `).join('') || '<p class="text-xs cyber-font text-slate-500">NO_TASKS_FOUND</p>';
+            `).join('') || '<p class="text-xs cyber-font text-slate-500">No tasks in queue.</p>';
 
-            // Dashboard Schedule Preview
             document.getElementById('dashboard-schedule-list').innerHTML = data.schedule.slice(0, 3).map(s => `
                 <div class="flex items-center justify-between p-3 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font gap-2">
-                    <span class="text-[10px] font-mono font-semibold text-cyber-cyan bg-cyber-cyan/10 px-2 py-0.5 rounded flex-shrink-0">${s.time}</span>
+                    <span class="text-[10px] font-mono font-semibold text-cyber-cyan bg-cyber-cyan/10 px-2 py-0.5 rounded flex-shrink-0">⏰ ${s.time}</span>
                     <span class="text-slate-200 truncate">${s.activity}</span>
                 </div>
-            `).join('') || '<p class="text-xs cyber-font text-slate-500">NO_SCHEDULE_BLOCKS</p>';
+            `).join('') || '<p class="text-xs cyber-font text-slate-500">No schedule blocks added.</p>';
 
-            // Dashboard Study Preview
-            document.getElementById('dashboard-study-list').innerHTML = data.studyPlans.slice(0, 2).map(sp => {
-                const compSub = sp.subtasks.filter(st => st.completed).length;
-                const totalSub = sp.subtasks.length;
-                const pct = totalSub > 0 ? Math.round((compSub / totalSub) * 100) : 0;
+            document.getElementById('dashboard-study-list').innerHTML = data.studyPlans.slice(0, 3).map(sp => {
+                const prog = getPathProgress(sp);
                 return `
-                    <div class="p-3.5 rounded bg-cyber-bg border border-cyber-border space-y-2 cyber-font text-xs">
-                        <div class="flex justify-between font-bold text-white"><span class="truncate">${sp.title}</span><span class="text-cyber-purple flex-shrink-0 ml-2">Due ${sp.date}</span></div>
-                        <div class="flex justify-between text-[10px] text-slate-400"><span>Sub-tasks: ${compSub}/${totalSub}</span><span>${pct}% Done</span></div>
-                        <div class="w-full bg-cyber-border h-1.5 rounded overflow-hidden"><div class="bg-cyber-purple h-full" style="width: ${pct}%"></div></div>
+                    <div onclick="switchAppView('learning'); openLearningPath(${sp.id});" class="p-3.5 rounded bg-cyber-bg border border-cyber-border hover:border-cyber-purple/60 transition cursor-pointer space-y-2 cyber-font text-xs">
+                        <div class="flex justify-between font-bold text-white"><span class="truncate">🎓 ${sp.title}</span><span class="text-cyber-purple flex-shrink-0 ml-2">${prog.topicCount} Topics</span></div>
+                        <div class="flex justify-between text-[10px] text-slate-400"><span>🎯 ${sp.date}</span><span>${prog.pct}% Done</span></div>
+                        <div class="w-full bg-cyber-border h-1.5 rounded overflow-hidden"><div class="bg-cyber-purple h-full" style="width: ${prog.pct}%"></div></div>
                     </div>
                 `;
-            }).join('') || '<p class="text-xs cyber-font text-slate-500">NO_STUDY_PLANS</p>';
+            }).join('') || '<p class="text-xs cyber-font text-slate-500">No learning paths created.</p>';
 
             // Tasks View
             document.getElementById('task-count-badge').textContent = `${data.tasks.length} tasks`;
@@ -677,12 +1604,12 @@
                     </div>
                     <button onclick="deleteTask(${t.id})" class="text-slate-500 hover:text-cyber-rose flex-shrink-0 p-1"><i class="fa-solid fa-trash"></i></button>
                 </div>
-            `).join('') || '<p class="text-xs cyber-font text-slate-500">NO_TASKS</p>';
+            `).join('') || '<p class="text-xs cyber-font text-slate-500">No tasks added yet.</p>';
 
             // Notes
             document.getElementById('notes-container').innerHTML = data.notes.map(n => `
                 <div class="p-3 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font text-slate-300 flex justify-between items-start gap-2">
-                    <span class="break-words">${n.text}</span>
+                    <span class="break-words">📌 ${n.text}</span>
                     <button onclick="deleteNote(${n.id})" class="text-slate-500 hover:text-cyber-rose flex-shrink-0"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             `).join('');
@@ -692,16 +1619,16 @@
                 <div class="flex items-center justify-between p-3.5 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font gap-2">
                     <div class="flex items-center space-x-3 min-w-0">
                         <button onclick="toggleHabit(${h.id})" class="w-7 h-7 rounded ${h.completedToday ? 'bg-cyber-amber text-black font-bold' : 'bg-cyber-card text-slate-400 border border-cyber-border'} flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-check text-xs"></i>
+                            ${h.completedToday ? '✓' : ''}
                         </button>
                         <div class="min-w-0">
                             <div class="font-semibold text-white truncate">${h.name}</div>
-                            <div class="text-[10px] text-cyber-amber flex items-center mt-0.5"><i class="fa-solid fa-fire mr-1"></i> ${h.streak} Day Streak</div>
+                            <div class="text-[10px] text-cyber-amber flex items-center mt-0.5">🔥 ${h.streak} Day Streak</div>
                         </div>
                     </div>
                     <button onclick="deleteHabit(${h.id})" class="text-slate-500 hover:text-cyber-rose p-1"><i class="fa-solid fa-trash"></i></button>
                 </div>
-            `).join('') || '<p class="text-xs cyber-font text-slate-500">NO_HABITS</p>';
+            `).join('') || '<p class="text-xs cyber-font text-slate-500">No habits added yet.</p>';
 
             // Finances
             document.getElementById('finances-container').innerHTML = data.finances.map(tx => {
@@ -710,7 +1637,7 @@
                 return `
                     <div class="flex items-center justify-between p-3.5 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font gap-2">
                         <div class="min-w-0">
-                            <div class="font-semibold text-white truncate">${tx.desc}</div>
+                            <div class="font-semibold text-white truncate">💳 ${tx.desc}</div>
                             <div class="text-[9px] text-slate-400 uppercase">${tx.type}</div>
                         </div>
                         <div class="flex items-center space-x-3 flex-shrink-0">
@@ -719,73 +1646,422 @@
                         </div>
                     </div>
                 `;
-            }).join('') || '<p class="text-xs cyber-font text-slate-500">NO_TRANSACTIONS</p>';
+            }).join('') || '<p class="text-xs cyber-font text-slate-500">No transactions recorded.</p>';
             document.getElementById('finances-net-total').textContent = `Net: $${net.toFixed(2)}`;
 
             // Schedule
             document.getElementById('schedule-container').innerHTML = data.schedule.map(s => `
                 <div class="flex items-center justify-between p-3.5 rounded bg-cyber-bg border border-cyber-border text-xs cyber-font gap-2">
                     <div class="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-3 min-w-0">
-                        <span class="text-[10px] font-mono font-semibold text-cyber-cyan bg-cyber-cyan/10 px-2 py-0.5 rounded w-fit">${s.time}</span>
+                        <span class="text-[10px] font-mono font-semibold text-cyber-cyan bg-cyber-cyan/10 px-2 py-0.5 rounded w-fit">⏰ ${s.time}</span>
                         <span class="text-slate-200 truncate">${s.activity}</span>
                     </div>
                     <button onclick="deleteSchedule(${s.id})" class="text-slate-500 hover:text-cyber-rose p-1"><i class="fa-solid fa-trash"></i></button>
                 </div>
-            `).join('') || '<p class="text-xs cyber-font text-slate-500">NO_SCHEDULE_BLOCKS</p>';
+            `).join('') || '<p class="text-xs cyber-font text-slate-500">No schedule blocks added.</p>';
 
-            // Study Plans
-            document.getElementById('study-count-badge').textContent = `${data.studyPlans.length} plans`;
+            // Learning Paths Overview Grid
+            document.getElementById('study-count-badge').textContent = `${data.studyPlans.length} paths`;
             document.getElementById('study-plans-container').innerHTML = data.studyPlans.map(sp => {
-                const compSub = sp.subtasks.filter(st => st.completed).length;
-                const totalSub = sp.subtasks.length;
-                const pct = totalSub > 0 ? Math.round((compSub / totalSub) * 100) : 0;
+                const prog = getPathProgress(sp);
                 return `
-                    <div class="p-4.5 rounded bg-cyber-bg border border-cyber-border space-y-3.5 cyber-font text-xs">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-cyber-border">
-                            <div class="min-w-0">
-                                <h4 class="font-bold text-white text-sm truncate">${sp.title}</h4>
-                                <p class="text-[10px] text-slate-400 mt-0.5 break-words">${sp.desc}</p>
+                    <div onclick="openLearningPath(${sp.id})" class="p-4 rounded-xl bg-cyber-bg border border-cyber-border hover:border-cyber-purple transition cursor-pointer flex flex-col justify-between space-y-4 cyber-font text-xs group relative">
+                        <div class="space-y-1.5">
+                            <div class="flex items-start justify-between gap-2">
+                                <h4 class="font-bold text-white text-sm group-hover:text-cyber-purple transition truncate">🎓 ${sp.title}</h4>
+                                <button onclick="event.stopPropagation(); deleteStudyPlan(${sp.id})" class="text-slate-500 hover:text-cyber-rose p-1 flex-shrink-0" title="Delete Path">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
                             </div>
-                            <div class="flex items-center justify-between sm:justify-start space-x-2 flex-shrink-0">
-                                <span class="text-[10px] font-semibold text-cyber-purple bg-cyber-purple/10 px-2.5 py-1 rounded border border-cyber-purple/20">Due: ${sp.date}</span>
-                                <button onclick="deleteStudyPlan(${sp.id})" class="text-slate-500 hover:text-cyber-rose p-1"><i class="fa-solid fa-trash"></i></button>
-                            </div>
+                            <p class="text-[10px] text-slate-400 line-clamp-2 break-words">${sp.desc || 'No description provided.'}</p>
                         </div>
 
-                        <div class="space-y-1">
-                            <div class="flex justify-between text-[10px] text-slate-400"><span>Progress</span><span>${compSub}/${totalSub} (${pct}%)</span></div>
-                            <div class="w-full bg-cyber-border h-1.5 rounded overflow-hidden"><div class="bg-cyber-purple h-full transition-all" style="width: ${pct}%"></div></div>
-                        </div>
-
-                        <div class="space-y-2 pt-1">
-                            <div class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Sub-Tasks & Target Dates:</div>
-                            ${sp.subtasks.map(st => `
-                                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-2.5 rounded bg-cyber-card border border-cyber-border text-xs gap-2">
-                                    <div class="flex items-center space-x-2.5 min-w-0">
-                                        <input type="checkbox" ${st.completed ? 'checked' : ''} onclick="toggleSubtask(${sp.id},${st.id})" class="rounded bg-cyber-bg text-cyber-purple flex-shrink-0 cursor-pointer">
-                                        <span class="${st.completed ? 'line-through text-slate-600' : 'text-slate-200'} truncate">${st.title}</span>
-                                    </div>
-                                    <div class="flex items-center justify-between sm:justify-end space-x-3 text-slate-400 font-mono text-[10px] flex-shrink-0 pl-5 sm:pl-0">
-                                        <span><i class="fa-regular fa-calendar mr-1 text-cyber-purple"></i>${st.dueDate}</span>
-                                        <span class="bg-cyber-bg px-2 py-0.5 rounded text-cyber-amber border border-cyber-amber/20"><i class="fa-regular fa-clock mr-1"></i>${st.estTime}</span>
-                                        <button onclick="deleteSubtask(${sp.id},${st.id})" class="text-slate-500 hover:text-cyber-rose p-1"><i class="fa-solid fa-xmark"></i></button>
-                                    </div>
-                                </div>
-                            `).join('') || '<p class="text-[10px] text-slate-500">NO_SUBTASKS</p>'}
-
-                            <form onsubmit="handleAddSubtask(event, ${sp.id})" class="flex flex-col sm:flex-row gap-2 mt-2.5 pt-2.5 border-t border-cyber-border">
-                                <input type="text" id="sub-title-${sp.id}" required placeholder="Sub-task title..." class="bg-cyber-card border border-cyber-border rounded px-3 py-2 text-[11px] text-white focus:outline-none focus:border-cyber-purple flex-grow">
-                                <input type="date" id="sub-date-${sp.id}" required class="bg-cyber-card border border-cyber-border rounded px-3 py-2 text-[11px] text-white focus:outline-none focus:border-cyber-purple">
-                                <input type="text" id="sub-est-${sp.id}" required placeholder="Est (45m)" class="bg-cyber-card border border-cyber-border rounded px-3 py-2 text-[11px] text-white focus:outline-none focus:border-cyber-purple sm:w-24">
-                                <button type="submit" class="px-3.5 py-2 rounded bg-cyber-purple/20 hover:bg-cyber-purple/30 text-cyber-purple text-[11px] font-semibold border border-cyber-purple/40">ADD</button>
-                            </form>
+                        <div class="space-y-2 pt-2 border-t border-cyber-border/60">
+                            <div class="flex items-center justify-between text-[10px] text-slate-400">
+                                <span>📂 ${prog.topicCount} Topics</span>
+                                <span>✅ ${prog.compSub}/${prog.totalSub} Tasks</span>
+                            </div>
+                            <div class="w-full bg-cyber-border h-1.5 rounded overflow-hidden">
+                                <div class="bg-cyber-purple h-full transition-all" style="width: ${prog.pct}%"></div>
+                            </div>
+                            <div class="flex items-center justify-between pt-1">
+                                <span class="text-[9px] text-cyber-purple bg-cyber-purple/10 px-2 py-0.5 rounded border border-cyber-purple/20">📅 Target: ${sp.date}</span>
+                                <span class="text-[10px] text-cyber-cyan font-semibold group-hover:translate-x-1 transition-transform inline-flex items-center">
+                                    Open Path ➡️
+                                </span>
+                            </div>
                         </div>
                     </div>
                 `;
-            }).join('') || '<p class="text-xs cyber-font text-slate-500">NO_STUDY_PLANS</p>';
+            }).join('') || '<p class="text-xs cyber-font text-slate-500 col-span-2">No learning paths created yet.</p>';
+
+            if (currentOpenPathId !== null) {
+                const activePath = data.studyPlans.find(x => x.id === currentOpenPathId);
+                if (activePath) {
+                    renderActiveLearningPath(activePath);
+                } else {
+                    closeLearningPath();
+                }
+            }
         }
 
-        // Actions
+        // ==================== WORKOUT & CALORIE ACTIONS ====================
+        function handleAddWorkout(e) {
+            e.preventDefault();
+            autoCalculateWorkoutBurn();
+            playCyberSound('success');
+            const data = loadAppData();
+            const exName = document.getElementById('wo-name').value.trim();
+            const exType = document.getElementById('wo-type').value;
+            const exSets = document.getElementById('wo-sets').value;
+            const exCal = parseInt(document.getElementById('wo-cal').value) || 120;
+
+            const allEx = getCombinedExerciseDB();
+            if (!allEx.some(x => x.name.toLowerCase() === exName.toLowerCase())) {
+                data.customExercises.unshift({
+                    name: exName,
+                    type: exType,
+                    defaultSets: exSets,
+                    calPerSet: 25,
+                    ratePerMin: 8.5
+                });
+            }
+
+            data.workouts.unshift({
+                id: Date.now(),
+                name: exName,
+                type: exType,
+                sets: exSets,
+                weight: document.getElementById('wo-weight').value,
+                calories: exCal,
+                date: document.getElementById('wo-date').value,
+                completed: false
+            });
+            saveAppData(data);
+            document.getElementById('wo-name').value = '';
+            document.getElementById('wo-sets').value = '';
+            document.getElementById('wo-weight').value = '';
+            document.getElementById('wo-cal').value = '';
+        }
+
+        function toggleWorkout(id) {
+            const data = loadAppData();
+            const w = data.workouts.find(x => x.id === id);
+            if (w) {
+                w.completed = !w.completed;
+                if (w.completed) { playCyberSound('task-complete'); } else { playCyberSound('click'); }
+                saveAppData(data);
+            }
+        }
+
+        function deleteWorkout(id) {
+            playCyberSound('delete');
+            const data = loadAppData();
+            data.workouts = data.workouts.filter(x => x.id !== id);
+            saveAppData(data);
+        }
+
+        function handleUpdateCalorieGoal(e) {
+            e.preventDefault();
+            playCyberSound('success');
+            const data = loadAppData();
+            const newGoal = parseInt(document.getElementById('cal-goal-input').value);
+            if (newGoal > 0) {
+                data.calorieGoal = newGoal;
+                document.getElementById('cal-goal-input').value = '';
+                saveAppData(data);
+            }
+        }
+
+        function handleAddCalorieEntry(e) {
+            e.preventDefault();
+            const rawFoodName = document.getElementById('cal-food-name').value.trim();
+            if (!document.getElementById('cal-amount').value && rawFoodName) {
+                selectSmartEstimatedFood(rawFoodName);
+            }
+            playCyberSound('success');
+            const data = loadAppData();
+            const qty = parseFloat(document.getElementById('cal-qty').value) || 1;
+            const cals = parseInt(document.getElementById('cal-amount').value) || 200;
+            const prot = parseInt(document.getElementById('cal-protein').value) || 8;
+            const carbs = parseInt(document.getElementById('cal-carbs').value) || 25;
+            const fats = parseInt(document.getElementById('cal-fats').value) || 7;
+
+            const allFoods = getCombinedFoodDB();
+            if (rawFoodName && !allFoods.some(f => f.name.toLowerCase() === rawFoodName.toLowerCase())) {
+                data.customFoods.unshift({
+                    name: rawFoodName,
+                    unit: "1 serving",
+                    cal: Math.round(cals / qty),
+                    p: Math.round(prot / qty),
+                    c: Math.round(carbs / qty),
+                    f: Math.round(fats / qty)
+                });
+            }
+
+            const displayFood = qty !== 1 ? `${qty}x ${rawFoodName}` : rawFoodName;
+
+            data.calorieLogs.unshift({
+                id: Date.now(),
+                food: displayFood,
+                calories: cals,
+                meal: document.getElementById('cal-meal-type').value,
+                protein: prot,
+                carbs: carbs,
+                fats: fats
+            });
+            saveAppData(data);
+            document.getElementById('calorie-form').reset();
+            document.getElementById('cal-qty').value = 1;
+            activeBaseFood = { cal: 0, p: 0, c: 0, f: 0, unit: "1 serving" };
+            document.getElementById('food-serving-hint').textContent = 'Select meal above';
+        }
+
+        function deleteCalorieEntry(id) {
+            playCyberSound('delete');
+            const data = loadAppData();
+            data.calorieLogs = data.calorieLogs.filter(x => x.id !== id);
+            saveAppData(data);
+        }
+
+        function clearTodayMeals() {
+            if (confirm('Clear all logged meals for today?')) {
+                playCyberSound('delete');
+                const data = loadAppData();
+                data.calorieLogs = [];
+                saveAppData(data);
+            }
+        }
+
+        // ==================== LEARNING PATHS, TOPICS & SUBTASKS ====================
+        function openLearningPath(pathId) {
+            playCyberSound('click');
+            currentOpenPathId = pathId;
+            document.getElementById('learning-paths-overview').classList.add('hidden');
+            document.getElementById('learning-path-detail').classList.remove('hidden');
+            const data = loadAppData();
+            const activePath = data.studyPlans.find(x => x.id === pathId);
+            if (activePath) renderActiveLearningPath(activePath);
+        }
+
+        function closeLearningPath() {
+            playCyberSound('click');
+            currentOpenPathId = null;
+            document.getElementById('learning-path-detail').classList.add('hidden');
+            document.getElementById('learning-paths-overview').classList.remove('hidden');
+        }
+
+        function renderActiveLearningPath(sp) {
+            const prog = getPathProgress(sp);
+            document.getElementById('active-path-title').textContent = `🎓 ${sp.title}`;
+            document.getElementById('active-path-desc').textContent = sp.desc || 'Active learning path.';
+            document.getElementById('active-path-date').innerHTML = `📅 Target Date: ${sp.date}`;
+            document.getElementById('active-path-pct').textContent = `${prog.compSub}/${prog.totalSub} (${prog.pct}%)`;
+            document.getElementById('active-path-bar').style.width = `${prog.pct}%`;
+
+            const container = document.getElementById('active-path-topics-container');
+            const topics = sp.topics || [];
+
+            if (topics.length === 0) {
+                container.innerHTML = `
+                    <div class="cyber-box p-8 rounded-xl text-center space-y-2">
+                        <div class="text-2xl">📂</div>
+                        <p class="text-xs cyber-font text-slate-400">No topics added to this path yet.</p>
+                        <p class="text-[10px] cyber-font text-slate-500">Use the "Add Topic to Path" form on the left to add your first topic.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = topics.map((topic, index) => {
+                const subList = topic.subtasks || [];
+                const compCount = subList.filter(s => s.completed).length;
+                const topicPct = subList.length > 0 ? Math.round((compCount / subList.length) * 100) : 0;
+
+                return `
+                    <div class="cyber-box p-5 rounded-xl space-y-4 cyber-font text-xs border border-cyber-border">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-cyber-border gap-2">
+                            <div class="flex items-center space-x-2.5 min-w-0">
+                                <span class="px-2 py-0.5 rounded bg-cyber-purple/20 text-cyber-purple border border-cyber-purple/40 text-[10px] font-bold flex-shrink-0">
+                                    📘 Topic ${index + 1}
+                                </span>
+                                <h4 class="font-bold text-white text-sm truncate">${topic.title}</h4>
+                            </div>
+                            <div class="flex items-center justify-between sm:justify-end space-x-3 flex-shrink-0">
+                                ${topic.targetDate ? `<span class="text-[10px] bg-cyber-purple/10 text-cyber-purple px-2.5 py-0.5 rounded border border-cyber-purple/30">📅 Target: ${topic.targetDate}</span>` : ''}
+                                <span class="text-[10px] text-slate-400">${compCount}/${subList.length} (${topicPct}%)</span>
+                                <button onclick="deleteTopic(${sp.id}, ${topic.id})" class="text-slate-500 hover:text-cyber-rose p-1" title="Delete Topic">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="text-[10px] font-semibold text-cyber-cyan uppercase tracking-wider">✅ Sub-Topics & Tasks:</div>
+                            ${subList.map(st => `
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-2.5 rounded bg-cyber-bg border border-cyber-border gap-2">
+                                    <div class="flex items-center space-x-2.5 min-w-0">
+                                        <input type="checkbox" ${st.completed ? 'checked' : ''} onclick="toggleTopicSubtask(${sp.id}, ${topic.id},${st.id})" class="rounded bg-cyber-card text-cyber-purple flex-shrink-0 cursor-pointer">
+                                        <span class="${st.completed ? 'line-through text-slate-600' : 'text-slate-200'} truncate">${st.title}</span>
+                                    </div>
+                                    <div class="flex items-center justify-between sm:justify-end space-x-2 flex-shrink-0 pl-5 sm:pl-0">
+                                        ${st.dueDate ? `<span class="bg-cyber-card px-2 py-0.5 rounded text-[10px] text-cyber-cyan border border-cyber-cyan/20">📅 ${st.dueDate}</span>` : ''}
+                                        ${st.estTime ? `<span class="bg-cyber-card px-2 py-0.5 rounded text-[10px] text-cyber-amber border border-cyber-amber/20">⏱️ ${st.estTime}</span>` : ''}
+                                        <button onclick="deleteTopicSubtask(${sp.id}, ${topic.id},${st.id})" class="text-slate-500 hover:text-cyber-rose p-1">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('') || '<p class="text-[10px] text-slate-500 italic">No sub-tasks added to this topic yet.</p>'}
+
+                            <form onsubmit="handleAddTopicSubtask(event, ${sp.id}, ${topic.id})" class="flex flex-col sm:flex-row gap-2 pt-2">
+                                <input type="text" id="sub-title-${topic.id}" required placeholder="Sub-topic or task title..." class="bg-cyber-bg border border-cyber-border rounded px-3 py-2 text-[11px] text-white focus:outline-none focus:border-cyber-purple flex-grow">
+                                <input type="date" id="sub-date-${topic.id}" required title="Target Date" class="bg-cyber-bg border border-cyber-border rounded px-3 py-2 text-[11px] text-white focus:outline-none focus:border-cyber-purple sm:w-36">
+                                <input type="text" id="sub-est-${topic.id}" placeholder="Est (45m)" class="bg-cyber-bg border border-cyber-border rounded px-3 py-2 text-[11px] text-white focus:outline-none focus:border-cyber-purple sm:w-24">
+                                <button type="submit" class="px-3.5 py-2 rounded bg-cyber-cyan/15 hover:bg-cyber-cyan/25 text-cyber-cyan text-[11px] font-semibold border border-cyber-cyan/30 flex-shrink-0">
+                                    ➕ Add
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="space-y-2 pt-3 border-t border-cyber-border/60">
+                            <div class="flex items-center justify-between">
+                                <label class="text-[10px] font-semibold text-cyber-amber uppercase tracking-wider flex items-center">
+                                    📝 Topic Notes
+                                </label>
+                                <button onclick="saveTopicNote(${sp.id}, ${topic.id})" class="text-[10px] px-2.5 py-1 rounded bg-cyber-amber/15 hover:bg-cyber-amber/25 text-cyber-amber border border-cyber-amber/30 font-semibold transition">
+                                    💾 Save Notes
+                                </button>
+                            </div>
+                            <textarea id="topic-note-${topic.id}" rows="3" placeholder="Write key takeaways, links, or study notes for this topic..." class="w-full bg-cyber-bg border border-cyber-border rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyber-amber">${topic.notes || ''}</textarea>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function handleCreateStudyPlan(e) {
+            e.preventDefault();
+            playCyberSound('success');
+            const data = loadAppData();
+            data.studyPlans.unshift({
+                id: Date.now(),
+                title: document.getElementById('study-title').value,
+                date: document.getElementById('study-date').value,
+                desc: document.getElementById('study-desc').value,
+                topics: []
+            });
+            saveAppData(data);
+            document.getElementById('study-title').value = '';
+            document.getElementById('study-date').value = '';
+            document.getElementById('study-desc').value = '';
+        }
+
+        function deleteStudyPlan(id) {
+            if (!confirm('Delete this entire Learning Path and all its topics?')) return;
+            playCyberSound('delete');
+            const data = loadAppData();
+            data.studyPlans = data.studyPlans.filter(x => x.id !== id);
+            if (currentOpenPathId === id) closeLearningPath();
+            saveAppData(data);
+        }
+
+        function handleAddTopic(e) {
+            e.preventDefault();
+            if (currentOpenPathId === null) return;
+            playCyberSound('success');
+            const data = loadAppData();
+            const plan = data.studyPlans.find(x => x.id === currentOpenPathId);
+            if (plan) {
+                if (!plan.topics) plan.topics = [];
+                plan.topics.push({
+                    id: Date.now(),
+                    title: document.getElementById('new-topic-title').value,
+                    targetDate: document.getElementById('new-topic-date').value,
+                    notes: '',
+                    subtasks: []
+                });
+                document.getElementById('new-topic-title').value = '';
+                document.getElementById('new-topic-date').value = '';
+                saveAppData(data);
+            }
+        }
+
+        function deleteTopic(planId, topicId) {
+            playCyberSound('delete');
+            const data = loadAppData();
+            const plan = data.studyPlans.find(x => x.id === planId);
+            if (plan && plan.topics) {
+                plan.topics = plan.topics.filter(t => t.id !== topicId);
+                saveAppData(data);
+            }
+        }
+
+        function handleAddTopicSubtask(e, planId, topicId) {
+            e.preventDefault();
+            playCyberSound('success');
+            const data = loadAppData();
+            const plan = data.studyPlans.find(x => x.id === planId);
+            if (plan && plan.topics) {
+                const topic = plan.topics.find(t => t.id === topicId);
+                if (topic) {
+                    if (!topic.subtasks) topic.subtasks = [];
+                    topic.subtasks.push({
+                        id: Date.now(),
+                        title: document.getElementById(`sub-title-${topicId}`).value,
+                        dueDate: document.getElementById(`sub-date-${topicId}`).value,
+                        estTime: document.getElementById(`sub-est-${topicId}`).value || '30m',
+                        completed: false
+                    });
+                    saveAppData(data);
+                }
+            }
+        }
+
+        function toggleTopicSubtask(planId, topicId, subId) {
+            const data = loadAppData();
+            const plan = data.studyPlans.find(x => x.id === planId);
+            if (plan && plan.topics) {
+                const topic = plan.topics.find(t => t.id === topicId);
+                if (topic && topic.subtasks) {
+                    const st = topic.subtasks.find(s => s.id === subId);
+                    if (st) {
+                        st.completed = !st.completed;
+                        if (st.completed) { playCyberSound('task-complete'); } else { playCyberSound('click'); }
+                        saveAppData(data);
+                    }
+                }
+            }
+        }
+
+        function deleteTopicSubtask(planId, topicId, subId) {
+            playCyberSound('delete');
+            const data = loadAppData();
+            const plan = data.studyPlans.find(x => x.id === planId);
+            if (plan && plan.topics) {
+                const topic = plan.topics.find(t => t.id === topicId);
+                if (topic && topic.subtasks) {
+                    topic.subtasks = topic.subtasks.filter(s => s.id !== subId);
+                    saveAppData(data);
+                }
+            }
+        }
+
+        function saveTopicNote(planId, topicId) {
+            playCyberSound('success');
+            const data = loadAppData();
+            const plan = data.studyPlans.find(x => x.id === planId);
+            if (plan && plan.topics) {
+                const topic = plan.topics.find(t => t.id === topicId);
+                const noteEl = document.getElementById(`topic-note-${topicId}`);
+                if (topic && noteEl) {
+                    topic.notes = noteEl.value;
+                    saveAppData(data);
+                }
+            }
+        }
+
+        // ==================== OTHER MODULE ACTIONS ====================
         function handleAddTask(e) {
             e.preventDefault();
             playCyberSound('success');
@@ -893,86 +2169,49 @@
             data.schedule = data.schedule.filter(x => x.id !== id);
             saveAppData(data);
         }
-        function handleCreateStudyPlan(e) {
-            e.preventDefault();
-            playCyberSound('success');
-            const data = loadAppData();
-            data.studyPlans.unshift({
-                id: Date.now(),
-                title: document.getElementById('study-title').value,
-                date: document.getElementById('study-date').value,
-                desc: document.getElementById('study-desc').value,
-                subtasks: []
-            });
-            saveAppData(data);
-            document.getElementById('study-title').value = '';
-            document.getElementById('study-date').value = '';
-            document.getElementById('study-desc').value = '';
-        }
-        function deleteStudyPlan(id) {
-            playCyberSound('delete');
-            const data = loadAppData();
-            data.studyPlans = data.studyPlans.filter(x => x.id !== id);
-            saveAppData(data);
-        }
-        function handleAddSubtask(e, planId) {
-            e.preventDefault();
-            playCyberSound('success');
-            const data = loadAppData();
-            const plan = data.studyPlans.find(x => x.id === planId);
-            if (plan) {
-                plan.subtasks.push({
-                    id: Date.now(),
-                    title: document.getElementById(`sub-title-${planId}`).value,
-                    dueDate: document.getElementById(`sub-date-${planId}`).value,
-                    estTime: document.getElementById(`sub-est-${planId}`).value,
-                    completed: false
-                });
-                saveAppData(data);
-            }
-        }
-        function toggleSubtask(planId, subId) {
-            playCyberSound('click');
-            const data = loadAppData();
-            const plan = data.studyPlans.find(x => x.id === planId);
-            if (plan) {
-                const st = plan.subtasks.find(x => x.id === subId);
-                if (st) { st.completed = !st.completed; saveAppData(data); }
-            }
-        }
-        function deleteSubtask(planId, subId) {
-            playCyberSound('delete');
-            const data = loadAppData();
-            const plan = data.studyPlans.find(x => x.id === planId);
-            if (plan) {
-                plan.subtasks = plan.subtasks.filter(x => x.id !== subId);
-                saveAppData(data);
-            }
-        }
         async function resetAllUserData() {
-            if (confirm('WIPE ALL CLOUD WORKSPACE DATA?')) {
+            if (confirm('Reset all workspace data to default?')) {
                 playCyberSound('delete');
+                currentOpenPathId = null;
                 const def = getDefaultData();
                 await saveAppData(def);
-                alert('CLOUD SYSTEM RESET COMPLETE.');
+                alert('Workspace data has been reset.');
             }
         }
 
-        // Pomodoro
+        // ==================== ⏱️ CUSTOMIZABLE TIMER ENGINE ====================
+        let customTimerDefaultMinutes = 25;
         let pomodoroSeconds = 25 * 60;
         let pomodoroTimerId = null;
         let pomodoroRunning = false;
+
+        function setCustomTimerMinutes(mins) {
+            playCyberSound('click');
+            const parsed = Math.max(1, Math.min(300, parseInt(mins) || 25));
+            customTimerDefaultMinutes = parsed;
+            document.getElementById('custom-timer-mins').value = parsed;
+            clearInterval(pomodoroTimerId);
+            pomodoroRunning = false;
+            pomodoroSeconds = parsed * 60;
+            updatePomodoroDisplay();
+            const btn = document.getElementById('pomodoro-toggle-btn');
+            if (btn) {
+                btn.textContent = '▶️ START';
+                btn.className = 'px-4 py-2 rounded bg-cyber-amber/20 hover:bg-cyber-amber/30 text-cyber-amber text-xs cyber-font font-semibold border border-cyber-amber/40';
+            }
+        }
+
         function togglePomodoro() {
             playCyberSound('click');
             const btn = document.getElementById('pomodoro-toggle-btn');
             if (pomodoroRunning) {
                 clearInterval(pomodoroTimerId);
                 pomodoroRunning = false;
-                btn.textContent = 'START';
+                btn.textContent = '▶️ START';
                 btn.className = 'px-4 py-2 rounded bg-cyber-amber/20 hover:bg-cyber-amber/30 text-cyber-amber text-xs cyber-font font-semibold border border-cyber-amber/40';
             } else {
                 pomodoroRunning = true;
-                btn.textContent = 'PAUSE';
+                btn.textContent = '⏸️ PAUSE';
                 btn.className = 'px-4 py-2 rounded bg-cyber-rose/20 hover:bg-cyber-rose/30 text-cyber-rose text-xs cyber-font font-semibold border border-cyber-rose/40';
                 pomodoroTimerId = setInterval(() => {
                     if (pomodoroSeconds > 0) {
@@ -981,8 +2220,8 @@
                     } else {
                         clearInterval(pomodoroTimerId);
                         pomodoroRunning = false;
-                        playCyberSound('success');
-                        alert('POMODORO SESSION COMPLETE.');
+                        playCyberSound('task-complete');
+                        alert('⏰ Timer session complete!');
                         resetPomodoro();
                     }
                 }, 1000);
@@ -992,10 +2231,10 @@
             playCyberSound('click');
             clearInterval(pomodoroTimerId);
             pomodoroRunning = false;
-            pomodoroSeconds = 25 * 60;
+            pomodoroSeconds = customTimerDefaultMinutes * 60;
             updatePomodoroDisplay();
             const btn = document.getElementById('pomodoro-toggle-btn');
-            btn.textContent = 'START';
+            btn.textContent = '▶️ START';
             btn.className = 'px-4 py-2 rounded bg-cyber-amber/20 hover:bg-cyber-amber/30 text-cyber-amber text-xs cyber-font font-semibold border border-cyber-amber/40';
         }
         function updatePomodoroDisplay() {
@@ -1008,15 +2247,17 @@
         window.addEventListener('DOMContentLoaded', () => {
             docRef.onSnapshot((doc) => {
                 if (doc.exists) {
-                    cachedAppData = doc.data();
+                    cachedAppData = normalizeAppData(doc.data());
                 } else {
                     cachedAppData = getDefaultData();
                     docRef.set(cachedAppData);
                 }
+                checkDeviceLockState();
                 renderAllAppData();
             }, (error) => {
                 console.error("Firestore sync error:", error);
                 cachedAppData = getDefaultData();
+                checkDeviceLockState();
                 renderAllAppData();
             });
         });
